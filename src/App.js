@@ -1,23 +1,23 @@
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import AddJournalForm from "./components/AddJournalForm";
+import { Routes, Route } from "react-router-dom";
+import Header from "./components/Header";
+import DataList from "./components/DataList";
+import RiskMangeMent from "./components/RiskMangeMent";
+import QueueStocks from "./components/QueueStocks";
+import RMList from "./components/RMList";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <Header />
+      <Routes>
+        <Route path="/" element={<QueueStocks />} />
+        <Route path="/add-journal" element={<AddJournalForm />} />
+        <Route path="/journal-list" element={<DataList />} />
+        <Route path="/risk-management" element={<RiskMangeMent />} />
+        <Route path="/rm-list" element={<RMList />} />
+      </Routes>
     </div>
   );
 }
