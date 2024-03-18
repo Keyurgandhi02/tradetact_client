@@ -1,24 +1,22 @@
 import React from "react";
-import AddJournalForm from "./components/AddJournalForm";
+import Journals from "./components/Journals";
 import { Routes, Route } from "react-router-dom";
 import Header from "./components/Header";
-import DataList from "./components/DataList";
 import RiskMangeMent from "./components/RiskMangeMent";
 import QueueStocks from "./components/QueueStocks";
-import RMList from "./components/RMList";
+import Home from "./components/Home";
 
 function App() {
   return (
-    <div>
+    <>
       <Header />
       <Routes>
-        <Route path="/" element={<QueueStocks />} />
-        <Route path="/add-journal" element={<AddJournalForm />} />
-        <Route path="/journal-list" element={<DataList />} />
+        <Route path="/" element={<Home />} />
+        <Route path="/queuestocks" element={<QueueStocks />} />
+        <Route path="/journal" element={<Journals />} />
         <Route path="/risk-management" element={<RiskMangeMent />} />
-        <Route path="/rm-list" element={<RMList />} />
       </Routes>
-    </div>
+    </>
   );
 }
 

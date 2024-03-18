@@ -1,5 +1,4 @@
 import React from "react";
-import "./AddJournalForm.css";
 
 function GlobalInput({
   inputType,
@@ -7,6 +6,7 @@ function GlobalInput({
   isValue,
   onChangeHandler,
   name,
+  className
 }) {
   const handleChange = (e) => {
     onChangeHandler(name, e.target.value);
@@ -14,6 +14,7 @@ function GlobalInput({
 
   return (
     <input
+      className={className}
       type={inputType}
       placeholder={placeholder}
       value={isValue}
