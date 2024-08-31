@@ -3,7 +3,6 @@
 @tailwind components;
 @tailwind utilities;
 
-
 .slide-enter {
   @apply transform translate-x-full;
 }
@@ -19,4 +18,17 @@
 
 body {
   @apply font-custom;
+}
+@layer base {
+  /* Remove the spin buttons in Chrome, Safari, and Edge */
+  input[type="number"]::-webkit-inner-spin-button,
+  input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+  /* Remove the spin buttons in Firefox */
+  input[type="number"] {
+    -moz-appearance: textfield;
+  }
 }

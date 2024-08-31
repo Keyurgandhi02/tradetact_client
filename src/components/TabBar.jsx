@@ -16,10 +16,10 @@ function TabBar({ activeTab, onTabClick }) {
             <li key={tab.path} className="flex-1">
               <NavLink
                 to={`${tab.path}`}
-                className={`relative flex items-center justify-center gap-2 rounded-lg px-3 py-2 ${
+                className={`relative flex items-center justify-center gap-2 rounded-lg px-3 py-2 text-whiten ${
                   activeTab === tab.path
-                    ? "bg-primary-200 text-whiten"
-                    : "text-whiten hover:text-primary-200 "
+                    ? "bg-primary"
+                    : "border border-transparent hover:border hover:border-primary"
                 }`}
                 onClick={() => onTabClick(tab.path)}
               >
