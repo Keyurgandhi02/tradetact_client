@@ -37,7 +37,7 @@ export const LOGIN_ERRORS = {
 };
 
 export const TRADE_PAGE_STRINGS = {
-  addTransactions: "Add Trade Transaction",
+  addTransactions: "Create Trade Transaction",
   editTransactions: "Edit Trade Transaction",
 };
 
@@ -51,7 +51,7 @@ export const RISK_PAGE_STRINGS = {
 };
 
 export const ROI_PAGE_STRINGS = {
-  addRoi: "Add Returns",
+  addRoi: "Create Returns",
   editRoi: "Edit Returns",
 };
 
@@ -61,11 +61,11 @@ export const STRATEGY_PAGE_STRINGS = {
 };
 
 export const DEMAT_ACCOUNTS_PAGE_STRINGS = {
-  addDematAccount: "Add Demat Account",
+  addDematAccount: "Create Demat Account",
   editDematAccount: "Edit Demat Account",
 };
 
 export const BROKERS_ACCOUNTS_PAGE_STRINGS = {
-  addBrokerAccount: "Add Broker Account",
+  addBrokerAccount: "Create Broker Account",
   editBrokerAccount: "Edit Broker Account",
 };

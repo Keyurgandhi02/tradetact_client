@@ -175,7 +175,7 @@ function CreateEditWatchlist() {
   return (
     <div className="md:mb-0 mb-12">
       {!isViewModal && (
-        <div className="flex flex-col gap-9 p-10">
+        <div className="flex flex-col gap-9 p-8">
           <PageHeading
             title={
               isEditMode
@@ -183,9 +183,9 @@ function CreateEditWatchlist() {
                 : WATCHLIST_PAGE_STRINGS?.addWatchlist
             }
           />
-          <div className="rounded-lg  bg-black-dark-200 shadow-xl">
+          <div className="rounded-lg bg-black-dark-200 shadow-xl">
             <form onSubmit={handleSubmit}>
-              <div className="p-6.5">
+              <div className="p-7">
                 <GlobalInput
                   inputType="date"
                   placeholder="Date"

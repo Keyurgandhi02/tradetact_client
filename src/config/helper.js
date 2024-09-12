@@ -47,3 +47,11 @@ export const filterData = (data, searchTerm, key) => {
     item[key].toLowerCase().includes(searchTerm.toLowerCase())
   );
 };
+
+// Helper function to convert string to uppercase
+export const convertToUpperCase = (str) => {
+  if (typeof str === "string") {
+    return str.toUpperCase();
+  }
+  return "";
+};

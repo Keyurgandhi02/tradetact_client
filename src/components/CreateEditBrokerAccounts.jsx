@@ -119,7 +119,7 @@ function CreateEditBrokerAccounts() {
 
   return (
     <>
-      <div className="flex flex-col gap-9 p-10">
+      <div className="flex flex-col gap-9 p-8">
         <PageHeading
           title={
             isEditMode
@@ -129,7 +129,7 @@ function CreateEditBrokerAccounts() {
         />
         <div className="rounded-lg bg-black-dark-200 shadow-xl">
           <form onSubmit={handleSubmit}>
-            <div className="p-6.5">
+            <div className="p-7">
               <GlobalInput
                 inputType="text"
                 placeholder="Broker Account"

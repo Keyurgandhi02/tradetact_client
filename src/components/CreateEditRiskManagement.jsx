@@ -70,10 +70,10 @@ function CreateEditRiskManagement() {
 
   return (
     <div className="md:mb-0 mb-12">
-      <div className="flex flex-col gap-9 p-10">
+      <div className="flex flex-col gap-9 p-8">
         <div className="rounded-lg  bg-black-dark-200 shadow-xl">
           <form onSubmit={handleSubmit}>
-            <div className="p-6.5">
+            <div className="p-7">
               <GlobalInput
                 inputType="number"
                 placeholder="Capital Per Trade"

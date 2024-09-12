@@ -1,5 +1,5 @@
 import React from "react";
-import { formatNumber } from "../config/helper";
+import { convertToUpperCase, formatNumber } from "../config/helper";
 import { DELETE_SVG, EDIT_SVG, VIEW_SVG } from "../UI/GlobalSVG";
 import DataCardItem from "./DataCardItem";
 
@@ -12,13 +12,13 @@ function DataCard({ data, deleteHandler, editHandler, viewHandler }) {
       <div className="flex justify-between items-center mb-2">
         <div>
           <h4 className="font-bold text-md text-whiten truncate">
-            {data?.scriptName ? data?.scriptName : "NA"}
+            {data?.scriptName ? convertToUpperCase(data?.scriptName) : "NA"}
           </h4>
           <p className="text-sm text-gray-500">
             {data?.trade_type ? data?.trade_type : "NA"}
           </p>
         </div>
-        <span className="font-semibold text-xs text-whiten">
+        <span className="font-semibold text-sm text-whiten">
           {data?.buyDate}
         </span>
       </div>

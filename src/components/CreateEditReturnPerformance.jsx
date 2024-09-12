@@ -185,7 +185,7 @@ function CreateEditReturnPerformance() {
   return (
     <div className="md:mb-0 mb-12">
       {!isViewModal && (
-        <div className="flex flex-col gap-9 p-10">
+        <div className="flex flex-col gap-9 p-8">
           <PageHeading
             title={
               isEditMode ? ROI_PAGE_STRINGS?.editRoi : ROI_PAGE_STRINGS?.addRoi
@@ -193,7 +193,7 @@ function CreateEditReturnPerformance() {
           />
           <div className="rounded-lg  bg-black-dark-200 shadow-xl">
             <form onSubmit={handleSubmit}>
-              <div className="p-6.5">
+              <div className="p-7">
                 <GlobalInput
                   inputType="month"
                   placeholder="Date"
