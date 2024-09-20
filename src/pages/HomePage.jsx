@@ -75,7 +75,7 @@ function HomePage() {
     <>
       <div className="p-3 grid grid-cols-1 md:grid-cols-12 lg:grid-cols-12 gap-4 mt-1">
         <div className="col-span-12 px-4 py-3 ">
-          <div className="font-bold text-xl mt-1 text-secondary leading-none">
+          <div className="font-bold text-xl mt-1 text-primary-200 leading-none">
             Good day, {currentUser?.displayName}
           </div>
         </div>
@@ -131,7 +131,7 @@ function HomePage() {
       </div>
 
       <div className="p-3 grid grid-cols-1 gap-4 md:grid-cols-12 lg:grid-cols-12 2xl:gap-7.5">
-        <div className="col-span-12 md:col-span-12 lg:col-span-12 rounded-md bg-black-dark-200 px-4 py-5 shadow-default sm:px-7.5 flex flex-col">
+        <div className="col-span-12 md:col-span-12 lg:col-span-12 rounded-md border border-secondary px-4 py-5 shadow-default sm:px-7.5 flex flex-col">
           <CardTitle title="Market Updates" />
           <div className="h-[200px] overflow-y-auto no-scrollbar">
             <UpdateInfoCard />

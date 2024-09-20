@@ -88,14 +88,14 @@ export default function Header() {
             <div className="flex flex-shrink-0 items-center">
               <Link to="/">
                 <img
-                  alt="Trade Tact"
+                  alt="TradeTact"
                   src="https://firebasestorage.googleapis.com/v0/b/smk24-6f0bf.appspot.com/o/Group%2026.png?alt=media&token=65626bef-8bff-49ba-bf7a-58f597935c41"
                   className="h-10 w-auto"
                 />
               </Link>
             </div>
             <div className="hidden sm:ml-8 sm:block">
-              <div className="flex space-x-4">
+              <div className="flex space-x-4  ">
                 {navigation.map((item) => (
                   <HeaderNavItem
                     key={item.name}

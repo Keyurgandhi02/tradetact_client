@@ -213,7 +213,7 @@ function AnalyticsPage() {
       {fetchedData.length > 0 && (
         <>
           <div className="p-4 mt-4 grid grid-cols-1 gap-4 md:grid-cols-12 md:mt-6 2xl:mt-7.5 2xl:gap-7.5">
-            <div className="col-span-12 md:col-span-8 rounded-md bg-black-dark-200 px-4 py-5 shadow-default sm:px-7.5">
+            <div className="col-span-12 md:col-span-8 rounded-md  border border-secondary px-4 py-5 shadow-default sm:px-7.5">
               <CardTitle title="Trade Analysis" />
               <ResponsiveContainer width="100%" height={400}>
                 <AreaChart data={computedData.chartData}>
@@ -246,7 +246,7 @@ function AnalyticsPage() {
               </ResponsiveContainer>
             </div>
 
-            <div className="col-span-12 md:col-span-4 rounded-md bg-black-dark-200 px-4 py-5 shadow-default sm:px-7.5">
+            <div className="col-span-12 md:col-span-4 rounded-md  border border-secondary px-4 py-5 shadow-default sm:px-7.5">
               <CardTitle title="Trade User Analysis" />
               <div className="border-b mb-5 border-black-dark-300"></div>
               <ResponsiveContainer width="100%" height={400}>
@@ -277,7 +277,7 @@ function AnalyticsPage() {
           </div>
 
           <div className="p-4 mt-4 grid grid-cols-1 gap-4 md:grid-cols-12 md:mt-6 2xl:mt-7.5 2xl:gap-7.5">
-            <div className="col-span-12 md:col-span-12 rounded-md bg-black-dark-200 px-4 py-5 shadow-default sm:px-7.5">
+            <div className="col-span-12 md:col-span-12 rounded-md  border border-secondary px-4 py-5 shadow-default sm:px-7.5">
               <CardTitle title="Trade Details Analysis" />
               <div className="h-100 overflow-y-auto no-scrollbar">
                 {rowsData.map((item, i) => (
@@ -333,7 +333,7 @@ function AnalyticsPage() {
           </div>
 
           <div className="p-4 mt-1 grid grid-cols-1 gap-4 md:grid-cols-12 md:mt-6 2xl:mt-7.5 2xl:gap-7.5">
-            <div className="col-span-12 md:col-span-12 rounded-md bg-black-dark-200 px-4 py-5 shadow-default sm:px-7.5">
+            <div className="col-span-12 md:col-span-12 rounded-md  border border-secondary px-4 py-5 shadow-default sm:px-7.5">
               <CardTitle title="All Accounts Trade Analysis" />
               <div className="h-100 overflow-y-auto no-scrollbar">
                 {rowsData1.map((item, i) => (
