@@ -22,15 +22,15 @@ const HeaderPopover = ({ logout }) => (
       <MenuItem>
         <Link
           to="/profile"
-          className="block px-4 py-3 text-md text-whiten hover:text-primary-300 font-semibold"
+          className="block px-4 py-3 text-md text-whiten hover:text-primary font-semibold"
         >
-          Your Profile
+          My Profile
         </Link>
       </MenuItem>
       <MenuItem>
         <Link
           to="/help"
-          className="block px-4 py-3 text-md text-whiten hover:text-primary-300 font-semibold"
+          className="block px-4 py-3 text-md text-whiten hover:text-primary font-semibold"
         >
           Help & Support
         </Link>
@@ -39,7 +39,7 @@ const HeaderPopover = ({ logout }) => (
       <MenuItem>
         <Link
           onClick={logout}
-          className="block px-4 py-2 text-md text-whiten hover:text-primary-300 font-semibold"
+          className="block px-4 py-2 text-md text-whiten hover:text-primary font-semibold"
         >
           Sign out
         </Link>

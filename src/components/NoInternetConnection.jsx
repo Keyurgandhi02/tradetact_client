@@ -14,7 +14,7 @@ function NoInternetConnection() {
       <span className="text-lg justify-center flex p-1 text-primary-300">
         Check your connection or try again.
       </span>
-      <div class="w-50 mx-auto basis-1/4 flex flex-col items-center justify-center p-10">
+      <div className="w-50 mx-auto basis-1/4 flex flex-col items-center justify-center p-10">
         <GlobalButton
           btnTitle="Try again!"
           disabled={false}

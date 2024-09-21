@@ -282,6 +282,7 @@ function AnalyticsPage() {
               <div className="h-100 overflow-y-auto no-scrollbar">
                 {rowsData.map((item, i) => (
                   <LongCard
+                    key={i}
                     children={
                       <>
                         <LongCardItem
@@ -338,6 +339,7 @@ function AnalyticsPage() {
               <div className="h-100 overflow-y-auto no-scrollbar">
                 {rowsData1.map((item, i) => (
                   <LongCard
+                  key={i}
                     children={
                       <>
                         <LongCardItem

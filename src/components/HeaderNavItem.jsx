@@ -9,7 +9,7 @@ const HeaderNavItem = ({ onClick, classes, item }) => (
     aria-current={item.current ? "page" : undefined}
     className={classes(
       item.current ? "text-primary" : " text-whiten hover:text-primary-200",
-      "px-3 py-3 text-lg font-semibold"
+      "px-3 py-3 text-md font-semibold"
     )}
   >
     {item?.name}

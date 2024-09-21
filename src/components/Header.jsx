@@ -68,9 +68,9 @@ export default function Header() {
   }
 
   return (
-    <Disclosure as="nav" className="bg-black-dark-300 top-0 sticky z-50">
+    <Disclosure as="nav" className="bg-black-dark-400 top-0 sticky z-50">
       <div className="mx-auto px-4 sm:px-4 lg:px-10">
-        <div className="relative flex h-18 items-center justify-between">
+        <div className="relative flex h-16 items-center justify-between">
           <div className="absolute inset-y-0 left-0 flex items-center sm:hidden">
             {/* Mobile menu button*/}
             <DisclosureButton className="group relative inline-flex items-center justify-center rounded-md p-2 text-gray-400 hover:bg-gray-700 hover:text-black focus:outline-none focus:ring-2 focus:ring-inset focus:ring-black">
@@ -90,7 +90,7 @@ export default function Header() {
                 <img
                   alt="TradeTact"
                   src="https://firebasestorage.googleapis.com/v0/b/smk24-6f0bf.appspot.com/o/Group%2026.png?alt=media&token=65626bef-8bff-49ba-bf7a-58f597935c41"
-                  className="h-10 w-auto"
+                  className="h-9 w-auto"
                 />
               </Link>
             </div>

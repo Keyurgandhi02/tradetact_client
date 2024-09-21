@@ -135,7 +135,12 @@ function ManageStrategy() {
           <Toaster position="top-right" reverseOrder={true} />
         </>
       ) : (
-        <NoRecordFound />
+        <NoRecordFound
+          heading="You do not have any trading strategy. Tap on `Add Strategy` to add strategy in the trading strategy list."
+          handleSubmit={() => navigate("/console/create_user_strategy")}
+          btnTitle="Add Strategy"
+          isSmallSize={false}
+        />
       )}
       <ModalDialog
         isOpen={isDeleteModal}

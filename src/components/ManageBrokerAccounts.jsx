@@ -133,7 +133,12 @@ function ManageBrokerAccounts() {
           <Toaster position="top-right" reverseOrder={true} />
         </>
       ) : (
-        <NoRecordFound />
+        <NoRecordFound
+          heading="You do not have any broker account. Tap on `Add Broker` to add account in the broker list."
+          handleSubmit={() => navigate("/console/create_broker_accounts")}
+          btnTitle="Add Broker"
+          isSmallSize={false}
+        />
       )}
 
       <ModalDialog

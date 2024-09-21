@@ -118,7 +118,7 @@ function RegisterPage() {
             />
           )}
 
-          <div class="mt-8">
+          <div className="mt-8">
             <GlobalInput
               inputType="password"
               placeholder="Password"
@@ -140,7 +140,7 @@ function RegisterPage() {
             </div>
           )}
 
-          <div class="mt-14">
+          <div className="mt-14">
             <GlobalButton
               btnTitle={isLogin ? "Login" : "Register"}
               disabled={false}
@@ -150,7 +150,7 @@ function RegisterPage() {
             />
           </div>
         </form>
-        <div class="mt-12 text-md font-display font-semibold text-whiten text-center">
+        <div className="mt-12 text-md font-display font-semibold text-whiten text-center">
           {isLogin ? "Don't have an account ?" : "I am already member ?"}{" "}
           <span
             className="underline cursor-pointer text-primary hover:text-primary-300 outline-none border-none"

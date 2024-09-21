@@ -18,8 +18,8 @@ function GlobalInput({
   };
 
   return (
-    <div class="mb-4.5 text-whiten w-full">
-      <label class="mb-3 block text-sm font-semibold text-whiten">
+    <div className="mb-4.5 text-whiten w-full">
+      <label className="mb-3 block text-sm font-semibold text-whiten">
         {placeholder}
       </label>
       <input

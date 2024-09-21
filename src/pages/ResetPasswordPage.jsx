@@ -76,7 +76,7 @@ function ResetPasswordPage() {
             onChangeHandler={handleChange}
           />
 
-          <div class="mt-14">
+          <div className="mt-14">
             <GlobalButton
               btnTitle="Submit"
               disabled={false}

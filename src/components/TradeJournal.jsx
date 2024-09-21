@@ -39,7 +39,6 @@ function TradeJournal() {
   const [searchTerm, setSearchTerm] = useState("");
   const [filteredResults, setFilteredResults] = useState(fetchedData);
   const pageSize = 20;
-
   const lastVisibleRef = useRef(null);
 
   // Fetch Trade Journal
@@ -181,8 +180,9 @@ function TradeJournal() {
       {filteredResults.length > 0 ? (
         <>
           <div className="grid gap-6 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 p-6">
-            {filteredResults.map((data) => (
+            {filteredResults.map((data, i) => (
               <DataCard
+                key={i}
                 data={data}
                 deleteHandler={deleteHandler}
                 editHandler={editHandler}
@@ -193,7 +193,12 @@ function TradeJournal() {
           <Toaster position="top-right" reverseOrder={true} />
         </>
       ) : (
-        <NoRecordFound />
+        <NoRecordFound
+          heading="Your trade journal is empty. Tap on `Add Trade` to add trade in your journal"
+          handleSubmit={() => navigate("/create_trade_journal")}
+          btnTitle="Add Trade"
+          isSmallSize={false}
+        />
       )}
       <ModalDialog
         isOpen={isViewModal}
@@ -243,6 +248,7 @@ function TradeJournal() {
           />
         }
       />
+
       {hasMore && !isLoading && <LoadMore handleLoadMore={handleLoadMore} />}
     </div>
   );

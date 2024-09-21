@@ -133,7 +133,12 @@ function ManageDematAccounts() {
           <Toaster position="top-right" reverseOrder={true} />
         </>
       ) : (
-        <NoRecordFound />
+        <NoRecordFound
+          heading="You do not have any demat account. Tap on `Add Demat` to add account in the demat list."
+          handleSubmit={() => navigate("/console/create_demat_accounts")}
+          btnTitle="Add Demat"
+          isSmallSize={false}
+        />
       )}
       <ModalDialog
         isOpen={isDeleteModal}

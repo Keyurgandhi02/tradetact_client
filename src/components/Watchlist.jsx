@@ -179,7 +179,12 @@ function Watchlist() {
           <Toaster position="top-right" reverseOrder={true} />
         </>
       ) : (
-        <NoRecordFound />
+        <NoRecordFound
+          heading="This watchlist is empty. Tap on `Add Stocks` to add items in the watchlist."
+          handleSubmit={() => navigate("/create_watchlist")}
+          btnTitle="Add Stocks"
+          isSmallSize={false}
+        />
       )}
       <ModalDialog
         isOpen={isDeleteModal}

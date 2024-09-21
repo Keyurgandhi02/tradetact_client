@@ -10,16 +10,16 @@ function PageHeader({
   secondSubData,
 }) {
   return (
-    <div class="sm:flex sm:items-center sm:justify-between px-6 py-8">
+    <div className="sm:flex sm:items-center sm:justify-between px-6 py-8">
       <div>
-        <div class="flex items-center gap-x-3">
+        <div className="flex items-center gap-x-3">
           <PageHeading title={pageTitle} isListPage={isListPage} />
-          <span class="px-3 py-1 text-xs text-black-dark-200 bg-secondary rounded-full">
+          <span className="px-3 py-1 text-xs text-black-dark-200 bg-secondary rounded-full">
             {firstData} {firstDataTitle}
           </span>
         </div>
 
-        <p class="mt-1 text-sm text-gray-500 dark:text-gray-300">
+        <p className="mt-1 text-sm text-gray-500 dark:text-gray-300">
           {secondData} records showing out of {secondSubData}
         </p>
       </div>

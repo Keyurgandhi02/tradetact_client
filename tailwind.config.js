@@ -39,6 +39,7 @@ module.exports = {
         "black-dark-100": "#121212",
         "black-dark-200": "#282828",
         "black-dark-300": "#3f3f3f",
+        "black-dark-400": "#1F1F1F",
         body: "#64748B",
         bodydark: "#AEB7C0",
         bodydark1: "#DEE4EE",

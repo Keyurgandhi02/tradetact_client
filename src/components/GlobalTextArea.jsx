@@ -14,8 +14,8 @@ function GlobalTextArea({
   };
 
   return (
-    <div class="mb-4.5">
-      <label class="mb-3 block text-sm font-semibold text-whiten">
+    <div className="mb-4.5">
+      <label className="mb-3 block text-sm font-semibold text-whiten">
         {placeholder}
       </label>
       <textarea

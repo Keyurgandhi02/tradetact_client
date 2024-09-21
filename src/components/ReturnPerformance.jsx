@@ -202,7 +202,12 @@ function ReturnPerformance() {
           <Toaster position="top-right" reverseOrder={true} />
         </>
       ) : (
-        <NoRecordFound />
+        <NoRecordFound
+          heading="This return performance is empty. Tap on `Add Returns` to add returns in the returns performance list."
+          handleSubmit={() => navigate("/create_return_performance")}
+          btnTitle="Add Returns"
+          isSmallSize={false}
+        />
       )}
       <ModalDialog
         isOpen={isDeleteModal}

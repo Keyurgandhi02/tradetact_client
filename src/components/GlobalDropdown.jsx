@@ -11,7 +11,7 @@ function GlobalDropdown({
 }) {
   return (
     <div className="mb-4.5 w-full">
-      <label class="mb-3 block text-sm font-semibold text-whiten">
+      <label className="mb-3 block text-sm font-semibold text-whiten">
         {label}
       </label>
       <div className="relative z-1 bg-transparent">

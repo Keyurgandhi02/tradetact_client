@@ -24,9 +24,9 @@ function UserProfile({ userData, fetchedData }) {
   // };
 
   return (
-    <div className="flex flex-col gap-9 p-10">
-      <PageHeading title="Your Profile" />
-      <div className="rounded-lg bg-black-dark-200 shadow-xl">
+    <div className="flex flex-col gap-9 p-4">
+      <PageHeading title="My Profile" />
+      <div className="rounded-md bg-black-dark-400">
         <form action="#" className="p-5">
           <GlobalInput
             inputType="text"
@@ -73,8 +73,8 @@ function UserProfile({ userData, fetchedData }) {
           </div>
         </form>
 
-        <div class="mt-5 w-full flex flex-col items-center overflow-hidden text-md">
-          <span class="font-semibold border-t border-black-dark-300 text-primary-400 py-4 pl-6 pr-3 w-full block">
+        <div className="mt-5 w-full flex flex-col items-center overflow-hidden text-md">
+          <span className="font-semibold border-t border-black-dark-300 text-primary-400 py-4 pl-6 pr-3 w-full block">
             Joined on {formattedDate}
           </span>
         </div>
@@ -84,13 +84,13 @@ function UserProfile({ userData, fetchedData }) {
           <img
             alt="Trade Tact"
             src="https://firebasestorage.googleapis.com/v0/b/smk24-6f0bf.appspot.com/o/Group%2026.png?alt=media&token=65626bef-8bff-49ba-bf7a-58f597935c41"
-            className="h-16 w-auto"
+            className="h-12 w-auto"
           />
         </Link>
       </div>
       <div className="flex justify-center items-center">
         <h2 className="text-sm text-gray-500">
-          Copyright © 2024 Trade Tact. All rights reserved.
+          Copyright © 2024 TradeTact. All rights reserved.
         </h2>
       </div>
     </div>

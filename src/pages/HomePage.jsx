@@ -16,15 +16,19 @@ import CardTitle from "../components/CardTitle";
 import { useLoading } from "../store/LoadingContext";
 import UpdateInfoCard from "../components/UpdateInfoCard";
 import AnalyticsPage from "./AnalyticsPage";
+import NoRecordFound from "../components/NoRecordFound";
+import { useNavigate } from "react-router-dom";
 
 function HomePage() {
   const { currentUser } = useAuth();
   const { startLoading, stopLoading } = useLoading();
   const [fetchedData, setFetchedData] = useState([]);
+  const [watchListData, setWatchListData] = useState([]);
+  const navigate = useNavigate();
 
   // Fetch Trade Data
   const fetchData = useCallback(async () => {
-    const fetchedTasks = await getFirebaseData(
+    const fetchedTradeJournal = await getFirebaseData(
       FIREBASE_ENDPOINTS.MASTER_DATA,
       currentUser.uid,
       FIREBASE_ENDPOINTS.USER_TRADE_JOURNAL,
@@ -34,7 +38,18 @@ function HomePage() {
       "buyDate"
     );
 
-    setFetchedData(fetchedTasks);
+    const fetchedWatchList = await getFirebaseData(
+      FIREBASE_ENDPOINTS.MASTER_DATA,
+      currentUser.uid,
+      FIREBASE_ENDPOINTS.USER_WATCHLIST,
+      startLoading,
+      stopLoading,
+      "desc",
+      "doc_created_At"
+    );
+
+    setFetchedData(fetchedTradeJournal);
+    setWatchListData(fetchedWatchList);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentUser.uid]);
 
@@ -73,15 +88,7 @@ function HomePage() {
 
   return (
     <>
-      <div className="p-3 grid grid-cols-1 md:grid-cols-12 lg:grid-cols-12 gap-4 mt-1">
-        <div className="col-span-12 px-4 py-3 ">
-          <div className="font-bold text-xl mt-1 text-primary-200 leading-none">
-            Good day, {currentUser?.displayName}
-          </div>
-        </div>
-      </div>
-
-      <div className="p-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-4">
+      <div className="mt-3 p-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-4">
         <div className="col-span-1">
           <Card
             icon={<GainSVG />}
@@ -108,7 +115,7 @@ function HomePage() {
         <div className="col-span-1">
           <Card
             icon={<PLUS_SVG />}
-            heading="Overall Gain"
+            heading="Total Gain"
             value={formatNumber(computedData.positiveTotal)}
           />
         </div>
@@ -116,7 +123,7 @@ function HomePage() {
         <div className="col-span-1">
           <Card
             icon={<MINUS_SVG />}
-            heading="Overall Loss"
+            heading="Total Loss"
             value={formatNumber(computedData.negativeTotal)}
           />
         </div>
@@ -124,17 +131,51 @@ function HomePage() {
         <div className="col-span-1">
           <Card
             icon={<RealizedPLSVG />}
-            heading="Realized P&L"
+            heading="Overall G/L"
             value={formatNumber(computedData.combinedTotal)}
           />
         </div>
       </div>
 
       <div className="p-3 grid grid-cols-1 gap-4 md:grid-cols-12 lg:grid-cols-12 2xl:gap-7.5">
-        <div className="col-span-12 md:col-span-12 lg:col-span-12 rounded-md border border-secondary px-4 py-5 shadow-default sm:px-7.5 flex flex-col">
+        <div className="col-span-8 md:col-span-8 lg:col-span-8 rounded-md border border-secondary px-4 py-5 shadow-default sm:px-7.5 flex flex-col">
           <CardTitle title="Market Updates" />
-          <div className="h-[200px] overflow-y-auto no-scrollbar">
+          <div className="h-[300px] overflow-y-auto no-scrollbar">
             <UpdateInfoCard />
+          </div>
+        </div>
+
+        <div className="col-span-8 md:col-span-4 lg:col-span-4 rounded-md border border-secondary px-4 py-5 shadow-default sm:px-7.5 flex flex-col">
+          <CardTitle title="Watchlist" />
+          <div className="h-[300px] overflow-y-auto no-scrollbar">
+            {watchListData.length > 0 ? (
+              <ul className="flex flex-col">
+                {watchListData.map((item, i) => (
+                  <li className="flex flex-row mb-2" key={i}>
+                    <div className="select-none cursor-pointer bg-black-dark-400 rounded-md flex flex-1 items-center p-4  transition duration-500 ease-in-out transform hover:-translate-y-1 hover:shadow-lg">
+                      <div className="flex-1 pl-1 mr-16">
+                        <div className="font-bold text-primary-300">
+                          {item.scriptName}
+                        </div>
+                        <div className="text-gray-600 text-xs mt-1">
+                          {item.status}
+                        </div>
+                      </div>
+                      <div className="text-white text-xs">
+                        {item.strategyName}
+                      </div>
+                    </div>
+                  </li>
+                ))}
+              </ul>
+            ) : (
+              <NoRecordFound
+                heading="This watchlist is empty. Tap on `Add Stocks` to add items in the watchlist."
+                handleSubmit={() => navigate("/create_watchlist")}
+                btnTitle="Add Stocks"
+                isSmallSize={true}
+              />
+            )}
           </div>
         </div>
       </div>
