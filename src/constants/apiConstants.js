@@ -10,4 +10,5 @@ export const FIREBASE_ENDPOINTS = {
   USER_MANAGE_DEMAT: "user_manage_demat",
   USER_MANAGE_STRATEGY: "user_manage_strategy",
   MARKET_UPDATES_DATA: "update_info",
+  USER_CONSOLE_DATA: "user_console_data",
 };

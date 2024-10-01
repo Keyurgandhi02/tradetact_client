@@ -27,6 +27,24 @@ const HeaderPopover = ({ logout }) => (
           My Profile
         </Link>
       </MenuItem>
+
+      <MenuItem>
+        <Link
+          to="/all_broker_accounts"
+          className="block px-4 py-3 text-md text-whiten hover:text-primary font-semibold"
+        >
+          Demat & Broker
+        </Link>
+      </MenuItem>
+
+      <MenuItem>
+        <Link
+          to="/all_user_strategy"
+          className="block px-4 py-3 text-md text-whiten hover:text-primary font-semibold"
+        >
+          Trading Strategy
+        </Link>
+      </MenuItem>
       <MenuItem>
         <Link
           to="/help"

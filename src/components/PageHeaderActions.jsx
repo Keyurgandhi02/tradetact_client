@@ -3,11 +3,14 @@ import { DOWNLOAD_SVG } from "../UI/GlobalSVG";
 import ActionsButton from "./ActionsButton";
 import SearchBar from "./SearchBar";
 
-function PageHeaderActions({ onChangeHandler, downloadHandler }) {
+function PageHeaderActions({ onChangeHandler, downloadHandler, searchValue }) {
   return (
     <div className="md:flex md:items-center md:justify-between px-6">
       <div className="md:w-100 w-auto py-1 items-center ">
-        <SearchBar onChangeHandler={onChangeHandler} />
+        <SearchBar
+          onChangeHandler={onChangeHandler}
+          searchValue={searchValue}
+        />
       </div>
 
       <div className="flex items-center gap-x-3 h-14 mt-4 md:mt-0">

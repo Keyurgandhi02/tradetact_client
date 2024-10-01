@@ -3,7 +3,7 @@ import React from "react";
 function ActionsButton({ icon, label, onClickHandler }) {
   return (
     <button
-      className="flex items-center justify-center w-1/2 px-5 py-3 text-sm text-gray-700 transition-colors duration-200 bg-white border rounded-md gap-x-2 sm:w-auto dark:hover:bg-gray-800 dark:bg-gray-900 hover:bg-gray-100 dark:text-gray-200 dark:border-gray-700"
+      className="flex items-center justify-center w-1/2 px-5 py-3 text-sm text-whiten hover:text-primary transition-colors duration-200 border-[1.5px] border-gray-500 hover:border-primary rounded-md gap-x-2 sm:w-auto"
       onClick={onClickHandler}
     >
       {icon}

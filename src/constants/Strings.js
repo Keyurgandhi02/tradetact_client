@@ -13,7 +13,7 @@ export const LOGOUT_ERROR = "An error occurred during logout.";
 export const STRATEGY_NO_ERROR =
   "Oops! It looks like you don’t have any strategies yet. Head over to Console > Strategies to add your first one.";
 export const TRADE_SETTINGS_NO_ERROR =
-  "Oops! It looks like you don’t have any strategies or Demat account or Broker account yet. Head over to Console to add your first one.";
+  "Oops! It looks like you don’t have any strategies or Demat account or Broker account yet. Head over to Profile Icon Click on it to";
 export const GENERAL_FORM_VALIDATIONS_ERROR =
   "Please fix the validation errors before submitting.";
 
@@ -37,8 +37,8 @@ export const LOGIN_ERRORS = {
 };
 
 export const TRADE_PAGE_STRINGS = {
-  addTransactions: "Create Trade Transaction",
-  editTransactions: "Edit Trade Transaction",
+  addTransactions: "New Trade",
+  editTransactions: "Edit Trade",
 };
 
 export const WATCHLIST_PAGE_STRINGS = {
@@ -67,5 +67,10 @@ export const DEMAT_ACCOUNTS_PAGE_STRINGS = {
 
 export const BROKERS_ACCOUNTS_PAGE_STRINGS = {
   addBrokerAccount: "Create Broker Account",
+  editBrokerAccount: "Edit Broker Account",
+};
+
+export const BROKERS_ACCOUNTS_CHOOSE_PAGE_STRINGS = {
+  addBrokerAccount: "Choose Broker Account",
   editBrokerAccount: "Edit Broker Account",
 };

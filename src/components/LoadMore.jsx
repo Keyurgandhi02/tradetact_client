@@ -9,7 +9,7 @@ function LoadMore({ handleLoadMore }) {
         disabled={false}
         type="button"
         onButtonClickHandler={handleLoadMore}
-        bgColor="bg-primary-500"
+        bgColor="bg-primary-200"
       />
     </div>
   );

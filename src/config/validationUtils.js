@@ -42,7 +42,7 @@ export const validateAllFields = (formData, validationRules) => {
 
   for (const [field, rules] of Object.entries(validationRules)) {
     const value = formData[field];
-    console.log("value", value);
+
     // Check if the field is required and is missing (null, undefined, or empty string)
     if (
       rules.required &&

@@ -180,10 +180,11 @@ function Watchlist() {
         </>
       ) : (
         <NoRecordFound
-          heading="This watchlist is empty. Tap on `Add Stocks` to add items in the watchlist."
+          heading="This watchlist is empty. Tap on plus ( + ) icon to add items in the watchlist."
           handleSubmit={() => navigate("/create_watchlist")}
           btnTitle="Add Stocks"
           isSmallSize={false}
+          isButtonVisible={false}
         />
       )}
       <ModalDialog

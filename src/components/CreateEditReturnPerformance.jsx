@@ -258,7 +258,7 @@ function CreateEditReturnPerformance() {
           secondTitle="Trade Setting Required"
           desc={TRADE_SETTINGS_NO_ERROR}
           linktitle="Go to Console"
-          link="/console/create_demat_accounts"
+          link="/create_demat_accounts"
         />
       )}
 

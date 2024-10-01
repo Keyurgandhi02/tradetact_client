@@ -14,6 +14,7 @@ import { DELETE_SVG, EDIT_SVG } from "../UI/GlobalSVG";
 import { formatDateToDDMMYY } from "../config/helper";
 import ModalDialog from "./ModalDialog";
 import GeneralModalContent from "./GeneralModalContent";
+import PageHeader from "./PageHeader";
 
 function ManageStrategy() {
   const navigate = useNavigate();
@@ -22,6 +23,7 @@ function ManageStrategy() {
   const [fetchedData, setFetchedData] = useState([]);
   const [isDeleteModal, setDeleteModal] = useState(false);
   const [selectedDocumentId, setSelectedDocumentId] = useState(null);
+  const [totalDocuments, setTotalDocuments] = useState(0);
 
   // Fetch Strategy
   const fetchData = useCallback(async () => {
@@ -34,7 +36,7 @@ function ManageStrategy() {
       "desc",
       "doc_created_At"
     );
-
+    setTotalDocuments(fetchedTasks.length);
     setFetchedData(fetchedTasks);
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -77,7 +79,7 @@ function ManageStrategy() {
 
   // Strategy Edit Handler
   const editHandler = (id) => {
-    navigate(`/console/edit_user_strategy/${id}`);
+    navigate(`/edit_user_strategy/${id}`);
   };
 
   // Fetch Strategies
@@ -89,9 +91,18 @@ function ManageStrategy() {
 
   return (
     <div className="md:mb-0 mb-12">
+      <PageHeader
+        pageTitle="Trading Strategy"
+        isListPage={true}
+        firstData={totalDocuments}
+        firstDataTitle="Strategy"
+        secondData={fetchedData.length}
+        secondSubData={totalDocuments}
+      />
+
       {fetchedData.length > 0 ? (
         <>
-          <div className="grid gap-6 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+          <div className="grid gap-6 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 p-4">
             {fetchedData.map((data) => (
               <div
                 key={data?.id}
@@ -136,8 +147,8 @@ function ManageStrategy() {
         </>
       ) : (
         <NoRecordFound
-          heading="You do not have any trading strategy. Tap on `Add Strategy` to add strategy in the trading strategy list."
-          handleSubmit={() => navigate("/console/create_user_strategy")}
+          heading="You do not have any trading strategy. Tap on plus ( + ) icon to add strategy in the trading strategy list."
+          handleSubmit={() => navigate("/create_user_strategy")}
           btnTitle="Add Strategy"
           isSmallSize={false}
         />

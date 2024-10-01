@@ -75,7 +75,7 @@ function ManageDematAccounts() {
 
   // Demat Edit Handler
   const editHandler = (id) => {
-    navigate(`/console/edit_demat_accounts/${id}`);
+    navigate(`/edit_demat_accounts/${id}`);
   };
 
   // Fetch Demat Accounts
@@ -135,7 +135,7 @@ function ManageDematAccounts() {
       ) : (
         <NoRecordFound
           heading="You do not have any demat account. Tap on `Add Demat` to add account in the demat list."
-          handleSubmit={() => navigate("/console/create_demat_accounts")}
+          handleSubmit={() => navigate("/create_demat_accounts")}
           btnTitle="Add Demat"
           isSmallSize={false}
         />

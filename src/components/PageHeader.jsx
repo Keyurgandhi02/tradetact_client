@@ -14,12 +14,12 @@ function PageHeader({
       <div>
         <div className="flex items-center gap-x-3">
           <PageHeading title={pageTitle} isListPage={isListPage} />
-          <span className="px-3 py-1 text-xs text-black-dark-200 bg-secondary rounded-full">
+          <span className="px-3 py-1 text-sm text-black-dark-200 bg-secondary rounded-full">
             {firstData} {firstDataTitle}
           </span>
         </div>
 
-        <p className="mt-1 text-sm text-gray-500 dark:text-gray-300">
+        <p className="mt-1 text-md text-gray-500 dark:text-gray-300">
           {secondData} records showing out of {secondSubData}
         </p>
       </div>

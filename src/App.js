@@ -5,6 +5,12 @@ import PrivateRoute from "./PrivateRoute";
 import ResetPasswordPage from "./pages/ResetPasswordPage";
 import NotFound404Page from "./pages/NotFound404Page";
 import MarketPage from "./pages/MarketPage";
+import ManageBrokerAccountsPage from "./pages/ManageBrokerAccountsPage";
+import CreateEditBrokerAccounts from "./components/CreateEditBrokerAccounts";
+import ManageDematAccountsPage from "./pages/ManageDematAccountsPage";
+import CreateEditDematAccounts from "./components/CreateEditDematAccounts";
+import ManageStrategyPage from "./pages/ManageStrategyPage";
+import CreateEditStrategy from "./components/CreateEditStrategy";
 
 // Lazy-loaded components
 const HomePage = lazy(() => import("./pages/HomePage"));
@@ -28,7 +34,6 @@ const CreateEditRiskManagement = lazy(() =>
 const RegisterPage = lazy(() => import("./pages/RegisterPage"));
 const ProfilePage = lazy(() => import("./pages/ProfilePage"));
 const UpdatesPage = lazy(() => import("./pages/UpdatesPage"));
-const ConsolePage = lazy(() => import("./pages/ConsolePage"));
 
 function App() {
   return (
@@ -79,7 +84,44 @@ function App() {
               />
               <Route path="/profile" element={<ProfilePage />} />
               <Route path="/updates" element={<UpdatesPage />} />
-              <Route path="/console/*" element={<ConsolePage />} />
+              <Route
+                path="/all_broker_accounts"
+                element={<ManageBrokerAccountsPage />}
+              />
+              <Route
+                path="/create_broker_accounts"
+                element={<CreateEditBrokerAccounts />}
+              />
+              <Route
+                path="/edit_broker_accounts/:id"
+                element={<CreateEditBrokerAccounts />}
+              />
+
+              <Route
+                path="/all_demat_accounts"
+                element={<ManageDematAccountsPage />}
+              />
+              <Route
+                path="/create_demat_accounts"
+                element={<CreateEditDematAccounts />}
+              />
+              <Route
+                path="/edit_demat_accounts/:id"
+                element={<CreateEditDematAccounts />}
+              />
+
+              <Route
+                path="/all_user_strategy"
+                element={<ManageStrategyPage />}
+              />
+              <Route
+                path="/create_user_strategy"
+                element={<CreateEditStrategy />}
+              />
+              <Route
+                path="/edit_user_strategy/:id"
+                element={<CreateEditStrategy />}
+              />
             </Route>
           </Route>
         </Routes>

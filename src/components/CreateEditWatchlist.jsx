@@ -214,21 +214,59 @@ function CreateEditWatchlist() {
                 />
 
                 <GlobalDropdown
-                  options={options}
                   formData={formData?.strategyName}
-                  selectDropDownHandler={selectDropDownHandler}
-                  name="strategyName"
                   label="Select Strategy"
                   errors={errors?.strategyName}
+                  children={
+                    <select
+                      className="relative z-2 w-full appearance-none rounded border text-whiten border-black-dark-300 bg-transparent px-5 py-3 outline-none transition focus:border-primary active:border-primary"
+                      onChange={(e) =>
+                        selectDropDownHandler("strategyName", e.target.value)
+                      }
+                      value={formData?.strategyName}
+                    >
+                      <option value="" disabled>
+                        Select Strategy
+                      </option>
+                      {options?.map((item) => (
+                        <option
+                          key={item.id}
+                          value={item.label}
+                          className="text-whiten"
+                        >
+                          {item.label}
+                        </option>
+                      ))}
+                    </select>
+                  }
                 />
 
                 <GlobalDropdown
-                  options={isStatusOptions}
                   formData={formData?.status}
-                  selectDropDownHandler={selectDropDownHandler}
-                  name="status"
                   label="Select Status"
                   errors={errors?.status}
+                  children={
+                    <select
+                      className="relative z-2 w-full appearance-none rounded border text-whiten border-black-dark-300 bg-transparent px-5 py-3 outline-none transition focus:border-primary active:border-primary"
+                      onChange={(e) =>
+                        selectDropDownHandler("status", e.target.value)
+                      }
+                      value={formData?.status}
+                    >
+                      <option value="" disabled>
+                        Select Status
+                      </option>
+                      {isStatusOptions?.map((item) => (
+                        <option
+                          key={item.id}
+                          value={item.label}
+                          className="text-whiten"
+                        >
+                          {item.label}
+                        </option>
+                      ))}
+                    </select>
+                  }
                 />
 
                 <GlobalButton
@@ -251,7 +289,7 @@ function CreateEditWatchlist() {
           secondTitle="Trade Setting Required"
           desc={TRADE_SETTINGS_NO_ERROR}
           linktitle="Go to Console"
-          link="/console/create_user_strategy"
+          link="/create_user_strategy"
         />
       )}
 

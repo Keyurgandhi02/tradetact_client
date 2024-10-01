@@ -256,16 +256,70 @@ export const fetchPaginatedData = async (
   return { data, lastDoc };
 };
 
-// // Function to update subscription status
-// export const updateSubscriptionStatus = async (userId, status) => {
+// export const updateAllDocumentsToLowercase = async (
+//   firstCollection,
+//   userId,
+//   secondCollection
+// ) => {
+//   console.log("firstCollection", firstCollection);
+//   const q = query(collection(db, firstCollection, userId, secondCollection));
+
+//   const snapshot = await getDocs(q);
+//   console.log("snapshot", snapshot);
+//   const batch = writeBatch(db); // Using batch to update multiple documents
+
+//   snapshot.forEach((doc) => {
+//     const data = doc.data();
+//     // Assuming 'name' is the field you want to normalize
+//     if (data.scriptName) {
+//       const lowerCaseName = data.scriptName.toLowerCase();
+//       batch.update(doc.ref, { scriptName: lowerCaseName });
+//     }
+//   });
+
+//   // Commit the batch update
+//   await batch.commit();
+//   console.log("All documents updated to lowercase.");
+// };
+
+
+
+// Search functionality (case-insensitive)
+// const handleSearch = async (searchQuery) => {
+//   handleLoading(startLoading, stopLoading, true);
+//   setItems([]);
+//   setSearchMode(true);
+
+//   if (!searchQuery) {
+//     setSearchMode(false);
+//     setLastVisible(null);
+//     fetchItems();
+//     return;
+//   }
+
 //   try {
-//     await setDoc(
-//       doc(db, FIREBASE_ENDPOINTS.USER_AUTH, userId),
-//       { subscribed: status },
-//       { merge: true }
+//     // Convert search query to lowercase
+//     const lowerCaseQuery = searchQuery.toLowerCase();
+
+//     const q = query(
+//       collection(db, firstCollection, userId, secondCollection),
+//       orderBy(searchOrderByField),
+//       orderBy(orderByField, order),
+//       startAt(lowerCaseQuery),
+//       endAt(lowerCaseQuery + "\uf8ff")
 //     );
-//     toast.success(GENERAL_ADD_SUCCESS);
+
+//     const snapshot = await getDocs(q);
+
+//     const data = snapshot.docs.map((doc) => ({
+//       id: doc.id,
+//       ...doc.data(),
+//     }));
+
+//     setItems(data);
 //   } catch (error) {
-//     toast.error(GENERAL_ADD_ERROR);
+//     console.error("Error executing search query:", error);
+//   } finally {
+//     handleLoading(startLoading, stopLoading, false);
 //   }
 // };

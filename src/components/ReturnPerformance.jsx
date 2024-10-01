@@ -110,7 +110,7 @@ function ReturnPerformance() {
   return (
     <div className="md:mb-0 mb-12">
       <PageHeader
-        pageTitle="Return Performance"
+        pageTitle="Returns"
         isListPage={true}
         firstData={totalDocuments}
         firstDataTitle="Returns"
@@ -203,10 +203,11 @@ function ReturnPerformance() {
         </>
       ) : (
         <NoRecordFound
-          heading="This return performance is empty. Tap on `Add Returns` to add returns in the returns performance list."
+          heading="This return performance is empty. Tap on plus ( + ) icon to add returns in the returns performance list."
           handleSubmit={() => navigate("/create_return_performance")}
           btnTitle="Add Returns"
           isSmallSize={false}
+          isButtonVisible={false}
         />
       )}
       <ModalDialog

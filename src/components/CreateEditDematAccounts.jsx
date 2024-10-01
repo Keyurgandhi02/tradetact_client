@@ -109,7 +109,7 @@ function CreateEditDematAccounts() {
         );
       }
       setFormData(initialState);
-      navigate("/console/all_demat_accounts");
+      navigate("/all_demat_accounts");
     } catch (error) {
       toast.error(GENERAL_SUBMIT_ERROR);
     }
@@ -117,7 +117,7 @@ function CreateEditDematAccounts() {
 
   // Float Button Handler
   const onFloatBtnClickHandler = () => {
-    navigate("/console/all_demat_accounts");
+    navigate("/all_demat_accounts");
   };
 
   return (

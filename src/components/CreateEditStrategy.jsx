@@ -106,7 +106,7 @@ function CreateEditStrategy() {
         );
       }
       setFormData(initialState);
-      navigate("/console/all_user_strategy");
+      navigate("/all_user_strategy");
     } catch (error) {
       toast.error(GENERAL_SUBMIT_ERROR);
     }
@@ -114,7 +114,7 @@ function CreateEditStrategy() {
 
   // Float Button Handler
   const onFloatBtnClickHandler = () => {
-    navigate("/console/all_user_strategy");
+    navigate("/all_user_strategy");
   };
 
   return (

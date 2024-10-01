@@ -5,7 +5,7 @@ function FloatButton({ onClickHandler, icon }) {
     <div className="fixed bottom-8 right-8">
       <button
         onClick={onClickHandler}
-        className="bg-primary-300 hover:bg-opacity-90 text-whiten font-bold py-4 px-4 rounded-full shadow-lg"
+        className="bg-primary hover:bg-opacity-90 text-whiten font-bold py-4 px-4 rounded-lg shadow-lg"
       >
         {icon}
       </button>

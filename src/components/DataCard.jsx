@@ -7,7 +7,7 @@ function DataCard({ data, deleteHandler, editHandler, viewHandler }) {
   return (
     <div
       key={data?.id}
-      className="rounded-lg shadow-lg p-4 bg-black-dark-200 w-full md:w-104 lg:w-114 h-auto md:h-68 lg:h-68 overflow-hidden"
+      className="rounded-md shadow-md p-4 bg-black-dark-400 w-full md:w-104 lg:w-114 h-auto md:h-68 lg:h-68 overflow-hidden"
     >
       <div className="flex justify-between items-center mb-2">
         <div>

@@ -57,12 +57,17 @@ function CreateEditTradeJournal() {
   const { startLoading, stopLoading } = useLoading();
   const [formData, setFormData] = useState(initialState);
   const [options, setOptions] = useState([]);
-  const [options1, setOptions1] = useState([]);
   const [options2, setOptions2] = useState([]);
   const [isEditMode, setIsEditMode] = useState(false);
   const [isViewModal, setViewModal] = useState(false);
   const [isDisable, setDisable] = useState(false);
   const [errors, setErrors] = useState({});
+  const [selectedDematUser, setSelectedDematUser] = useState("");
+  const [selectedStrategy, setSelectedStrategy] = useState("");
+  const [selectedTradeType, setSelectedTradeType] = useState("");
+  const [selectedConsoleData, setSelectedConsoleData] = useState("");
+  const [consoleDataOptions, setConsoleDataOptions] = useState([]);
+  const [isBrokerCount, setBrokerCount] = useState(0);
 
   useEffect(() => {
     async function fetchData() {
@@ -75,9 +80,29 @@ function CreateEditTradeJournal() {
           FIREBASE_ENDPOINTS.USER_TRADE_JOURNAL,
           id
         );
+
+        const fetchedOptions = await getFirebaseData(
+          FIREBASE_ENDPOINTS.MASTER_DATA,
+          currentUser.uid,
+          FIREBASE_ENDPOINTS.USER_MANAGE_BROKERS,
+          startLoading,
+          stopLoading,
+          "desc",
+          "doc_created_At"
+        );
+
         setFormData(fetchedTasks);
+        setSelectedDematUser(fetchedTasks?.dematUser);
+        setSelectedConsoleData(fetchedTasks?.broker);
+        setSelectedStrategy(fetchedTasks?.strategyName);
+        setSelectedTradeType(fetchedTasks?.trade_type);
+
+        const user = fetchedOptions.find(
+          (item) => item?.dematUser === fetchedTasks?.dematUser
+        );
+        setConsoleDataOptions(user?.consoleData);
       } catch (error) {
-        toast.error("Error fetching data");
+        toast.error(GENERAL_FETCH_ERROR);
       }
     }
 
@@ -89,15 +114,47 @@ function CreateEditTradeJournal() {
   const handleChange = (name, value) => {
     setFormData((prevData) => ({
       ...prevData,
-      [name]: value,
+      [name]: value.toLowerCase(),
     }));
   };
 
-  // Dropdown Select Handler
-  const selectDropDownHandler = (name, value) => {
+  // Demat Dropdown Handler
+  const handleDematUserChange = (selectedUser) => {
+    setSelectedDematUser(selectedUser);
+    const user = options.find((item) => item.dematUser === selectedUser);
+    if (user) {
+      setConsoleDataOptions(user.consoleData);
+      setFormData((prevFormData) => ({
+        ...prevFormData,
+        dematUser: selectedUser,
+      }));
+    }
+  };
+
+  // Broker Dropdown Handler
+  const handleConsoleDataChange = (consoleData) => {
+    setSelectedConsoleData(consoleData);
     setFormData((prevFormData) => ({
       ...prevFormData,
-      [name]: value,
+      broker: consoleData,
+    }));
+  };
+
+  // Strategy Dropdown Handler
+  const handleStrategyChange = (strategyData) => {
+    setSelectedStrategy(strategyData);
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      strategyName: strategyData,
+    }));
+  };
+
+  // Trade Type Dropdown Handler
+  const handleTradeTypeChange = (tradeTyeData) => {
+    setSelectedTradeType(tradeTyeData);
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      trade_type: tradeTyeData,
     }));
   };
 
@@ -168,15 +225,7 @@ function CreateEditTradeJournal() {
           "doc_created_At"
         );
 
-        const fetchedOptions1 = await getFirebaseData(
-          FIREBASE_ENDPOINTS.MASTER_DATA,
-          currentUser.uid,
-          FIREBASE_ENDPOINTS.USER_MANAGE_DEMAT,
-          startLoading,
-          stopLoading,
-          "desc",
-          "doc_created_At"
-        );
+        setBrokerCount(fetchedOptions.length);
 
         const fetchedOptions2 = await getFirebaseData(
           FIREBASE_ENDPOINTS.MASTER_DATA,
@@ -188,16 +237,11 @@ function CreateEditTradeJournal() {
           "doc_created_At"
         );
 
-        if (
-          fetchedOptions.length === 0 ||
-          fetchedOptions1.length === 0 ||
-          fetchedOptions2.length === 0
-        ) {
+        if (fetchedOptions.length === 0 || fetchedOptions2.length === 0) {
           setViewModal(true);
           setDisable(true);
         } else {
           setOptions(fetchedOptions);
-          setOptions1(fetchedOptions1);
           setOptions2(fetchedOptions2);
           setViewModal(false);
         }
@@ -214,7 +258,7 @@ function CreateEditTradeJournal() {
   return (
     <div className="md:mb-0 mb-12">
       {!isViewModal && (
-        <div className="flex flex-col gap-9 p-8">
+        <div className="flex flex-col gap-9 p-6">
           <PageHeading
             title={
               isEditMode
@@ -222,13 +266,7 @@ function CreateEditTradeJournal() {
                 : TRADE_PAGE_STRINGS?.addTransactions
             }
           />
-          <div className="rounded-lg bg-black-dark-200 shadow-xl">
-            {/* <span
-            className="text-whiten font-semibold float-right p-5"
-            onClick={() => updateSubscriptionStatus()}
-          >
-            AutoFill Form
-          </span> */}
+          <div className="rounded-md bg-black-dark-400">
             <form onSubmit={handleSubmit}>
               <div className="p-7">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-2">
@@ -252,40 +290,111 @@ function CreateEditTradeJournal() {
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-2">
                   <GlobalDropdown
-                    options={options}
-                    formData={formData?.broker}
-                    errors={errors?.broker}
-                    selectDropDownHandler={selectDropDownHandler}
-                    name="broker"
-                    label="Select Broker"
+                    formData={formData?.dematUser}
+                    errors={errors?.dematUser}
+                    label="Select Demat User"
+                    children={
+                      <select
+                        className="relative z-2 w-full appearance-none rounded border text-whiten border-black-dark-300 bg-transparent px-5 py-3 outline-none transition focus:border-primary active:border-primary"
+                        onChange={(e) => handleDematUserChange(e.target.value)}
+                        value={selectedDematUser}
+                      >
+                        <option value="" disabled>
+                          Select Demat User
+                        </option>
+                        {options?.map((item) => (
+                          <option
+                            key={item.id}
+                            value={item.dematUser}
+                            className="text-whiten"
+                          >
+                            {item.dematUser}
+                          </option>
+                        ))}
+                      </select>
+                    }
                   />
 
                   <GlobalDropdown
-                    options={options2}
-                    formData={formData?.strategyName}
-                    errors={errors?.strategyName}
-                    selectDropDownHandler={selectDropDownHandler}
-                    name="strategyName"
-                    label="Select Strategy"
+                    formData={formData?.broker}
+                    errors={errors?.broker}
+                    label="Select Broker"
+                    children={
+                      <select
+                        className="relative z-2 w-full appearance-none rounded border text-whiten border-black-dark-300 bg-transparent px-5 py-3 outline-none transition focus:border-primary active:border-primary"
+                        onChange={(e) =>
+                          handleConsoleDataChange(e.target.value)
+                        }
+                        value={selectedConsoleData}
+                      >
+                        <option value="" disabled>
+                          Select Broker
+                        </option>
+                        {consoleDataOptions?.map((item) => (
+                          <option
+                            key={item.id}
+                            value={item.label}
+                            className="text-whiten"
+                          >
+                            {item.label}
+                          </option>
+                        ))}
+                      </select>
+                    }
                   />
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-2">
                   <GlobalDropdown
-                    options={options1}
-                    formData={formData?.dematUser}
-                    errors={errors?.dematUser}
-                    selectDropDownHandler={selectDropDownHandler}
-                    name="dematUser"
-                    label="Select Demat User"
+                    formData={formData?.strategyName}
+                    errors={errors?.strategyName}
+                    label="Select Strategy"
+                    children={
+                      <select
+                        className="relative z-2 w-full appearance-none rounded border text-whiten border-black-dark-300 bg-transparent px-5 py-3 outline-none transition focus:border-primary active:border-primary"
+                        onChange={(e) => handleStrategyChange(e.target.value)}
+                        value={selectedStrategy}
+                      >
+                        <option value="" disabled>
+                          Select Strategy
+                        </option>
+                        {options2?.map((item) => (
+                          <option
+                            key={item.id}
+                            value={item.label}
+                            className="text-whiten"
+                          >
+                            {item.label}
+                          </option>
+                        ))}
+                      </select>
+                    }
                   />
+
                   <GlobalDropdown
-                    options={TRADE_TYPE_DROPDOWNS}
                     formData={formData?.trade_type}
                     errors={errors?.trade_type}
-                    selectDropDownHandler={selectDropDownHandler}
-                    name="trade_type"
                     label="Trade Type"
+                    children={
+                      <select
+                        className="relative z-2 w-full appearance-none rounded border text-whiten border-black-dark-300 bg-transparent px-5 py-3 outline-none transition focus:border-primary active:border-primary"
+                        onChange={(e) => handleTradeTypeChange(e.target.value)}
+                        value={selectedTradeType}
+                      >
+                        <option value="" disabled>
+                          Select Trade Type
+                        </option>
+                        {TRADE_TYPE_DROPDOWNS?.map((item) => (
+                          <option
+                            key={item.id}
+                            value={item.label}
+                            className="text-whiten"
+                          >
+                            {item.label}
+                          </option>
+                        ))}
+                      </select>
+                    }
                   />
                 </div>
 
@@ -401,29 +510,39 @@ function CreateEditTradeJournal() {
                 />
 
                 <GlobalButton
-                  btnTitle={isEditMode ? "Update" : "Submit"}
+                  btnTitle={isEditMode ? "Update Trade" : "Create New Trade"}
                   disabled={isDisable}
                   type="submit"
                   onButtonClickHandler={handleSubmit}
-                  bgColor="bg-primary-500"
+                  bgColor="bg-primary"
                 />
               </div>
             </form>
           </div>
         </div>
       )}
-      <Toaster position="top-right" reverseOrder={true} />
 
       {isViewModal && (
         <GloablInfo
           firstTitle="Oopss!!"
           secondTitle="Trade Setting Required"
-          desc={TRADE_SETTINGS_NO_ERROR}
-          linktitle="Go to Console"
-          link="/console/create_user_strategy"
+          desc={`${TRADE_SETTINGS_NO_ERROR} ${
+            isBrokerCount === 0
+              ? "select Demant & Broker"
+              : "Select Trading Strategy"
+          } option to add your first one.`}
+          linktitle={
+            isBrokerCount === 0
+              ? "Go to Demant & Broker Account"
+              : "Go to Strategy"
+          }
+          link={
+            isBrokerCount === 0 ? "/all_broker_accounts" : "/all_user_strategy"
+          }
         />
       )}
 
+      <Toaster position="top-right" reverseOrder={true} />
       <FloatButton
         onClickHandler={onFloatBtnClickHandler}
         icon={<LIST_FLOAT_SVG />}

@@ -47,20 +47,6 @@ export default function Header() {
       href: "/market",
       current: location.pathname === "/market",
     },
-    {
-      name: "Console",
-      href: "/console",
-      current:
-        location.pathname === "/console/all_broker_accounts" ||
-        location.pathname === "/console/all_demat_accounts" ||
-        location.pathname === "/console/all_user_strategy",
-    },
-
-    // {
-    //   name: "Downloads",
-    //   href: "/downloads",
-    //   current: location.pathname === "/downloads",
-    // },
   ];
 
   function classNames(...classes) {
@@ -68,7 +54,10 @@ export default function Header() {
   }
 
   return (
-    <Disclosure as="nav" className="bg-black-dark-400 top-0 sticky z-50">
+    <Disclosure
+      as="nav"
+      className="bg-black-dark-400 top-0 sticky z-50 shadow-xl"
+    >
       <div className="mx-auto px-4 sm:px-4 lg:px-10">
         <div className="relative flex h-16 items-center justify-between">
           <div className="absolute inset-y-0 left-0 flex items-center sm:hidden">

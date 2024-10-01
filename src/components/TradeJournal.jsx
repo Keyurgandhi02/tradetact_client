@@ -179,7 +179,7 @@ function TradeJournal() {
 
       {filteredResults.length > 0 ? (
         <>
-          <div className="grid gap-6 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 p-6">
+          <div className="grid gap-6 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 p-5">
             {filteredResults.map((data, i) => (
               <DataCard
                 key={i}
@@ -194,10 +194,11 @@ function TradeJournal() {
         </>
       ) : (
         <NoRecordFound
-          heading="Your trade journal is empty. Tap on `Add Trade` to add trade in your journal"
+          heading="Your trade journal is empty. Tap on plus ( + ) icon to add trade in your journal"
           handleSubmit={() => navigate("/create_trade_journal")}
           btnTitle="Add Trade"
           isSmallSize={false}
+          isButtonVisible={false}
         />
       )}
       <ModalDialog

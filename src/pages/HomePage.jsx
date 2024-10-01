@@ -18,6 +18,7 @@ import UpdateInfoCard from "../components/UpdateInfoCard";
 import AnalyticsPage from "./AnalyticsPage";
 import NoRecordFound from "../components/NoRecordFound";
 import { useNavigate } from "react-router-dom";
+import FloatingActionButton from "../components/FloatingActionButton";
 
 function HomePage() {
   const { currentUser } = useAuth();
@@ -174,10 +175,12 @@ function HomePage() {
                 handleSubmit={() => navigate("/create_watchlist")}
                 btnTitle="Add Stocks"
                 isSmallSize={true}
+                isButtonVisible={true}
               />
             )}
           </div>
         </div>
+        <FloatingActionButton />
       </div>
 
       <AnalyticsPage />

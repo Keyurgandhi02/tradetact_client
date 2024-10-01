@@ -144,3 +144,21 @@ export const renderActiveShape = (props) => {
     </g>
   );
 };
+
+export function labelToKey(label) {
+  return label.toLowerCase().replace(/\s+/g, "") + "_one";
+}
+
+export function checkForDuplicates(data) {
+  const idMap = {};
+  for (const item of data) {
+    const id = item.id;
+    if (idMap[id]) {
+      // Duplicate ID found
+      alert(`Duplicate ID found: ${id}`);
+      return false; // Optionally, return false to indicate a duplicate
+    }
+    idMap[id] = true;
+  }
+  return true; // No duplicates found
+}
