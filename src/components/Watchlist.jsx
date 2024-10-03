@@ -127,11 +127,11 @@ function Watchlist() {
       )}
       {filteredResults.length > 0 ? (
         <>
-          <div className="grid gap-6 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 p-6">
+          <div className="grid gap-6 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 p-4 mt-5">
             {filteredResults.map((data) => (
               <div
                 key={data?.id}
-                className="rounded-lg shadow-lg p-4 bg-black-dark-200 w-full md:w-110 lg:w-120 h-auto md:h-68 lg:h-68 overflow-hidden"
+                className="rounded-sm shadow-md p-4 bg-black-dark-400 w-full md:w-104 lg:w-114 h-auto md:h-68 lg:h-68 overflow-hidden"
               >
                 <div className="flex justify-between items-center mb-2">
                   <div>

@@ -185,66 +185,76 @@ function CreateEditReturnPerformance() {
   return (
     <div className="md:mb-0 mb-12">
       {!isViewModal && (
-        <div className="flex flex-col gap-9 p-8">
+        <div className="flex flex-col gap-9 p-4 mt-5 mb-5">
           <PageHeading
             title={
               isEditMode ? ROI_PAGE_STRINGS?.editRoi : ROI_PAGE_STRINGS?.addRoi
             }
           />
-          <div className="rounded-lg  bg-black-dark-200 shadow-xl">
+          <div className="rounded-sm  bg-black-dark-400">
             <form onSubmit={handleSubmit}>
               <div className="p-7">
-                <GlobalInput
-                  inputType="month"
-                  placeholder="Date"
-                  isValue={formData?.created_at}
-                  name="created_at"
-                  errors={errors?.created_at}
-                  onChangeHandler={(name, value) => handleChange(name, value)}
-                />
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-2">
+                  <GlobalInput
+                    inputType="month"
+                    placeholder="Date"
+                    isValue={formData?.created_at}
+                    name="created_at"
+                    errors={errors?.created_at}
+                    onChangeHandler={(name, value) => handleChange(name, value)}
+                  />
 
-                <GlobalDropdown
-                  options={options}
-                  formData={formData?.label}
-                  selectDropDownHandler={selectDropDownHandler}
-                  name="accountName"
-                  label="Select Account"
-                  errors={errors?.accountName}
-                />
+                  <GlobalDropdown
+                    options={options}
+                    formData={formData?.label}
+                    selectDropDownHandler={selectDropDownHandler}
+                    name="accountName"
+                    label="Select Account"
+                    errors={errors?.accountName}
+                  />
+                </div>
 
-                <GlobalInput
-                  inputType="number"
-                  placeholder="Amount Invested"
-                  isValue={formData?.invested_amount}
-                  name="invested_amount"
-                  errors={errors?.invested_amount}
-                  onChangeHandler={(name, value) => handleChange(name, value)}
-                />
-                <GlobalInput
-                  inputType="number"
-                  placeholder="Amount Returned"
-                  isValue={formData?.returned_amount}
-                  name="returned_amount"
-                  errors={errors?.returned_amount}
-                  onChangeHandler={(name, value) => handleChange(name, value)}
-                />
-                <GlobalInput
-                  inputType="number"
-                  placeholder="Total Charges"
-                  isValue={formData?.charges}
-                  onChangeHandler={(name, value) => handleChange(name, value)}
-                  name="charges"
-                  errors={errors?.charges}
-                  disabledStatus={false}
-                />
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-2">
+                  <GlobalInput
+                    inputType="number"
+                    placeholder="Amount Invested"
+                    isValue={formData?.invested_amount}
+                    name="invested_amount"
+                    errors={errors?.invested_amount}
+                    onChangeHandler={(name, value) => handleChange(name, value)}
+                  />
 
-                <GlobalButton
-                  btnTitle={isEditMode ? "Update" : "Submit"}
-                  disabled={isDisable}
-                  type="submit"
-                  bgColor="bg-primary-500"
-                  textColor=""
-                />
+                  <GlobalInput
+                    inputType="number"
+                    placeholder="Amount Returned"
+                    isValue={formData?.returned_amount}
+                    name="returned_amount"
+                    errors={errors?.returned_amount}
+                    onChangeHandler={(name, value) => handleChange(name, value)}
+                  />
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-1 gap-6 mb-2">
+                  <GlobalInput
+                    inputType="number"
+                    placeholder="Total Charges"
+                    isValue={formData?.charges}
+                    onChangeHandler={(name, value) => handleChange(name, value)}
+                    name="charges"
+                    errors={errors?.charges}
+                    disabledStatus={false}
+                  />
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-1 gap-6 mt-5">
+                  <GlobalButton
+                    btnTitle={isEditMode ? "Update Returns" : "Add Returns"}
+                    disabled={isDisable}
+                    type="submit"
+                    bgColor="bg-primary"
+                    textColor=""
+                  />
+                </div>
               </div>
             </form>
           </div>

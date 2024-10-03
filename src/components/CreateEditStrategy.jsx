@@ -119,7 +119,7 @@ function CreateEditStrategy() {
 
   return (
     <>
-      <div className="flex flex-col gap-9 p-8">
+      <div className="flex flex-col gap-9 p-4 mt-5 mb-5">
         <PageHeading
           title={
             isEditMode
@@ -128,25 +128,28 @@ function CreateEditStrategy() {
           }
         />
 
-        <div className="rounded-lg bg-black-dark-200 shadow-xl">
+        <div className="rounded-sm bg-black-dark-400">
           <form onSubmit={handleSubmit}>
             <div className="p-7">
-              <GlobalInput
-                inputType="text"
-                placeholder="Strategy"
-                isValue={formData?.label}
-                name="label"
-                errors={errors?.label}
-                onChangeHandler={(name, value) => handleChange(name, value)}
-              />
-
-              <GlobalButton
-                btnTitle={isEditMode ? "Update" : "Submit"}
-                disabled={false}
-                type="submit"
-                onButtonClickHandler={handleSubmit}
-                bgColor="bg-primary-500"
-              />
+              <div className="grid grid-cols-1 md:grid-cols-1 gap-6 mb-2">
+                <GlobalInput
+                  inputType="text"
+                  placeholder="Strategy"
+                  isValue={formData?.label}
+                  name="label"
+                  errors={errors?.label}
+                  onChangeHandler={(name, value) => handleChange(name, value)}
+                />
+              </div>
+              <div className="grid grid-cols-1 md:grid-cols-1 gap-6 mt-5">
+                <GlobalButton
+                  btnTitle={isEditMode ? "Update Strategy" : "Add Strategy"}
+                  disabled={false}
+                  type="submit"
+                  onButtonClickHandler={handleSubmit}
+                  bgColor="bg-primary"
+                />
+              </div>
             </div>
           </form>
         </div>

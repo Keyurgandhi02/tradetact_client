@@ -179,7 +179,7 @@ function TradeJournal() {
 
       {filteredResults.length > 0 ? (
         <>
-          <div className="grid gap-6 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 p-5">
+          <div className="grid gap-6 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 p-4 mt-5">
             {filteredResults.map((data, i) => (
               <DataCard
                 key={i}

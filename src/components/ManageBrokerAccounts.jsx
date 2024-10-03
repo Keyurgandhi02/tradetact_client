@@ -107,11 +107,11 @@ function ManageBrokerAccounts() {
 
       {fetchedData.length > 0 ? (
         <>
-          <div className="grid gap-6 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 p-4">
+          <div className="grid gap-6 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 p-4 mt-3">
             {fetchedData.map((data) => (
               <div
                 key={data?.id}
-                className="rounded-lg shadow-lg p-4 bg-black-dark-400 w-full md:w-110 lg:w-120 h-auto md:h-68 lg:h-68 overflow-hidden"
+                className="rounded-sm shadow-lg p-4 bg-black-dark-400 w-full md:w-110 lg:w-120 h-auto md:h-68 lg:h-68 overflow-hidden"
               >
                 <div className="flex justify-between items-center mb-2">
                   <div>

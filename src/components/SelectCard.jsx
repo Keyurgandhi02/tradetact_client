@@ -6,10 +6,10 @@ function SelectCard({ item, handleSelect, isSelected }) {
       key={item.id}
       className={` 
       cursor-pointer
-       rounded-md h-40 relative group items-center flex flex-col max-w-sm transition-all duration-500 border ${
+       rounded-sm h-40 relative group items-center flex flex-col max-w-sm transition-all duration-500 border ${
          isSelected
-           ? "border-secondary bg-black-dark-300"
-           : "bg-black-dark-200 border-none"
+           ? "border-secondary bg-black-dark-200"
+           : "bg-black-dark-100 border-none"
        } `}
       onClick={() => handleSelect(item)}
     >

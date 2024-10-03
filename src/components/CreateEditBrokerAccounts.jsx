@@ -274,12 +274,12 @@ function CreateEditBrokerAccounts() {
   return (
     <>
       <div className="md:mb-0 mb-12">
-        <div className="flex flex-col gap-9 p-6">
+        <div className="flex flex-col gap-9 p-4 mt-5 mb-5">
           <PageHeading
             title="Create Broker & Demat Account"
             isListPage={false}
           />
-
+          
           {!isEditMode && (
             <AlertCard
               bgColor="bg-black-dark-400"
@@ -298,7 +298,7 @@ function CreateEditBrokerAccounts() {
             />
           )}
 
-          <div className="rounded-md bg-black-dark-400">
+          <div className="rounded-sm bg-black-dark-400">
             <div className="p-7">
               <form onSubmit={(e) => e.preventDefault()}>
                 <GlobalInput

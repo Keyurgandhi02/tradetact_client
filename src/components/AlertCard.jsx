@@ -3,7 +3,7 @@ import React from "react";
 function AlertCard({ bgColor, borderColor, textColor, heading, action }) {
   return (
     <div
-      className={`${bgColor} border-t-4 ${borderColor}  rounded-md ${textColor} px-4 py-3 shadow-md`}
+      className={`${bgColor} border-t-4 ${borderColor}  rounded-sm ${textColor} px-4 py-3 shadow-md`}
       role="alert"
     >
       <div className="flex">

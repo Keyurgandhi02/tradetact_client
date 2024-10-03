@@ -29,11 +29,11 @@ export default function Header() {
         location.pathname === "/create_watchlist" ||
         location.pathname === "/edit_watchlist",
     },
-    {
-      name: "Risk Management",
-      href: "/create_risk_management",
-      current: location.pathname === "/create_risk_management",
-    },
+    // {
+    //   name: "Risk Management",
+    //   href: "/create_risk_management",
+    //   current: location.pathname === "/create_risk_management",
+    // },
     {
       name: "Returns",
       href: "/all_return_performance",
@@ -79,7 +79,7 @@ export default function Header() {
                 <img
                   alt="TradeTact"
                   src="https://firebasestorage.googleapis.com/v0/b/smk24-6f0bf.appspot.com/o/Group%2026.png?alt=media&token=65626bef-8bff-49ba-bf7a-58f597935c41"
-                  className="h-9 w-auto"
+                  className="h-8 w-auto"
                 />
               </Link>
             </div>

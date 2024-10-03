@@ -69,8 +69,8 @@ function MarketPage() {
 
   return (
     <>
-      <div className="p-3 grid grid-cols-1 gap-4 md:grid-cols-12 lg:grid-cols-12 2xl:gap-7.5">
-        <div className="col-span-12 md:col-span-12 lg:col-span-12 rounded-md border border-secondary px-4 py-5  shadow-default sm:px-7.5 flex flex-col">
+      <div className="mt-5 px-3 grid grid-cols-1 gap-4 md:grid-cols-12 lg:grid-cols-12 2xl:gap-7.5">
+        <div className="col-span-12 md:col-span-12 lg:col-span-12 rounded-sm bg-black-dark-400 px-4 py-5  shadow-default sm:px-7.5 flex flex-col">
           <CardTitle title="Economic Calendar" />
           <EconomicCalendar
             colorTheme="dark"
@@ -81,8 +81,8 @@ function MarketPage() {
           ></EconomicCalendar>
         </div>
       </div>
-      <div className="p-3 grid grid-cols-1 gap-4 md:grid-cols-12 lg:grid-cols-12 2xl:gap-7.5">
-        <div className="col-span-12 md:col-span-12 lg:col-span-12 rounded-md border border-secondary px-4 py-5  shadow-default sm:px-7.5 flex flex-col">
+      <div className="mt-5 px-3 grid grid-cols-1 gap-4 md:grid-cols-12 lg:grid-cols-12 2xl:gap-7.5">
+        <div className="col-span-12 md:col-span-12 lg:col-span-12 rounded-sm bg-black-dark-400 px-4 py-5  shadow-default sm:px-7.5 flex flex-col">
           <CardTitle title="GDP Growth Annually" />
           <StatesData
             highlightCardData={isGDPData[0]?.growth_rate_annual}
@@ -91,15 +91,15 @@ function MarketPage() {
         </div>
       </div>
 
-      <div className="p-3 grid grid-cols-1 gap-4 md:grid-cols-12 lg:grid-cols-12 2xl:gap-7.5">
-        <div className="col-span-12 md:col-span-12 lg:col-span-12 rounded-md border border-secondary px-4 py-5  shadow-default sm:px-7.5 flex flex-col">
+      <div className="mt-5 px-3 grid grid-cols-1 gap-4 md:grid-cols-12 lg:grid-cols-12 2xl:gap-7.5">
+        <div className="col-span-12 md:col-span-12 lg:col-span-12 rounded-sm bg-black-dark-400 px-4 py-5  shadow-default sm:px-7.5 flex flex-col">
           <CardTitle title="GDP Growth" />
           <StatesData highlightCardData={isGDPData[0]?.growth_rate} unit="%" />
         </div>
       </div>
 
-      <div className="p-3 grid grid-cols-1 gap-4 md:grid-cols-12 lg:grid-cols-12 2xl:gap-7.5">
-        <div className="col-span-12 md:col-span-12 lg:col-span-12 rounded-md border border-secondary px-4 py-5  shadow-default sm:px-7.5 flex flex-col">
+      <div className="mt-5 px-3 grid grid-cols-1 gap-4 md:grid-cols-12 lg:grid-cols-12 2xl:gap-7.5">
+        <div className="col-span-12 md:col-span-12 lg:col-span-12 rounded-sm bg-black-dark-400 px-4 py-5  shadow-default sm:px-7.5 flex flex-col">
           <CardTitle title="Unemployment" />
           <StatesData
             highlightCardData={isLabourData[0]?.unemp_data}
@@ -108,8 +108,8 @@ function MarketPage() {
         </div>
       </div>
 
-      <div className="p-3 grid grid-cols-1 gap-4 md:grid-cols-12 lg:grid-cols-12 2xl:gap-7.5">
-        <div className="col-span-12 md:col-span-12 lg:col-span-12 rounded-md border border-secondary px-4 py-5  shadow-default sm:px-7.5 flex flex-col">
+      <div className="mt-5 px-3 grid grid-cols-1 gap-4 md:grid-cols-12 lg:grid-cols-12 2xl:gap-7.5">
+        <div className="col-span-12 md:col-span-12 lg:col-span-12 rounded-sm bg-black-dark-400 px-4 py-5  shadow-default sm:px-7.5 flex flex-col">
           <CardTitle title="Interest Rate" />
           <StatesData
             highlightCardData={isMoneyData[0]?.interest_rate_data}
@@ -117,8 +117,8 @@ function MarketPage() {
           />
         </div>
       </div>
-      <div className="p-3 grid grid-cols-1 gap-4 md:grid-cols-12 lg:grid-cols-12 2xl:gap-7.5">
-        <div className="col-span-12 md:col-span-12 lg:col-span-12 rounded-md border border-secondary px-4 py-5  shadow-default sm:px-7.5 flex flex-col">
+      <div className="mt-5 px-3 grid grid-cols-1 gap-4 md:grid-cols-12 lg:grid-cols-12 2xl:gap-7.5">
+        <div className="col-span-12 md:col-span-12 lg:col-span-12 rounded-sm bg-black-dark-400 px-4 py-5  shadow-default sm:px-7.5 flex flex-col">
           <CardTitle title="Consumer Price Index (CPI)" />
           <StatesData
             highlightCardData={isPricesData[0]?.cpi_data}
@@ -127,8 +127,8 @@ function MarketPage() {
         </div>
       </div>
 
-      <div className="p-3 grid grid-cols-1 gap-4 md:grid-cols-12 lg:grid-cols-12 2xl:gap-7.5">
-        <div className="col-span-12 md:col-span-12 lg:col-span-12 rounded-md border border-secondary px-4 py-5  shadow-default sm:px-7.5 flex flex-col">
+      <div className="mt-5 px-3 grid grid-cols-1 gap-4 md:grid-cols-12 lg:grid-cols-12 2xl:gap-7.5">
+        <div className="col-span-12 md:col-span-12 lg:col-span-12 rounded-sm bg-black-dark-400 px-4 py-5  shadow-default sm:px-7.5 flex flex-col">
           <CardTitle title="Inflation" />
           <StatesData
             highlightCardData={isPricesData[0]?.inflation_data}
@@ -137,8 +137,8 @@ function MarketPage() {
         </div>
       </div>
 
-      <div className="p-3 grid grid-cols-1 gap-4 md:grid-cols-12 lg:grid-cols-12 2xl:gap-7.5">
-        <div className="col-span-12 md:col-span-12 lg:col-span-12 rounded-md border border-secondary px-4 py-5  shadow-default sm:px-7.5 flex flex-col">
+      <div className="mt-5 px-3 grid grid-cols-1 gap-4 md:grid-cols-12 lg:grid-cols-12 2xl:gap-7.5">
+        <div className="col-span-12 md:col-span-12 lg:col-span-12 rounded-sm bg-black-dark-400 px-4 py-5  shadow-default sm:px-7.5 flex flex-col">
           <CardTitle title="Economic Summary" />
           <StatesDataSummary
             gdpData={isGDPData[0]?.growth_rate_annual}

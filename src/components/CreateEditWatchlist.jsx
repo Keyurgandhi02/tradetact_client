@@ -175,7 +175,7 @@ function CreateEditWatchlist() {
   return (
     <div className="md:mb-0 mb-12">
       {!isViewModal && (
-        <div className="flex flex-col gap-9 p-8">
+        <div className="flex flex-col gap-9 p-4 mt-5 mb-5">
           <PageHeading
             title={
               isEditMode
@@ -183,99 +183,105 @@ function CreateEditWatchlist() {
                 : WATCHLIST_PAGE_STRINGS?.addWatchlist
             }
           />
-          <div className="rounded-lg bg-black-dark-200 shadow-xl">
+          <div className="rounded-sm bg-black-dark-400">
             <form onSubmit={handleSubmit}>
               <div className="p-7">
-                <GlobalInput
-                  inputType="date"
-                  placeholder="Date"
-                  isValue={formData?.created_at}
-                  name="created_at"
-                  onChangeHandler={handleChange}
-                  errors={errors?.created_at}
-                />
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-2">
+                  <GlobalInput
+                    inputType="date"
+                    placeholder="Date"
+                    isValue={formData?.created_at}
+                    name="created_at"
+                    onChangeHandler={handleChange}
+                    errors={errors?.created_at}
+                  />
 
-                <GlobalInput
-                  inputType="text"
-                  placeholder="Script Name"
-                  isValue={formData?.scriptName}
-                  name="scriptName"
-                  onChangeHandler={handleChange}
-                  errors={errors?.scriptName}
-                />
+                  <GlobalInput
+                    inputType="text"
+                    placeholder="Script Name"
+                    isValue={formData?.scriptName}
+                    name="scriptName"
+                    onChangeHandler={handleChange}
+                    errors={errors?.scriptName}
+                  />
+                </div>
 
-                <GlobalInput
-                  inputType="number"
-                  placeholder="Stock Price"
-                  isValue={formData?.stockPrice}
-                  onChangeHandler={handleChange}
-                  name="stockPrice"
-                  errors={errors?.stockPrice}
-                />
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-2">
+                  <GlobalInput
+                    inputType="number"
+                    placeholder="Stock Price"
+                    isValue={formData?.stockPrice}
+                    onChangeHandler={handleChange}
+                    name="stockPrice"
+                    errors={errors?.stockPrice}
+                  />
 
-                <GlobalDropdown
-                  formData={formData?.strategyName}
-                  label="Select Strategy"
-                  errors={errors?.strategyName}
-                  children={
-                    <select
-                      className="relative z-2 w-full appearance-none rounded border text-whiten border-black-dark-300 bg-transparent px-5 py-3 outline-none transition focus:border-primary active:border-primary"
-                      onChange={(e) =>
-                        selectDropDownHandler("strategyName", e.target.value)
-                      }
-                      value={formData?.strategyName}
-                    >
-                      <option value="" disabled>
-                        Select Strategy
-                      </option>
-                      {options?.map((item) => (
-                        <option
-                          key={item.id}
-                          value={item.label}
-                          className="text-whiten"
-                        >
-                          {item.label}
+                  <GlobalDropdown
+                    formData={formData?.strategyName}
+                    label="Select Strategy"
+                    errors={errors?.strategyName}
+                    children={
+                      <select
+                        className="relative z-2 w-full appearance-none rounded border text-whiten border-black-dark-300 bg-transparent px-5 py-3 outline-none transition focus:border-primary active:border-primary"
+                        onChange={(e) =>
+                          selectDropDownHandler("strategyName", e.target.value)
+                        }
+                        value={formData?.strategyName}
+                      >
+                        <option value="" disabled>
+                          Select Strategy
                         </option>
-                      ))}
-                    </select>
-                  }
-                />
+                        {options?.map((item) => (
+                          <option
+                            key={item.id}
+                            value={item.label}
+                            className="text-whiten"
+                          >
+                            {item.label}
+                          </option>
+                        ))}
+                      </select>
+                    }
+                  />
 
-                <GlobalDropdown
-                  formData={formData?.status}
-                  label="Select Status"
-                  errors={errors?.status}
-                  children={
-                    <select
-                      className="relative z-2 w-full appearance-none rounded border text-whiten border-black-dark-300 bg-transparent px-5 py-3 outline-none transition focus:border-primary active:border-primary"
-                      onChange={(e) =>
-                        selectDropDownHandler("status", e.target.value)
-                      }
-                      value={formData?.status}
-                    >
-                      <option value="" disabled>
-                        Select Status
-                      </option>
-                      {isStatusOptions?.map((item) => (
-                        <option
-                          key={item.id}
-                          value={item.label}
-                          className="text-whiten"
-                        >
-                          {item.label}
+                  <GlobalDropdown
+                    formData={formData?.status}
+                    label="Select Status"
+                    errors={errors?.status}
+                    children={
+                      <select
+                        className="relative z-2 w-full appearance-none rounded border text-whiten border-black-dark-300 bg-transparent px-5 py-3 outline-none transition focus:border-primary active:border-primary"
+                        onChange={(e) =>
+                          selectDropDownHandler("status", e.target.value)
+                        }
+                        value={formData?.status}
+                      >
+                        <option value="" disabled>
+                          Select Status
                         </option>
-                      ))}
-                    </select>
-                  }
-                />
+                        {isStatusOptions?.map((item) => (
+                          <option
+                            key={item.id}
+                            value={item.label}
+                            className="text-whiten"
+                          >
+                            {item.label}
+                          </option>
+                        ))}
+                      </select>
+                    }
+                  />
+                </div>
 
-                <GlobalButton
-                  btnTitle={isEditMode ? "Update" : "Submit"}
-                  disabled={isDisable}
-                  type="submit"
-                  bgColor="bg-primary-500"
-                  textColor=""
-                />
+                <div className="grid grid-cols-1 md:grid-cols-1 gap-6 mt-5">
+                  <GlobalButton
+                    btnTitle={isEditMode ? "Update Stock" : "Add Stock"}
+                    disabled={isDisable}
+                    type="submit"
+                    bgColor="bg-primary"
+                    textColor=""
+                  />
+                </div>
               </div>
             </form>
           </div>

@@ -7,8 +7,6 @@ import NotFound404Page from "./pages/NotFound404Page";
 import MarketPage from "./pages/MarketPage";
 import ManageBrokerAccountsPage from "./pages/ManageBrokerAccountsPage";
 import CreateEditBrokerAccounts from "./components/CreateEditBrokerAccounts";
-import ManageDematAccountsPage from "./pages/ManageDematAccountsPage";
-import CreateEditDematAccounts from "./components/CreateEditDematAccounts";
 import ManageStrategyPage from "./pages/ManageStrategyPage";
 import CreateEditStrategy from "./components/CreateEditStrategy";
 
@@ -95,19 +93,6 @@ function App() {
               <Route
                 path="/edit_broker_accounts/:id"
                 element={<CreateEditBrokerAccounts />}
-              />
-
-              <Route
-                path="/all_demat_accounts"
-                element={<ManageDematAccountsPage />}
-              />
-              <Route
-                path="/create_demat_accounts"
-                element={<CreateEditDematAccounts />}
-              />
-              <Route
-                path="/edit_demat_accounts/:id"
-                element={<CreateEditDematAccounts />}
               />
 
               <Route

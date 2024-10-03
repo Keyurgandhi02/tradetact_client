@@ -12,7 +12,7 @@ function SearchBar({ searchValue, onChangeHandler }) {
         placeholder="Search...."
         value={searchValue}
         onChange={(e) => onChangeHandler(e.target.value)}
-        className="block py-3 pr-5 bg-transparent border-[1.5px] border-gray-500 focus:border-primary outline-none text-whiten flex-grow pl-11 rtl:pr-11 rtl:pl-5 rounded-md"
+        className="block py-3 pr-5 bg-transparent border-[1.5px] border-gray-500 focus:border-primary outline-none text-whiten flex-grow pl-11 rtl:pr-11 rtl:pl-5 rounded-sm"
       />
     </div>
   );

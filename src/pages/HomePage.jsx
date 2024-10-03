@@ -88,8 +88,8 @@ function HomePage() {
   }, [fetchData]);
 
   return (
-    <>
-      <div className="mt-3 p-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-4">
+    <div className="md:mb-0 mb-12">
+      <div className="mt-6.5 px-3 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-4">
         <div className="col-span-1">
           <Card
             icon={<GainSVG />}
@@ -138,24 +138,24 @@ function HomePage() {
         </div>
       </div>
 
-      <div className="p-3 grid grid-cols-1 gap-4 md:grid-cols-12 lg:grid-cols-12 2xl:gap-7.5">
-        <div className="col-span-8 md:col-span-8 lg:col-span-8 rounded-md border border-secondary px-4 py-5 shadow-default sm:px-7.5 flex flex-col">
+      <div className="mt-1 px-3 grid grid-cols-1 gap-2 md:grid-cols-12 lg:grid-cols-12 2xl:gap-4.5">
+        <div className="col-span-8 md:col-span-8 lg:col-span-8 rounded-sm bg-black-dark-400 px-3 py-5 shadow-default sm:px-5.5 flex flex-col">
           <CardTitle title="Market Updates" />
-          <div className="h-[300px] overflow-y-auto no-scrollbar">
+          <div className="h-[350px] overflow-y-auto no-scrollbar">
             <UpdateInfoCard />
           </div>
         </div>
 
-        <div className="col-span-8 md:col-span-4 lg:col-span-4 rounded-md border border-secondary px-4 py-5 shadow-default sm:px-7.5 flex flex-col">
+        <div className="col-span-8 md:col-span-4 lg:col-span-4 rounded-sm bg-black-dark-400 px-3 py-5 shadow-default sm:px-5.5 flex flex-col">
           <CardTitle title="Watchlist" />
-          <div className="h-[300px] overflow-y-auto no-scrollbar">
+          <div className="h-[350px] overflow-y-auto no-scrollbar">
             {watchListData.length > 0 ? (
               <ul className="flex flex-col">
                 {watchListData.map((item, i) => (
                   <li className="flex flex-row mb-2" key={i}>
-                    <div className="select-none cursor-pointer bg-black-dark-400 rounded-md flex flex-1 items-center p-4  transition duration-500 ease-in-out transform hover:-translate-y-1 hover:shadow-lg">
+                    <div className="select-none cursor-pointer bg-black-dark-100 rounded-sm flex flex-1 items-center p-4  transition duration-500 ease-in-out transform hover:-translate-y-1 hover:shadow-lg">
                       <div className="flex-1 pl-1 mr-16">
-                        <div className="font-bold text-primary-300">
+                        <div className="font-bold text-primary-200">
                           {item.scriptName}
                         </div>
                         <div className="text-gray-600 text-xs mt-1">
@@ -184,7 +184,7 @@ function HomePage() {
       </div>
 
       <AnalyticsPage />
-    </>
+    </div>
   );
 }
 

@@ -2,12 +2,12 @@ import React from "react";
 
 function Card({ icon, value, heading }) {
   return (
-    <div className="relative flex flex-col min-w-0 mb-6 break-words border border-secondary shadow-soft-xl rounded-md bg-clip-border">
+    <div className="relative flex flex-col min-w-0 mb-6 break-words bg-black-dark-400 shadow-soft-xl rounded-sm bg-clip-border">
       <div className="flex-auto p-5">
         <div className="flex flex-wrap -mx-3">
           <div className="flex-none max-w-full px-3 h-20 sm:h-22">
             <div className="mt-2">
-              <p className="mb-4 font-sans font-semibold leading-normal text-md text-gray-500">
+              <p className="mb-4 font-sans font-semibold leading-normal text-md text-whiten">
                 {heading}
               </p>
               <h5 className="mb-0 font-bold text-primary mt-1 text-xl">

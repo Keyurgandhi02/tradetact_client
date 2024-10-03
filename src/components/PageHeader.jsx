@@ -10,7 +10,7 @@ function PageHeader({
   secondSubData,
 }) {
   return (
-    <div className="sm:flex sm:items-center sm:justify-between px-6 py-8">
+    <div className="sm:flex sm:items-center sm:justify-between px-5 py-8">
       <div>
         <div className="flex items-center gap-x-3">
           <PageHeading title={pageTitle} isListPage={isListPage} />

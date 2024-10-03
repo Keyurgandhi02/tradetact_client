@@ -258,7 +258,7 @@ function CreateEditTradeJournal() {
   return (
     <div className="md:mb-0 mb-12">
       {!isViewModal && (
-        <div className="flex flex-col gap-9 p-6">
+        <div className="flex flex-col gap-9 p-4 mt-5 mb-5">
           <PageHeading
             title={
               isEditMode
@@ -266,7 +266,7 @@ function CreateEditTradeJournal() {
                 : TRADE_PAGE_STRINGS?.addTransactions
             }
           />
-          <div className="rounded-md bg-black-dark-400">
+          <div className="rounded-sm bg-black-dark-400">
             <form onSubmit={handleSubmit}>
               <div className="p-7">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-2">
@@ -410,11 +410,11 @@ function CreateEditTradeJournal() {
 
                   <GlobalInput
                     inputType="number"
-                    placeholder="Stop Loss Price"
-                    isValue={formData?.slPrice}
-                    errors={errors?.slPrice}
+                    placeholder="Exit Price"
+                    isValue={formData?.exitPrice}
+                    errors={errors?.exitPrice}
                     onChangeHandler={(name, value) => handleChange(name, value)}
-                    name="slPrice"
+                    name="exitPrice"
                   />
                 </div>
 
@@ -430,11 +430,11 @@ function CreateEditTradeJournal() {
 
                   <GlobalInput
                     inputType="number"
-                    placeholder="Exit Price"
-                    isValue={formData?.exitPrice}
-                    errors={errors?.exitPrice}
+                    placeholder="S/L Price"
+                    isValue={formData?.slPrice}
+                    errors={errors?.slPrice}
                     onChangeHandler={(name, value) => handleChange(name, value)}
-                    name="exitPrice"
+                    name="slPrice"
                   />
                 </div>
 
@@ -500,22 +500,26 @@ function CreateEditTradeJournal() {
                   />
                 </div>
 
-                <GlobalInput
-                  inputType="number"
-                  placeholder="Rating out of 5"
-                  isValue={formData?.rating}
-                  errors={errors?.rating}
-                  onChangeHandler={(name, value) => handleChange(name, value)}
-                  name="rating"
-                />
+                <div className="grid grid-cols-1 md:grid-cols-1 gap-6 mb-2">
+                  <GlobalInput
+                    inputType="number"
+                    placeholder="Rating out of 5"
+                    isValue={formData?.rating}
+                    errors={errors?.rating}
+                    onChangeHandler={(name, value) => handleChange(name, value)}
+                    name="rating"
+                  />
+                </div>
 
-                <GlobalButton
-                  btnTitle={isEditMode ? "Update Trade" : "Create New Trade"}
-                  disabled={isDisable}
-                  type="submit"
-                  onButtonClickHandler={handleSubmit}
-                  bgColor="bg-primary"
-                />
+                <div className="grid grid-cols-1 md:grid-cols-1 gap-6 mt-5">
+                  <GlobalButton
+                    btnTitle={isEditMode ? "Update Trade" : "Create New Trade"}
+                    disabled={isDisable}
+                    type="submit"
+                    onButtonClickHandler={handleSubmit}
+                    bgColor="bg-primary"
+                  />
+                </div>
               </div>
             </form>
           </div>

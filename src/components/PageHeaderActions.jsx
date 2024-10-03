@@ -5,7 +5,7 @@ import SearchBar from "./SearchBar";
 
 function PageHeaderActions({ onChangeHandler, downloadHandler, searchValue }) {
   return (
-    <div className="md:flex md:items-center md:justify-between px-6">
+    <div className="md:flex md:items-center md:justify-between px-5">
       <div className="md:w-100 w-auto py-1 items-center ">
         <SearchBar
           onChangeHandler={onChangeHandler}
