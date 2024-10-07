@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import toast, { Toaster } from "react-hot-toast";
+import { toast } from "react-toastify";
 import { useNavigate, useParams } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
 import { useLoading } from "../../context/LoadingContext";
@@ -252,7 +252,7 @@ function CreateEditReturnPerformance() {
                   btnTitle={isEditMode ? "Update Returns" : "Add Returns"}
                   disabled={isDisable}
                   type="submit"
-                  bgColor="bg-primary"
+                  bgColor="bg-main_color"
                   textColor=""
                 />
               </div>
@@ -260,7 +260,7 @@ function CreateEditReturnPerformance() {
           </form>
         </div>
       )}
-      <Toaster position="top-right" reverseOrder={true} />
+
 
       {isViewModal && (
         <GloablInfo

@@ -10,7 +10,7 @@ import {
   sendPasswordResetEmail,
 } from "firebase/auth";
 import db from "../utils/firebase-config";
-import toast from "react-hot-toast";
+import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import { FIREBASE_ENDPOINTS } from "../constants/apiConstants";
 import {
@@ -21,6 +21,7 @@ import {
   SIGN_UP_ERRORS,
   SIGN_UP_SUCCESS,
 } from "../constants/Strings";
+
 
 export function useAuth() {
   return useContext(AuthContext);
@@ -33,6 +34,8 @@ export function AuthProvider({ children }) {
   const navigate = useNavigate();
   const [currentUser, setCurrentUser] = useState();
   const [loading, setLoading] = useState(true);
+
+
 
   // Register Handler
   const signUp = async (name, email, password, mobile) => {
@@ -124,7 +127,12 @@ export function AuthProvider({ children }) {
   const logout = async () => {
     try {
       await signOut(auth);
-      toast.success(LOGOUT_SUCCESS);
+
+      toast.success(LOGOUT_SUCCESS, {
+        position: "top-center",
+      });
+
+      // toast.success(LOGOUT_SUCCESS);
     } catch (error) {
       toast.error(LOGOUT_ERROR);
     }

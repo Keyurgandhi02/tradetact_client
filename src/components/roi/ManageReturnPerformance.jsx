@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback } from "react";
-import toast, { Toaster } from "react-hot-toast";
+import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import { useLoading } from "../../context/LoadingContext";
 import { useAuth } from "../../context/AuthContext";
@@ -204,7 +204,7 @@ function ManageReturnPerformance() {
               </div>
             ))}
           </div>
-          <Toaster position="top-right" reverseOrder={true} />
+        
         </>
       ) : (
         <NoRecordFound

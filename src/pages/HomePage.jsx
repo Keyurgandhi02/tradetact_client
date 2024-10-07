@@ -1,51 +1,15 @@
-import React, { useCallback, useEffect, useMemo, useState } from "react";
+import React, { useContext, useMemo } from "react";
 import Card from "../components/Card";
-import { getFirebaseData } from "../config/firestoreOperations";
 import { formatNumber } from "../config/helper";
-import { FIREBASE_ENDPOINTS } from "../constants/apiConstants";
-import { useAuth } from "../context/AuthContext";
 import CardTitle from "../components/CardTitle";
-import { useLoading } from "../context/LoadingContext";
 import UpdateInfoCard from "../components/UpdateInfoCard";
 import { AnalyticsPage } from "./index";
 import NoRecordFound from "../components/NoRecordFound";
 import { useNavigate } from "react-router-dom";
-import FloatingActionButton from "../components/FloatingActionButton";
+import { DashboardContext } from "../context/DashboardContext";
 function HomePage() {
   const navigate = useNavigate();
-
-  const { currentUser } = useAuth();
-  const { startLoading, stopLoading } = useLoading();
-  const [fetchedData, setFetchedData] = useState([]);
-  const [watchListData, setWatchListData] = useState([]);
-
-  // Fetch Trade Data
-  const fetchData = useCallback(async () => {
-    const fetchedTradeJournal = await getFirebaseData(
-      FIREBASE_ENDPOINTS.MASTER_DATA,
-      currentUser.uid,
-      FIREBASE_ENDPOINTS.USER_TRADE_JOURNAL,
-      startLoading,
-      stopLoading,
-      "desc",
-      "buyDate"
-    );
-
-    const fetchedWatchList = await getFirebaseData(
-      FIREBASE_ENDPOINTS.MASTER_DATA,
-      currentUser.uid,
-      FIREBASE_ENDPOINTS.USER_WATCHLIST,
-      startLoading,
-      stopLoading,
-      "desc",
-      "doc_created_At"
-    );
-
-    setFetchedData(fetchedTradeJournal);
-    setWatchListData(fetchedWatchList);
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [currentUser.uid]);
+  const { journalData, watchListData } = useContext(DashboardContext);
 
   // Compute Trade Data
   const computedData = useMemo(() => {
@@ -54,7 +18,7 @@ function HomePage() {
     let positiveCount = 0;
     let negativeCount = 0;
 
-    fetchedData.forEach((item) => {
+    journalData.forEach((item) => {
       const price = parseFloat(item?.profitLossPrice);
       if (!isNaN(price)) {
         if (price > 0) {
@@ -74,11 +38,7 @@ function HomePage() {
       positiveCount,
       negativeCount,
     };
-  }, [fetchedData]);
-
-  useEffect(() => {
-    fetchData();
-  }, [fetchData]);
+  }, [journalData]);
 
   return (
     <div className="md:mb-0 mb-12">
@@ -90,7 +50,7 @@ function HomePage() {
           <Card heading="Lossing Trades" value={computedData.negativeCount} />
         </div>
         <div className="col-span-1">
-          <Card heading="Total Trades" value={fetchedData.length} />
+          <Card heading="Total Trades" value={journalData.length} />
         </div>
 
         <div className="col-span-1">
@@ -157,7 +117,7 @@ function HomePage() {
             )}
           </div>
         </div>
-        <FloatingActionButton />
+   
       </div>
       <AnalyticsPage />
     </div>

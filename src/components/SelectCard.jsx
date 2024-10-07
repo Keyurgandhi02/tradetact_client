@@ -6,10 +6,8 @@ function SelectCard({ item, handleSelect, isSelected }) {
       key={item.id}
       className={` 
       cursor-pointer
-       rounded-sm h-40 relative group items-center flex flex-col max-w-sm transition-all duration-500 border ${
-         isSelected
-           ? "border-secondary bg-black-dark-200"
-           : "bg-black-dark-100 border-none"
+       rounded-sm h-40 relative group items-center flex flex-col max-w-sm transition-all duration-500 border-[3px] ${
+         isSelected ? "border-main_color" : "border-gray-400 dark:border-white"
        } `}
       onClick={() => handleSelect(item)}
     >
@@ -20,7 +18,7 @@ function SelectCard({ item, handleSelect, isSelected }) {
       />
 
       <div className="group-hover:pb-10 transition-all duration-500 delay-200 mt-6">
-        <h1 className="font-bold text-primary-200 text-md">{item?.label}</h1>
+        <h1 className="font-bold text-main_color text-md">{item?.label}</h1>
       </div>
     </div>
   );

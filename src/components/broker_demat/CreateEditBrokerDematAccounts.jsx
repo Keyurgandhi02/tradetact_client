@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "../../index.css";
 import { useNavigate, useParams } from "react-router-dom";
-import { toast, Toaster } from "react-hot-toast";
+import { toast } from "react-toastify";
 import GlobalInput from "../GlobalInput";
 import { FIREBASE_ENDPOINTS } from "../../constants/apiConstants";
 import FloatButton from "../FloatButton";
@@ -175,7 +175,7 @@ function CreateEditBrokerDematAccounts() {
     const newTempItem = {
       id: labelToKey(formData?.label),
       label: formData?.label,
-      icon: "https://firebasestorage.googleapis.com/v0/b/smk24-6f0bf.appspot.com/o/favicon.svg?alt=media&token=20b1ffc5-b21f-43d3-a65f-3a748c800847",
+      icon: "https://firebasestorage.googleapis.com/v0/b/smk24-6f0bf.appspot.com/o/logo192.svg?alt=media&token=d3737a5d-a8d8-4d8e-a49e-55c2810edc79",
     };
 
     const existingData = await getFirebaseData(
@@ -275,47 +275,62 @@ function CreateEditBrokerDematAccounts() {
   return (
     <>
       <div className="md:mb-0 mb-12">
-        <div className="flex flex-col gap-9 p-4 mt-5 mb-5">
+        <div className="flex flex-col gap-9 p-3 mt-5 mb-5">
           <PageHeading
             title="Create Broker & Demat Account"
             isListPage={false}
           />
 
           {!isEditMode && (
-            <AlertCard
-              bgColor="bg-black-dark-400"
-              borderColor="border-primary-200"
-              textColor="text-whiten"
-              heading="  If you use a broker that is not listed here, you may be able to
+            <div className="px-3">
+              <AlertCard
+                bgColor="bg-transparent dark:bg-black-dark-400"
+                borderColor="border-main_color"
+                textColor="text-secondary"
+                heading="  If you use a broker that is not listed here, you may be able to
               create your own Broker by clicking"
-              action={
-                <span
-                  className="text-primary cursor-pointer"
-                  onClick={() => setViewModal(true)}
-                >
-                  Create Broker!
-                </span>
-              }
-            />
+                action={
+                  <span
+                    className="text-secondary cursor-pointer underline"
+                    onClick={() => setViewModal(true)}
+                  >
+                    Create Broker!
+                  </span>
+                }
+              />
+            </div>
           )}
 
-          <div className="rounded-sm bg-black-dark-400">
-            <div className="p-7">
-              <form onSubmit={(e) => e.preventDefault()}>
-                <GlobalInput
-                  inputType="text"
-                  placeholder="Demat User Name"
-                  isValue={formData?.dematUser}
-                  name="dematUser"
-                  onChangeHandler={handleChange}
+          <div className="p-5">
+            <form onSubmit={(e) => e.preventDefault()}>
+              <GlobalInput
+                inputType="text"
+                placeholder="Demat User Name"
+                isValue={formData?.dematUser}
+                name="dematUser"
+                onChangeHandler={handleChange}
+              />
+            </form>
+            <p className="text-gray-500 font-semibold text-sm my-6 mx-1">
+              Note: Please choose all brokers that are related to the
+              above-mentioned Demat User Name
+            </p>
+            <div className="grid gap-4 grid-cols-1 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-8">
+              {cards.map((item) => (
+                <SelectCard
+                  key={item.id}
+                  item={item}
+                  handleSelect={handleSelect}
+                  isSelected={selectedItems.some(
+                    (selectedItem) => selectedItem.id === item.id
+                  )}
                 />
-              </form>
-              <p className="text-gray-500 font-semibold text-sm my-6 mx-1">
-                Note: Please choose all brokers that are related to the
-                above-mentioned Demat User Name
-              </p>
-              <div className="grid gap-4 grid-cols-1 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-8">
-                {cards.map((item) => (
+              ))}
+            </div>
+
+            {selectedTempItems.length > 0 && (
+              <div className="grid gap-4 grid-cols-1 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-8 mt-4">
+                {selectedTempItems.map((item) => (
                   <SelectCard
                     key={item.id}
                     item={item}
@@ -326,32 +341,17 @@ function CreateEditBrokerDematAccounts() {
                   />
                 ))}
               </div>
-
-              {selectedTempItems.length > 0 && (
-                <div className="grid gap-4 grid-cols-1 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-8 mt-4">
-                  {selectedTempItems.map((item) => (
-                    <SelectCard
-                      key={item.id}
-                      item={item}
-                      handleSelect={handleSelect}
-                      isSelected={selectedItems.some(
-                        (selectedItem) => selectedItem.id === item.id
-                      )}
-                    />
-                  ))}
-                </div>
-              )}
-            </div>
+            )}
           </div>
 
           {selectedItems.length > 0 && formData.dematUser && (
-            <div className="fixed bottom-4 left-1/2 transform -translate-x-1/2">
-              <button
-                onClick={handleSubmit}
-                className="bg-primary hover:bg-primary-200 text-black-dark-200 font-bold py-4 px-6 rounded-md shadow-lg w-[180px]"
-              >
-                Submit
-              </button>
+            <div className="fixed bottom-4 left-1/2 transform -translate-x-1/2 w-[200px]">
+              <GlobalButton
+                btnTitle="Submit"
+                onButtonClickHandler={handleSubmit}
+                bgColor="bg-main_color"
+                type="button"
+              />
             </div>
           )}
 
@@ -359,7 +359,7 @@ function CreateEditBrokerDematAccounts() {
             isOpen={isViewModal}
             onClose={() => setViewModal(false)}
             children={
-              <div className="p-7">
+              <div className="p-10">
                 <form>
                   <GlobalInput
                     inputType="text"
@@ -371,15 +371,13 @@ function CreateEditBrokerDematAccounts() {
                   <GlobalButton
                     btnTitle="Submit"
                     onButtonClickHandler={handleTempSelect}
-                    bgColor="bg-primary-500"
+                    bgColor="bg-main_color"
                     type="button"
                   />
                 </form>
               </div>
             }
           />
-
-          <Toaster position="top-right" reverseOrder={true} />
         </div>
         <FloatButton
           onClickHandler={onFloatBtnClickHandler}

@@ -20,7 +20,7 @@ export default function ModalDialog({ isOpen, onClose, children }) {
           leaveFrom="opacity-100"
           leaveTo="opacity-0"
         >
-          <div className="fixed inset-0 bg-black-dark-100 bg-opacity-75 transition-opacity" />
+          <div className="fixed inset-0 bg-black-dark-300 dark:bg-black-dark-500 dark:bg-opacity-85 bg-opacity-75 transition-opacity" />
         </TransitionChild>
 
         <div className="fixed inset-0 z-10 overflow-y-auto">
@@ -34,14 +34,14 @@ export default function ModalDialog({ isOpen, onClose, children }) {
               leaveFrom="opacity-100 translate-y-0 sm:scale-100"
               leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
             >
-              <DialogPanel className="relative transform overflow-hidden rounded-lg bg-black-dark-200 text-left shadow-2xl transition-all sm:my-8 sm:w-full sm:max-w-lg">
-                <button
+              <DialogPanel className="relative transform overflow-hidden rounded-sm bg-whiter dark:bg-black-dark-200 text-left shadow-2xl transition-all sm:my-8 sm:w-full sm:max-w-lg">
+                <span
                   type="button"
                   onClick={onClose}
-                  className="mt-3 flex px-5 py-2 text-whiten cursor-pointer hover:text-red-300 float-right"
+                  className="cursor-pointer mt-3 flex px-5 py-2 dark:text-whiten text-black-dark-400  hover:text-main_red_color dark:hover:text-main_red_color float-right"
                 >
                   <CLOSE_SVG />
-                </button>
+                </span>
                 {children}
               </DialogPanel>
             </TransitionChild>

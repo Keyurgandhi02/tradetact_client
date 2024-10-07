@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { toast, Toaster } from "react-hot-toast";
+import { toast } from "react-toastify";
 import GlobalInput from "../GlobalInput";
 import { FIREBASE_ENDPOINTS } from "../../constants/apiConstants";
 import FloatButton from "../FloatButton";
@@ -515,7 +515,7 @@ function CreateEditTradeJournal() {
                   disabled={isDisable}
                   type="submit"
                   onButtonClickHandler={handleSubmit}
-                  bgColor="bg-primary"
+                  bgColor="bg-main_color"
                 />
               </div>
             </div>
@@ -543,7 +543,7 @@ function CreateEditTradeJournal() {
         />
       )}
 
-      <Toaster position="top-right" reverseOrder={true} />
+  
       <FloatButton
         onClickHandler={onFloatBtnClickHandler}
         icon={<LIST_FLOAT_SVG />}

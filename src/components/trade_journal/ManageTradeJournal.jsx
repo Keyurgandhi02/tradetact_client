@@ -5,7 +5,7 @@ import {
   GENERAL_DELETE_ERROR,
   GENERAL_FETCH_ERROR,
 } from "../../constants/Strings";
-import toast, { Toaster } from "react-hot-toast";
+import { toast } from "react-toastify";
 import { useAuth } from "../../context/AuthContext";
 import NoRecordFound from "../NoRecordFound";
 import {
@@ -191,7 +191,7 @@ function ManageTradeJournal() {
               />
             ))}
           </div>
-          <Toaster position="top-right" reverseOrder={true} />
+      
         </>
       ) : (
         <NoRecordFound

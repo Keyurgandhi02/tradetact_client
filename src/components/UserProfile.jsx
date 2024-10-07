@@ -4,11 +4,12 @@ import { APP_USER_AVATAR } from "../assets/svgIcons";
 
 function UserProfile({
   userData,
+  currentUser,
   fetchedJournalData,
   fetchedBroker,
   fetchedStrategy,
 }) {
-  const formattedDate = formatTimestamp(userData?.metadata?.createdAt);
+  const formattedDate = formatTimestamp(currentUser?.metadata?.createdAt);
 
   return (
     <section className="p-5 ">
@@ -35,14 +36,18 @@ function UserProfile({
             </div>
             <div class="text-center mt-12">
               <h3 class="text-2xl font-semibold leading-normal text-black-dark-400 dark:text-whiten mb-2">
-                {userData?.displayName}
+                {currentUser?.displayName}
               </h3>
               <div class="text-sm leading-normal mt-0 mb-2 text-black-dark-400 dark:text-whiten font-bold">
                 <i class="fas fa-map-marker-alt mr-2 text-xl text-black-dark-400 dark:text-whiten"></i>
-                {userData?.email} -
+                {currentUser?.email} -
                 <span className="text-md ml-1 text-sky-500">
-                  {userData?.emailVerified && "(Verified)"}
+                  {currentUser?.emailVerified && "(Verified)"}
                 </span>
+              </div>
+              <div class="text-sm leading-normal mt-0 mb-2 text-black-dark-400 dark:text-whiten font-bold">
+                <i class="fas fa-map-marker-alt mr-2 text-xl text-black-dark-400 dark:text-whiten"></i>
+                {userData?.mobile}
               </div>
             </div>
             <div className="border-b dark:border-black-dark-300 border-gray-500 my-10"></div>

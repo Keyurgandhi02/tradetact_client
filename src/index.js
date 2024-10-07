@@ -9,6 +9,9 @@ import { Offline, Online } from "react-detect-offline";
 import NoInternetConnection from "./components/NoInternetConnection";
 import "./index.css";
 import { ThemeProvider } from "./context/ThemeContext";
+import { DashboardProvider } from "./context/DashboardContext";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 
@@ -17,12 +20,28 @@ root.render(
     <ThemeProvider>
       <Online>
         <BrowserRouter>
+          <ToastContainer
+           position="bottom-right"
+            autoClose={4000}
+            hideProgressBar={false}
+            newestOnTop={true}
+            closeOnClick
+            rtl={false}
+            pauseOnFocusLoss
+            draggable
+            pauseOnHover
+            theme="light"
+          />
+
           <LoadingProvider>
             <AuthProvider>
-              <Loading />
-              <App />
+              <DashboardProvider>
+                <Loading />
+                <App />
+              </DashboardProvider>
             </AuthProvider>
           </LoadingProvider>
+          <ToastContainer />
         </BrowserRouter>
       </Online>
       <Offline>

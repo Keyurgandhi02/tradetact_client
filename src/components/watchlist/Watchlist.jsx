@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useCallback } from "react";
-import toast, { Toaster } from "react-hot-toast";
+import { toast } from "react-toastify";
 import {
   filterData,
   formatDateToDDMMYY,
@@ -181,7 +181,7 @@ function Watchlist() {
               </div>
             ))}
           </div>
-          <Toaster position="top-right" reverseOrder={true} />
+      
         </>
       ) : (
         <NoRecordFound

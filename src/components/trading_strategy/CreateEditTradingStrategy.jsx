@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import GlobalInput from "../GlobalInput";
 import "../../index.css";
-import { toast, Toaster } from "react-hot-toast";
+import { toast } from "react-toastify";
 import { FIREBASE_ENDPOINTS } from "../../constants/apiConstants";
 import FloatButton from "../FloatButton";
 import { LIST_FLOAT_SVG } from "../../assets/svgIcons";
@@ -129,33 +129,32 @@ function CreateEditTradingStrategy() {
           }
         />
 
-        <div className="rounded-sm bg-black-dark-400">
-          <form onSubmit={handleSubmit}>
-            <div className="p-7">
-              <div className="grid grid-cols-1 md:grid-cols-1 gap-6 mb-2">
-                <GlobalInput
-                  inputType="text"
-                  placeholder="Strategy"
-                  isValue={formData?.label}
-                  name="label"
-                  errors={errors?.label}
-                  onChangeHandler={(name, value) => handleChange(name, value)}
-                />
-              </div>
-              <div className="grid grid-cols-1 md:grid-cols-1 gap-6 mt-5">
-                <GlobalButton
-                  btnTitle={isEditMode ? "Update Strategy" : "Add Strategy"}
-                  disabled={false}
-                  type="submit"
-                  onButtonClickHandler={handleSubmit}
-                  bgColor="bg-primary"
-                />
-              </div>
+        <form onSubmit={handleSubmit}>
+          <div className="p-5">
+            <div className="grid grid-cols-1 md:grid-cols-1 gap-6 mb-2">
+              <GlobalInput
+                inputType="text"
+                placeholder="Strategy"
+                isValue={formData?.label}
+                name="label"
+                errors={errors?.label}
+                onChangeHandler={(name, value) => handleChange(name, value)}
+              />
             </div>
-          </form>
-        </div>
+            <div className="grid grid-cols-1 md:grid-cols-1 gap-6 mt-5">
+              <GlobalButton
+                btnTitle={isEditMode ? "Update Strategy" : "Add Strategy"}
+                disabled={false}
+                type="submit"
+                onButtonClickHandler={handleSubmit}
+                bgColor="bg-main_color"
+              />
+            </div>
+          </div>
+        </form>
       </div>
-      <Toaster position="top-right" reverseOrder={true} />
+
+    
       <FloatButton
         onClickHandler={onFloatBtnClickHandler}
         icon={<LIST_FLOAT_SVG />}

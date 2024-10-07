@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import toast, { Toaster } from "react-hot-toast";
+import { toast } from "react-toastify";
 import { Link, useNavigate } from "react-router-dom";
 import GlobalButton from "../components/GlobalButton";
 import GlobalInput from "../components/GlobalInput";
@@ -7,6 +7,7 @@ import { resetPasswordValidationRules } from "../config/validations";
 import { validateAllFields } from "../config/validationUtils";
 import { GENERAL_FORM_VALIDATIONS_ERROR } from "../constants/Strings";
 import { useAuth } from "../context/AuthContext";
+import { APP_LOGO } from "../assets/svgIcons";
 
 const initialState = {
   email: "",
@@ -42,8 +43,6 @@ function ResetPasswordPage() {
       return;
     }
 
-    console.log("formData", formData);
-
     try {
       await resetPassword(formData?.email);
       alert(`Check Your ${formData?.email} Inbox for Further Instructions`);
@@ -56,12 +55,8 @@ function ResetPasswordPage() {
   return (
     <div className="flex min-h-screen flex-1 flex-col justify-center px-6 py-12 lg:px-8">
       <div className="sm:mx-auto sm:w-full sm:max-w-sm">
-        <img
-          alt="Trade Tact"
-          className="mx-auto h-20 w-auto"
-          src="https://firebasestorage.googleapis.com/v0/b/smk24-6f0bf.appspot.com/o/Group%2026.png?alt=media&token=65626bef-8bff-49ba-bf7a-58f597935c41"
-        />
-        <h2 className="mt-10 text-center text-xl font-bold leading-9 tracking-tight text-primary">
+        <img alt="TradeTact" className="mx-auto h-20 w-auto" src={APP_LOGO} />
+        <h2 className="mt-10 text-center text-xl font-bold leading-9 tracking-tight text-main_color">
           Reset Password
         </h2>
       </div>
@@ -81,16 +76,18 @@ function ResetPasswordPage() {
               btnTitle="Submit"
               disabled={false}
               type="submit"
-              bgColor="bg-primary-500"
+              bgColor="bg-main_color"
               onButtonClickHandler={handleSubmit}
             />
           </div>
         </form>
-        <Link to="/" className="text-whiten text-md flex justify-center mt-5">
+        <Link
+          to="/"
+          className="dark:text-whiten text-black-dark-400 text-md flex justify-center mt-5"
+        >
           Go Back to home
         </Link>
       </div>
-      <Toaster position="top-right" reverseOrder={true} />
     </div>
   );
 }

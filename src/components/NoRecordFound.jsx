@@ -17,14 +17,14 @@ function NoRecordFound({
       <img
         className={` ${
           isSmallSize ? "w-24 h-24" : "w-55 h-55"
-        } mx-auto text-gray`}
-        src="https://firebasestorage.googleapis.com/v0/b/smk24-6f0bf.appspot.com/o/undraw_void_-3-ggu.svg?alt=media&token=bb2f9e79-e856-4e55-86e7-0c4e58cf80db"
+        } mx-auto dark:text-gray text-black-dark-300`}
+        src="https://firebasestorage.googleapis.com/v0/b/smk24-6f0bf.appspot.com/o/undraw_no_data_re_kwbl.svg?alt=media&token=015945c1-3372-4968-9ffe-941a3cb5b37b"
         alt="No Record Found"
-      ></img>
+      />
       <h3
         className={`font-medium mt-10 p-3 ${
           isSmallSize ? "text-lg text-center" : "text-lg text-center"
-        } text-primary-300`}
+        } text-black-dark-400 dark:text-whiten`}
       >
         {heading}
       </h3>

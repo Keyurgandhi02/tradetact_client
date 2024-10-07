@@ -3,13 +3,13 @@ import React from "react";
 function AlertCard({ bgColor, borderColor, textColor, heading, action }) {
   return (
     <div
-      className={`${bgColor} border-t-4 ${borderColor}  rounded-sm ${textColor} px-4 py-3 shadow-md`}
+      className={`${bgColor} border-t-4 ${borderColor}  rounded-sm ${textColor} px-4 py-2 shadow-md`}
       role="alert"
     >
       <div className="flex">
         <div className="py-1">
           <svg
-            className={`fill-current h-6 w-6 ${textColor} mr-4`}
+            className={`fill-current h-4 w-4 ${textColor} mr-4`}
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 20 20"
           >
@@ -17,7 +17,7 @@ function AlertCard({ bgColor, borderColor, textColor, heading, action }) {
           </svg>
         </div>
         <div>
-          <p className="font-bold mt-1">
+          <p className="font-semibold">
             {heading} {action}
           </p>
         </div>

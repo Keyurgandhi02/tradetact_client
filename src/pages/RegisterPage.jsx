@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import toast, { Toaster } from "react-hot-toast";
+import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import GlobalButton from "../components/GlobalButton";
 import GlobalInput from "../components/GlobalInput";
@@ -10,6 +10,7 @@ import {
 import { validateAllFields } from "../config/validationUtils";
 import { GENERAL_FORM_VALIDATIONS_ERROR } from "../constants/Strings";
 import { useAuth } from "../context/AuthContext";
+import { APP_LOGO } from "../assets/svgIcons";
 
 const initialState = {
   email: "",
@@ -19,12 +20,11 @@ const initialState = {
 };
 
 function RegisterPage() {
-  const { login, signUp } = useAuth();
   const navigate = useNavigate();
+  const { login, signUp } = useAuth();
   const [isLogin, setIsLogin] = useState(true);
   const [formData, setFormData] = useState(initialState);
   const [errors, setErrors] = useState({});
-
   const switchAuthModeHandler = () => {
     setIsLogin((prevState) => !prevState);
   };
@@ -74,93 +74,104 @@ function RegisterPage() {
   };
 
   return (
-    <div className="flex min-h-screen flex-1 flex-col justify-center px-6 py-12 lg:px-8">
-      <div className="sm:mx-auto sm:w-full sm:max-w-sm">
-        <img
-          alt="Trade Tact"
-          className="mx-auto h-20 w-auto"
-          src="https://firebasestorage.googleapis.com/v0/b/smk24-6f0bf.appspot.com/o/Group%2026.png?alt=media&token=65626bef-8bff-49ba-bf7a-58f597935c41"
-        />
-        <h2 className="mt-10 text-center text-xl font-bold leading-9 tracking-tight text-primary-300">
-          {isLogin ? "Login to your account" : "Register your account"}
-        </h2>
-      </div>
-      <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-        <form onSubmit={handleSubmit}>
-          {!isLogin && (
-            <GlobalInput
-              inputType="name"
-              placeholder="Name"
-              isValue={formData?.name}
-              name="name"
-              errors={errors?.name}
-              onChangeHandler={handleChange}
-            />
-          )}
-
-          <GlobalInput
-            inputType="email"
-            placeholder="Email"
-            isValue={formData?.email}
-            name="email"
-            errors={errors?.email}
-            onChangeHandler={handleChange}
-          />
-
-          {!isLogin && (
-            <GlobalInput
-              inputType="number"
-              placeholder="Mobile"
-              isValue={formData?.mobile}
-              name="mobile"
-              errors={errors?.mobile}
-              onChangeHandler={handleChange}
-            />
-          )}
-
-          <div className="mt-8">
-            <GlobalInput
-              inputType="password"
-              placeholder="Password"
-              isValue={formData?.password}
-              name="password"
-              errors={errors?.password}
-              onChangeHandler={handleChange}
-            />
+    <div className="min-h-screen dark:bg-main_black_b1 bg-whiten flex justify-center">
+      <div className="max-w-screen-xl m-0 sm:m-10  dark:bg-main_black_bg bg-white shadow sm:rounded-lg flex justify-center flex-1">
+        <div className="lg:w-1/2 xl:w-5/12 p-6 sm:p-12">
+          <div>
+            <img src={APP_LOGO} className="w-32 mx-auto" alt="Logo" />
           </div>
+          <div className="mt-12 flex flex-col items-center w-full">
+            <h1 className="text-xl xl:text-2xl font-bold text-black">
+              {isLogin ? "Log in" : "Sign up"}
+            </h1>
+            <div className="w-full flex-1 mt-8">
+              <div className="w-full flex flex-col items-center">
+                <form onSubmit={handleSubmit} className="w-full">
+                  {!isLogin && (
+                    <GlobalInput
+                      inputType="name"
+                      placeholder="Name"
+                      isValue={formData?.name}
+                      name="name"
+                      errors={errors?.name}
+                      onChangeHandler={handleChange}
+                    />
+                  )}
 
-          {isLogin && (
-            <div className="float-right mb-5">
-              <span
-                onClick={() => navigate("/reset-password")}
-                className="text-sm font-semibold underline cursor-pointer text-whiten hover:text-primary-300 outline-none border-none"
-              >
-                Forgot Password?
-              </span>
+                  <GlobalInput
+                    inputType="email"
+                    placeholder="Email"
+                    isValue={formData?.email}
+                    name="email"
+                    errors={errors?.email}
+                    onChangeHandler={handleChange}
+                  />
+
+                  {!isLogin && (
+                    <GlobalInput
+                      inputType="number"
+                      placeholder="Mobile"
+                      isValue={formData?.mobile}
+                      name="mobile"
+                      errors={errors?.mobile}
+                      onChangeHandler={handleChange}
+                    />
+                  )}
+
+                  <GlobalInput
+                    inputType="password"
+                    placeholder="Password"
+                    isValue={formData?.password}
+                    name="password"
+                    errors={errors?.password}
+                    onChangeHandler={handleChange}
+                  />
+
+                  {isLogin && (
+                    <div className="float-right mb-5">
+                      <span
+                        onClick={() => navigate("/reset-password")}
+                        className="text-sm font-semibold underline cursor-pointer text-black-dark-400 dark:text-whiten hover:text-main_color outline-none border-none"
+                      >
+                        Forgot Password?
+                      </span>
+                    </div>
+                  )}
+
+                  <div className="mt-14">
+                    <GlobalButton
+                      btnTitle={isLogin ? "Login" : "Register"}
+                      disabled={false}
+                      type="submit"
+                      bgColor="bg-main_color"
+                      onButtonClickHandler={handleSubmit}
+                    />
+                  </div>
+                </form>
+              </div>
+
+              <div className="mt-12 text-md font-display font-semibold dark:text-whiten text-black-dark-400 text-center">
+                {isLogin ? "Don't have an account ?" : "I am already member ?"}{" "}
+                <span
+                  className="underline cursor-pointer text-main_color outline-none border-none"
+                  onClick={switchAuthModeHandler}
+                >
+                  {isLogin ? "Register Here" : "Sign in"}
+                </span>
+              </div>
             </div>
-          )}
-
-          <div className="mt-14">
-            <GlobalButton
-              btnTitle={isLogin ? "Login" : "Register"}
-              disabled={false}
-              type="submit"
-              bgColor="bg-primary-500"
-              onButtonClickHandler={handleSubmit}
-            />
           </div>
-        </form>
-        <div className="mt-12 text-md font-display font-semibold text-whiten text-center">
-          {isLogin ? "Don't have an account ?" : "I am already member ?"}{" "}
-          <span
-            className="underline cursor-pointer text-primary hover:text-primary-300 outline-none border-none"
-            onClick={switchAuthModeHandler}
-          >
-            {isLogin ? "Register Here" : "Sign in"}
-          </span>
+        </div>
+        <div className="flex-1 bg-main_color text-center hidden lg:flex">
+          <div
+            className="m-12 xl:m-16 w-full bg-contain bg-center bg-no-repeat"
+            style={{
+              backgroundImage:
+                "url('https://firebasestorage.googleapis.com/v0/b/smk24-6f0bf.appspot.com/o/auth_illustration.svg?alt=media&token=8033a712-4705-440c-8f03-9e0ae0351844')",
+            }}
+          ></div>
         </div>
       </div>
-      <Toaster position="top-right" reverseOrder={true} />
     </div>
   );
 }

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import GlobalInput from "../GlobalInput.jsx";
 import GlobalDropdown from "../GlobalDropdown.jsx";
-import { toast, Toaster } from "react-hot-toast";
+import { toast } from "react-toastify";
 import { FIREBASE_ENDPOINTS } from "../../constants/apiConstants.js";
 import { WATCHLIST_DROPDOWNS } from "../../constants/Columns.js";
 import { useNavigate, useParams } from "react-router-dom";
@@ -279,7 +279,7 @@ function CreateEditWatchlist() {
                   btnTitle={isEditMode ? "Update Stock" : "Add Stock"}
                   disabled={isDisable}
                   type="submit"
-                  bgColor="bg-primary"
+                  bgColor="bg-main_color"
                   textColor=""
                 />
               </div>
@@ -287,7 +287,7 @@ function CreateEditWatchlist() {
           </form>
         </div>
       )}
-      <Toaster position="top-right" reverseOrder={true} />
+     
 
       {isViewModal && (
         <GloablInfo
