@@ -39,7 +39,7 @@ function ManageTradeJournal() {
   const [hasMore, setHasMore] = useState(true);
   const [searchTerm, setSearchTerm] = useState("");
   const [filteredResults, setFilteredResults] = useState(fetchedData);
-  const pageSize = 20;
+  const pageSize = 30;
   const lastVisibleRef = useRef(null);
 
   // Fetch Trade Journal
@@ -64,7 +64,7 @@ function ManageTradeJournal() {
       stopLoading();
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [currentUser.uid]
+    []
   );
 
   useEffect(() => {
@@ -77,7 +77,8 @@ function ManageTradeJournal() {
           startLoading,
           stopLoading,
           "desc",
-          "buyDate"
+          "buyDate",
+          false
         );
         setTotalDocuments(fetchedOptions.length);
       } catch (error) {
@@ -87,7 +88,7 @@ function ManageTradeJournal() {
 
     fetchOptions();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [currentUser.uid]);
+  }, []);
 
   // Input Change Handler
   const onChangeHandler = (value) => {

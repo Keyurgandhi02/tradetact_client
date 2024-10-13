@@ -26,7 +26,8 @@ export const DashboardProvider = ({ children }) => {
           startLoading,
           stopLoading,
           "desc",
-          "buyDate"
+          "buyDate",
+          true
         );
 
         const fetchedWatchList = await getFirebaseData(
@@ -36,7 +37,8 @@ export const DashboardProvider = ({ children }) => {
           startLoading,
           stopLoading,
           "desc",
-          "doc_created_At"
+          "doc_created_At",
+          true
         );
 
         const fetchedBroker = await getFirebaseData(
@@ -46,7 +48,8 @@ export const DashboardProvider = ({ children }) => {
           startLoading,
           stopLoading,
           "desc",
-          "doc_created_At"
+          "doc_created_At",
+          true
         );
 
         const fetchedStrategy = await getFirebaseData(
@@ -56,7 +59,8 @@ export const DashboardProvider = ({ children }) => {
           startLoading,
           stopLoading,
           "desc",
-          "doc_created_At"
+          "doc_created_At",
+          true
         );
 
         const userData = await getUserByEmail(currentUser?.email);
@@ -72,6 +76,7 @@ export const DashboardProvider = ({ children }) => {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentUser]);
+  
   return (
     <DashboardContext.Provider
       value={{

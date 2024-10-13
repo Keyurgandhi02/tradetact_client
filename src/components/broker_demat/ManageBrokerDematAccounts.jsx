@@ -36,7 +36,8 @@ function ManageBrokerDematAccounts() {
       startLoading,
       stopLoading,
       "desc",
-      "doc_created_At"
+      "doc_created_At",
+      true
     );
     setTotalDocuments(fetchedTasks.length);
     setFetchedData(fetchedTasks);
@@ -170,7 +171,6 @@ function ManageBrokerDematAccounts() {
               </div>
             ))}
           </div>
-        
         </>
       ) : (
         <NoRecordFound

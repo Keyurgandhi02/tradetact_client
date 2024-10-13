@@ -54,7 +54,8 @@ function AnalyticsPage() {
       startLoading,
       stopLoading,
       "desc",
-      "buyDate"
+      "buyDate",
+      true
     );
 
     // Get today's date
@@ -65,7 +66,9 @@ function AnalyticsPage() {
       const date = today.subtract(index, "day").format("YYYY-MM-DD");
 
       // Filter trades for this specific date
-      const dailyTrades = fetchedData.filter((trade) => trade.buyDate === date);
+      const dailyTrades = fetchedTasks.filter(
+        (trade) => trade.buyDate === date
+      );
 
       // Calculate total profit/loss for the day
       const totalProfitLoss = dailyTrades.reduce(
@@ -84,9 +87,8 @@ function AnalyticsPage() {
 
     setFetchedData(fetchedTasks);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [currentUser.uid]);
+  }, []);
 
-  console.log("pastWeekData", pastWeekData);
   // Compute Trade Data
   const computedData = useMemo(() => {
     const userTrades = {};
@@ -261,7 +263,7 @@ function AnalyticsPage() {
                     fill="#ffc657"
                     radius={3}
                     className="text-black-dark-400 dark:text-white font-bold"
-                    label={{ position: "insideBottom", fill: "" }}
+                    label={{ position: "insideBottom", fill: "#333A48" }}
                   />
                 </BarChart>
               </ResponsiveContainer>

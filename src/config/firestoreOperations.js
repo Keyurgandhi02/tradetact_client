@@ -44,9 +44,10 @@ export const getFirebaseData = async (
   startLoading,
   stopLoading,
   order,
-  orderName
+  orderName,
+  isLoadingVisible
 ) => {
-  handleLoading(startLoading, stopLoading, true);
+  isLoadingVisible && handleLoading(startLoading, stopLoading, true);
 
   try {
     const q = firestore.query(
@@ -60,11 +61,11 @@ export const getFirebaseData = async (
       id: doc.id,
       ...doc.data(),
     }));
-    handleLoading(startLoading, stopLoading, false);
+    isLoadingVisible && handleLoading(startLoading, stopLoading, false);
     return docs;
   } catch (error) {
     toast.error(Strings.GENERAL_FETCH_ERROR);
-    handleLoading(startLoading, stopLoading, false);
+    isLoadingVisible && handleLoading(startLoading, stopLoading, false);
     return [];
   }
 };

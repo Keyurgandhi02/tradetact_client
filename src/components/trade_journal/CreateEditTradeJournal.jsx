@@ -24,7 +24,11 @@ import PageHeading from "../PageHeading";
 import { useLoading } from "../../context/LoadingContext";
 import { validateAllFields } from "../../config/validationUtils.js";
 import { tradeJournalValidationRules } from "../../config/validations.js";
-import { TRADE_JOURNAL_ROUTES } from "../../constants/routesConstants.js";
+import {
+  BROKER_ROUTES,
+  TRADE_JOURNAL_ROUTES,
+  TRADING_STRATEGY_ROUTES,
+} from "../../constants/routesConstants.js";
 import GlobalDropdown from "../GlobalDropdown.jsx";
 import {
   TRADE_TIME_INTERVAL_DROPDOWNS,
@@ -93,7 +97,8 @@ function CreateEditTradeJournal() {
           startLoading,
           stopLoading,
           "desc",
-          "doc_created_At"
+          "doc_created_At",
+          true
         );
 
         setFormData(fetchedTasks);
@@ -236,7 +241,8 @@ function CreateEditTradeJournal() {
           startLoading,
           stopLoading,
           "desc",
-          "doc_created_At"
+          "doc_created_At",
+          true
         );
 
         setBrokerCount(fetchedOptions.length);
@@ -248,7 +254,8 @@ function CreateEditTradeJournal() {
           startLoading,
           stopLoading,
           "desc",
-          "doc_created_At"
+          "doc_created_At",
+          true
         );
 
         if (fetchedOptions.length === 0 || fetchedOptions2.length === 0) {
@@ -578,7 +585,9 @@ function CreateEditTradeJournal() {
               : "Go to Strategy"
           }
           link={
-            isBrokerCount === 0 ? "/all_broker_accounts" : "/all_user_strategy"
+            isBrokerCount === 0
+              ? BROKER_ROUTES.BROKER_ALL
+              : TRADING_STRATEGY_ROUTES.TRADING_STRATEGY_ALL
           }
         />
       )}

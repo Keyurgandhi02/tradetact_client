@@ -48,6 +48,7 @@ function CreateEditReturnPerformance() {
   const [isViewModal, setViewModal] = useState(false);
   const [isDisable, setDisable] = useState(false);
   const [options, setOptions] = useState([]);
+  const [selectedDematUser, setSelectedDematUser] = useState("");
 
   useEffect(() => {
     async function fetchData() {
@@ -61,6 +62,7 @@ function CreateEditReturnPerformance() {
           id
         );
         setFormData(fetchedTasks);
+        setSelectedDematUser(fetchedTasks?.accountName);
       } catch (error) {
         toast.error("Error fetching data");
       }
@@ -77,12 +79,13 @@ function CreateEditReturnPerformance() {
     }));
   };
 
-  // Dropdown Select Handler
-  const selectDropDownHandler = (name, value) => {
-    setFormData({
-      ...formData,
-      [name]: value,
-    });
+  // Demat Dropdown Handler
+  const handleDematUserChange = (selectedUser) => {
+    setSelectedDematUser(selectedUser);
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      accountName: selectedUser,
+    }));
   };
 
   // Form Submit Handler
@@ -160,11 +163,12 @@ function CreateEditReturnPerformance() {
         const fetchedOptions = await getFirebaseData(
           FIREBASE_ENDPOINTS.MASTER_DATA,
           currentUser.uid,
-          FIREBASE_ENDPOINTS.USER_MANAGE_DEMAT,
+          FIREBASE_ENDPOINTS.USER_MANAGE_BROKERS,
           startLoading,
           stopLoading,
           "desc",
-          "doc_created_At"
+          "doc_created_At",
+          true
         );
 
         if (!fetchedOptions.length) {
@@ -206,16 +210,33 @@ function CreateEditReturnPerformance() {
                 />
 
                 <GlobalDropdown
-                  options={options}
-                  formData={formData?.label}
-                  selectDropDownHandler={selectDropDownHandler}
-                  name="accountName"
-                  label="Select Account"
+                  formData={formData?.accountName}
                   errors={errors?.accountName}
+                  label="Select Demat User"
+                  children={
+                    <select
+                      className="bg-transparent relative z-2 w-full appearance-none rounded border-[1.2px] border-gray-500 text-black-dark-400 dark:text-whiten px-5 py-3 outline-none transition focus:border-main_color active:border-main_color"
+                      onChange={(e) => handleDematUserChange(e.target.value)}
+                      value={selectedDematUser}
+                    >
+                      <option value="" disabled>
+                        Select Demat User
+                      </option>
+                      {options?.map((item) => (
+                        <option
+                          key={item.id}
+                          value={item.dematUser}
+                          className="text-whiten"
+                        >
+                          {item.dematUser}
+                        </option>
+                      ))}
+                    </select>
+                  }
                 />
               </div>
 
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-2">
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-2">
                 <GlobalInput
                   inputType="number"
                   placeholder="Amount Invested"
@@ -233,9 +254,7 @@ function CreateEditReturnPerformance() {
                   errors={errors?.returned_amount}
                   onChangeHandler={(name, value) => handleChange(name, value)}
                 />
-              </div>
 
-              <div className="grid grid-cols-1 md:grid-cols-1 gap-6 mb-2">
                 <GlobalInput
                   inputType="number"
                   placeholder="Total Charges"
@@ -260,7 +279,6 @@ function CreateEditReturnPerformance() {
           </form>
         </div>
       )}
-
 
       {isViewModal && (
         <GloablInfo

@@ -17,8 +17,9 @@ function DataCard({ data, deleteHandler, editHandler, viewHandler }) {
               ? helper.convertToUpperCase(data?.scriptName)
               : "NA"}
           </h4>
-          <p className="text-xs mt-1 text-black-dark-300 dark:text-whiten">
-            {data?.trade_type ? data?.trade_type : "NA"} - {data?.broker}
+
+          <p className="text-xs mt-2 text-black-dark-300 dark:text-whiten">
+            {data?.dematUser} - {data?.broker}
           </p>
         </div>
         <span className="font-semibold text-sm text-black-dark-300 dark:text-whiten">
@@ -58,7 +59,7 @@ function DataCard({ data, deleteHandler, editHandler, viewHandler }) {
             Number(data?.exitPrice) * Number(data?.quantity)
           )}
         />
-        <DataCardItem title="USER" data={data?.dematUser} />
+        <DataCardItem title="TYPE" data={data?.trade_type} />
         <DataCardItem title="STRATEGY" data={data?.strategyName} />
       </div>
       <div className="border-b dark:border-black-dark-300 border-gray-500 my-3"></div>

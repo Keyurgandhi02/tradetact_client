@@ -22,7 +22,6 @@ import {
   SIGN_UP_SUCCESS,
 } from "../constants/Strings";
 
-
 export function useAuth() {
   return useContext(AuthContext);
 }
@@ -34,8 +33,6 @@ export function AuthProvider({ children }) {
   const navigate = useNavigate();
   const [currentUser, setCurrentUser] = useState();
   const [loading, setLoading] = useState(true);
-
-
 
   // Register Handler
   const signUp = async (name, email, password, mobile) => {
@@ -99,7 +96,6 @@ export function AuthProvider({ children }) {
         toast.success(LOGIN_SUCCESS);
       }
     } catch (error) {
-      console.log("err", error);
       switch (error.code) {
         case "auth/user-not-found":
           toast.error(LOGIN_ERRORS.noUserFound);
