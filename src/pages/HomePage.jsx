@@ -7,6 +7,7 @@ import { AnalyticsPage } from "./index";
 import NoRecordFound from "../components/NoRecordFound";
 import { useNavigate } from "react-router-dom";
 import { DashboardContext } from "../context/DashboardContext";
+import { WATCHLIST_ROUTES } from "../constants/routesConstants";
 function HomePage() {
   const navigate = useNavigate();
   const { journalData, watchListData } = useContext(DashboardContext);
@@ -109,7 +110,7 @@ function HomePage() {
             ) : (
               <NoRecordFound
                 heading="This watchlist is empty. Tap on `Add Stocks` to add items in the watchlist."
-                handleSubmit={() => navigate("/create_watchlist")}
+                handleSubmit={() => navigate(WATCHLIST_ROUTES.WATCHLIST_CREATE)}
                 btnTitle="Add Stocks"
                 isSmallSize={true}
                 isButtonVisible={true}
@@ -117,7 +118,6 @@ function HomePage() {
             )}
           </div>
         </div>
-   
       </div>
       <AnalyticsPage />
     </div>

@@ -191,7 +191,7 @@ function CreateEditWatchlist() {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-2">
                 <GlobalInput
                   inputType="date"
-                  placeholder="Date"
+                  placeholder="Date *"
                   isValue={formData?.created_at}
                   name="created_at"
                   onChangeHandler={handleChange}
@@ -200,7 +200,7 @@ function CreateEditWatchlist() {
 
                 <GlobalInput
                   inputType="text"
-                  placeholder="Script Name"
+                  placeholder="Script Name *"
                   isValue={formData?.scriptName}
                   name="scriptName"
                   onChangeHandler={handleChange}
@@ -211,7 +211,7 @@ function CreateEditWatchlist() {
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-2">
                 <GlobalInput
                   inputType="number"
-                  placeholder="Stock Price"
+                  placeholder="Stock Price *"
                   isValue={formData?.stockPrice}
                   onChangeHandler={handleChange}
                   name="stockPrice"
@@ -220,7 +220,7 @@ function CreateEditWatchlist() {
 
                 <GlobalDropdown
                   formData={formData?.strategyName}
-                  label="Select Strategy"
+                  label="Select Strategy *"
                   errors={errors?.strategyName}
                   children={
                     <select
@@ -248,7 +248,7 @@ function CreateEditWatchlist() {
 
                 <GlobalDropdown
                   formData={formData?.status}
-                  label="Select Status"
+                  label="Select Status *"
                   errors={errors?.status}
                   children={
                     <select

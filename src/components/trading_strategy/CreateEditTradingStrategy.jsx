@@ -134,7 +134,7 @@ function CreateEditTradingStrategy() {
             <div className="grid grid-cols-1 md:grid-cols-1 gap-6 mb-2">
               <GlobalInput
                 inputType="text"
-                placeholder="Strategy"
+                placeholder="Strategy *"
                 isValue={formData?.label}
                 name="label"
                 errors={errors?.label}
@@ -154,7 +154,6 @@ function CreateEditTradingStrategy() {
         </form>
       </div>
 
-    
       <FloatButton
         onClickHandler={onFloatBtnClickHandler}
         icon={<LIST_FLOAT_SVG />}

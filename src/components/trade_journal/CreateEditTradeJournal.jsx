@@ -293,7 +293,7 @@ function CreateEditTradeJournal() {
               <div className="grid grid-cols-1 md:grid-cols-1 gap-6 mb-2">
                 <GlobalInput
                   inputType="text"
-                  placeholder="Script Name"
+                  placeholder="Script Name *"
                   isValue={formData?.scriptName}
                   name="scriptName"
                   errors={errors?.scriptName}
@@ -304,7 +304,7 @@ function CreateEditTradeJournal() {
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-2">
                 <GlobalInput
                   inputType="date"
-                  placeholder="Transaction Date"
+                  placeholder="Transaction Date *"
                   isValue={formData?.buyDate}
                   name="buyDate"
                   errors={errors?.buyDate}
@@ -314,7 +314,7 @@ function CreateEditTradeJournal() {
                 <GlobalDropdown
                   formData={formData?.dematUser}
                   errors={errors?.dematUser}
-                  label="Select Demat User"
+                  label="Select Demat User *"
                   children={
                     <select
                       className="bg-transparent relative z-2 w-full appearance-none rounded border-[1.2px] border-gray-500 text-black-dark-400 dark:text-whiten px-5 py-3 outline-none transition focus:border-main_color active:border-main_color"
@@ -340,7 +340,7 @@ function CreateEditTradeJournal() {
                 <GlobalDropdown
                   formData={formData?.broker}
                   errors={errors?.broker}
-                  label="Select Broker"
+                  label="Select Broker *"
                   children={
                     <select
                       className="bg-transparent relative z-2 w-full appearance-none rounded border-[1.2px] border-gray-500 text-black-dark-400 dark:text-whiten px-5 py-3 outline-none transition focus:border-main_color active:border-main_color"
@@ -368,7 +368,7 @@ function CreateEditTradeJournal() {
                 <GlobalDropdown
                   formData={formData?.strategyName}
                   errors={errors?.strategyName}
-                  label="Select Strategy"
+                  label="Select Strategy *"
                   children={
                     <select
                       className="bg-transparent relative z-2 w-full appearance-none rounded border-[1.2px] border-gray-500 text-black-dark-400 dark:text-whiten px-5 py-3 outline-none transition focus:border-main_color active:border-main_color"
@@ -420,7 +420,7 @@ function CreateEditTradeJournal() {
                 <GlobalDropdown
                   formData={formData?.trade_type}
                   errors={errors?.trade_type}
-                  label="Trade Type"
+                  label="Trade Type *"
                   children={
                     <select
                       className="bg-transparent relative z-2 w-full appearance-none rounded border-[1.2px] border-gray-500 text-black-dark-400 dark:text-whiten px-5 py-3 outline-none transition focus:border-main_color active:border-main_color"
@@ -447,7 +447,7 @@ function CreateEditTradeJournal() {
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-2">
                 <GlobalInput
                   inputType="number"
-                  placeholder="Entry Price"
+                  placeholder="Entry Price *"
                   isValue={formData?.entryPrice}
                   errors={errors?.entryPrice}
                   onChangeHandler={(name, value) => handleChange(name, value)}
@@ -456,7 +456,7 @@ function CreateEditTradeJournal() {
 
                 <GlobalInput
                   inputType="number"
-                  placeholder="Exit Price"
+                  placeholder="Exit Price *"
                   isValue={formData?.exitPrice}
                   errors={errors?.exitPrice}
                   onChangeHandler={(name, value) => handleChange(name, value)}
@@ -464,7 +464,7 @@ function CreateEditTradeJournal() {
                 />
                 <GlobalInput
                   inputType="number"
-                  placeholder="Target Price"
+                  placeholder="Target Price *"
                   isValue={formData?.targetPrice}
                   errors={errors?.targetPrice}
                   onChangeHandler={(name, value) => handleChange(name, value)}
@@ -475,7 +475,7 @@ function CreateEditTradeJournal() {
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-2">
                 <GlobalInput
                   inputType="number"
-                  placeholder="S/L Price"
+                  placeholder="S/L Price *"
                   isValue={formData?.slPrice}
                   errors={errors?.slPrice}
                   onChangeHandler={(name, value) => handleChange(name, value)}
@@ -484,7 +484,7 @@ function CreateEditTradeJournal() {
 
                 <GlobalInput
                   inputType="number"
-                  placeholder="Qty/Lot"
+                  placeholder="Qty/Lot *"
                   isValue={formData?.quantity}
                   errors={errors?.quantity}
                   onChangeHandler={(name, value) => handleChange(name, value)}
@@ -493,7 +493,7 @@ function CreateEditTradeJournal() {
 
                 <GlobalInput
                   inputType="number"
-                  placeholder="Total Profit/Loss"
+                  placeholder="Total Profit/Loss *"
                   isValue={formData?.profitLossPrice}
                   errors={errors?.profitLossPrice}
                   onChangeHandler={(name, value) => handleChange(name, value)}
@@ -505,7 +505,7 @@ function CreateEditTradeJournal() {
                 <GlobalTextArea
                   row="4"
                   label=""
-                  placeholder="Emotions When Enter"
+                  placeholder="Emotions When Enter *"
                   isValue={formData?.emotionsWhenEnter}
                   errors={errors?.emotionsWhenEnter}
                   name="emotionsWhenEnter"
@@ -515,7 +515,7 @@ function CreateEditTradeJournal() {
                 <GlobalTextArea
                   row="4"
                   label=""
-                  placeholder="Emotions When Exit"
+                  placeholder="Emotions When Exit *"
                   isValue={formData?.emotionsWhenExit}
                   errors={errors?.emotionsWhenExit}
                   name="emotionsWhenExit"
@@ -548,7 +548,7 @@ function CreateEditTradeJournal() {
               <div className="grid grid-cols-1 md:grid-cols-1 gap-6 mb-2">
                 <GlobalInput
                   inputType="number"
-                  placeholder="Rating out of 5"
+                  placeholder="Rating out of 5 *"
                   isValue={formData?.rating}
                   errors={errors?.rating}
                   onChangeHandler={(name, value) => handleChange(name, value)}

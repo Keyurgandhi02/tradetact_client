@@ -306,7 +306,7 @@ function CreateEditBrokerDematAccounts() {
             <form onSubmit={(e) => e.preventDefault()}>
               <GlobalInput
                 inputType="text"
-                placeholder="Demat User Name"
+                placeholder="Demat User Name *"
                 isValue={formData?.dematUser}
                 name="dematUser"
                 onChangeHandler={handleChange}

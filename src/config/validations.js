@@ -186,17 +186,8 @@ export const resetPasswordValidationRules = {
 };
 
 export const contactValidationRules = {
-  name: {
-    required: true,
-    message: "Name is required.",
-  },
-  email: {
-    required: true,
-    message: "Please enter a valid email address.",
-    type: "email",
-  },
   message: {
-    required: false,
+    required: true,
     message: "Message is required",
   },
 };

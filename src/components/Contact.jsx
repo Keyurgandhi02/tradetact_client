@@ -19,10 +19,9 @@ import { useNavigate } from "react-router-dom";
 import { GENERAL_ROUTES } from "../constants/routesConstants";
 
 const initialState = {
-  name: "",
-  email: "",
   message: "",
 };
+
 function Contact() {
   const { currentUser } = useAuth();
   const [formData, setFormData] = useState(initialState);
@@ -57,6 +56,8 @@ function Contact() {
         await addDoc(collection(db, FIREBASE_ENDPOINTS.CONTACT_US_DATA), {
           ...formData,
           createdAt: serverTimestamp(),
+          name: currentUser?.displayName,
+          email: currentUser?.email,
         });
 
         setFormData(initialState);
@@ -99,10 +100,10 @@ function Contact() {
                       Our Address
                     </h3>
                     <p class="text-black-dark-400 dark:text-white">
-                      C-441 BG Towers Near Delhi Darwaja
+                      C-441 BG Towers, Ahmedabad
                     </p>
                     <p class="text-black-dark-400 dark:text-white">
-                      Ahmedabad, Gujarat, India
+                      Gujarat, India
                     </p>
                   </div>
                 </li>
@@ -151,24 +152,16 @@ function Contact() {
                       <GlobalInput
                         inputType="text"
                         placeholder="Name"
-                        isValue={formData?.name}
-                        name="name"
-                        errors={errors?.name}
-                        onChangeHandler={(name, value) =>
-                          handleChange(name, value)
-                        }
+                        disabledStatus={true}
+                        isValue={currentUser?.displayName}
                       />
                     </div>
                     <div class="mx-0 mb-1 sm:mb-4">
                       <GlobalInput
                         inputType="email"
                         placeholder="Email"
-                        isValue={formData?.email}
-                        name="email"
-                        errors={errors?.email}
-                        onChangeHandler={(name, value) =>
-                          handleChange(name, value)
-                        }
+                        disabledStatus={true}
+                        isValue={currentUser?.email}
                       />
                     </div>
                   </div>
@@ -176,7 +169,7 @@ function Contact() {
                     <GlobalTextArea
                       row="4"
                       label=""
-                      placeholder="message"
+                      placeholder="Message *"
                       isValue={formData?.message}
                       errors={errors?.message}
                       name="message"
