@@ -11,20 +11,26 @@ import { validateAllFields } from "../config/validationUtils";
 import { GENERAL_FORM_VALIDATIONS_ERROR } from "../constants/Strings";
 import { useAuth } from "../context/AuthContext";
 import { APP_LOGO } from "../assets/svgIcons";
+import ModalDialog from "../components/ModalDialog";
+import { sendEmailVerification } from "firebase/auth";
 
 const initialState = {
   email: "",
   password: "",
   name: "",
   mobile: "",
+  subscription_status: false,
 };
 
 function RegisterPage() {
   const navigate = useNavigate();
-  const { login, signUp } = useAuth();
+  const { login, signUp, currentUser } = useAuth();
+  const [isViewModal, setViewModal] = useState(false);
   const [isLogin, setIsLogin] = useState(true);
   const [formData, setFormData] = useState(initialState);
   const [errors, setErrors] = useState({});
+
+  // Switch Hadler Signup and Login
   const switchAuthModeHandler = () => {
     setIsLogin((prevState) => !prevState);
   };
@@ -55,7 +61,11 @@ function RegisterPage() {
 
     if (isLogin) {
       try {
-        await login(formData?.email, formData?.password);
+        if (currentUser?.emailVerified === false) {
+          setViewModal(true);
+        } else {
+          await login(formData?.email, formData?.password);
+        }
       } catch (error) {
         toast.error(error);
       }
@@ -65,24 +75,43 @@ function RegisterPage() {
           formData?.name,
           formData?.email,
           formData?.password,
-          formData?.mobile
+          formData?.mobile,
+          formData?.subscription_status
         );
+
+        setFormData(initialState);
+        setIsLogin(true);
       } catch (error) {
         toast.error(error);
       }
     }
   };
 
+  const resendVerificationEmail = async () => {
+    const user = currentUser;
+    if (user && !user.emailVerified) {
+      try {
+        await sendEmailVerification(user);
+        toast.success("Verification email sent again!");
+        setViewModal(false);
+      } catch (error) {
+        toast.error("Error resending verification email");
+      }
+    } else {
+      toast.error("User is either not logged in or already verified");
+    }
+  };
+
   return (
     <div className="min-h-screen dark:bg-main_black_b1 bg-whiten flex justify-center">
       <div className="max-w-screen-xl m-0 sm:m-10  dark:bg-main_black_bg bg-white shadow sm:rounded-lg flex justify-center flex-1">
-        <div className="lg:w-1/2 xl:w-5/12 p-6 sm:p-12">
+        <div className="lg:w-1/2 xl:w-6/12 p-6 sm:p-12">
           <div>
-            <img src={APP_LOGO} className="w-32 mx-auto" alt="Logo" />
+            <img src={APP_LOGO} className="w-35 mx-auto" alt="Logo" />
           </div>
           <div className="mt-12 flex flex-col items-center w-full">
-            <h1 className="text-xl xl:text-2xl font-bold text-black">
-              {isLogin ? "Log in" : "Sign up"}
+            <h1 className="text-lg xl:text-xl font-bold text-black-dark-400 dark:text-whiten">
+              {isLogin ? "Welcome Back" : "Register"}
             </h1>
             <div className="w-full flex-1 mt-8">
               <div className="w-full flex flex-col items-center">
@@ -162,7 +191,7 @@ function RegisterPage() {
             </div>
           </div>
         </div>
-        <div className="flex-1 bg-main_color text-center hidden lg:flex">
+        <div className="flex-1 bg-main_color text-center hidden lg:flex sm:rounded-lg">
           <div
             className="m-12 xl:m-16 w-full bg-contain bg-center bg-no-repeat"
             style={{
@@ -171,6 +200,31 @@ function RegisterPage() {
           ></div>
         </div>
       </div>
+
+      <ModalDialog
+        isOpen={isViewModal}
+        onClose={() => setViewModal(false)}
+        children={
+          <div className="p-12 flex flex-col justify-between items-center">
+            <h2 className="py-5 text-black-dark-400 dark:text-whiten font-bold text-2xl">
+              Verify your email
+            </h2>
+            <p className="text-black-dark-400 dark:text-whiten font-normal text-lg pt-5 pb-8 text-center">
+              Hi {currentUser?.displayName}, Please verify your email address by
+              clicking the link sent to{" "}
+              <span className="font-bold">{currentUser?.email}</span>
+            </p>
+
+            <GlobalButton
+              btnTitle="Resend Verification Email"
+              disabled={false}
+              type="submit"
+              bgColor="bg-main_color"
+              onButtonClickHandler={resendVerificationEmail}
+            />
+          </div>
+        }
+      />
     </div>
   );
 }

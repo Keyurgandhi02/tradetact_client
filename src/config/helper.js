@@ -12,9 +12,9 @@ export const formatNumber = (amount) => {
 
 // Format Data into DDMMYY
 export function formatDateToDDMMYY(date) {
-  const day = String(date.getDate()).padStart(2, "0");
-  const month = String(date.getMonth() + 1).padStart(2, "0");
-  const year = String(date.getFullYear());
+  const day = String(date?.getDate()).padStart(2, "0");
+  const month = String(date?.getMonth() + 1).padStart(2, "0");
+  const year = String(date?.getFullYear());
   return `${year}-${month}-${day}`;
 }
 
@@ -31,6 +31,26 @@ export function formatTimestamp(timestamp) {
 
   // Format the date using toLocaleString with the desired options
   return date.toLocaleString("en-US", options);
+}
+
+export function convertFirebaseTimestamp(seconds, nanoseconds) {
+  // Convert the seconds to milliseconds and ignore the nanoseconds for simplicity
+  const milliseconds = seconds * 1000 + Math.floor(nanoseconds / 1000000);
+
+  // Create a new Date object from the milliseconds
+  const date = new Date(milliseconds);
+
+  // Format the date (e.g., "20 Aug 2024, 10:26 AM")
+  const formattedDate = date.toLocaleString("en-GB", {
+    day: "2-digit",
+    month: "short",
+    year: "numeric",
+    hour: "2-digit",
+    minute: "2-digit",
+    hour12: true,
+  });
+
+  return formattedDate;
 }
 
 // Rfress Page Handler
@@ -94,3 +114,6 @@ export function parseCurrencyToNumber(currencyString) {
 
   return numberValue;
 }
+
+
+

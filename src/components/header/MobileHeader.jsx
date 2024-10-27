@@ -3,8 +3,9 @@ import { DisclosureButton, DisclosurePanel } from "@headlessui/react";
 
 const MobileHeader = ({ navigation, classes }) => {
   // Menu Selection Classes
-  const selected = "bg-gray-900 text-white";
-  const deSelected = "text-gray-300 hover:bg-gray-700 hover:text-white";
+  const selected =
+    "bg-black-dark-400 dark:bg-whiten text-white dark:text-black-dark-400";
+  const deSelected = "text-black-dark-400 dark:text-whiten";
 
   return (
     <DisclosurePanel className="sm:hidden">

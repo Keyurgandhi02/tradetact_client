@@ -122,3 +122,12 @@ export const TRADE_TIME_INTERVAL_DROPDOWNS = [
     label: "Monthly",
   },
 ];
+
+export const TRADE_ANALYSIS_DETAILS_CONSOLE_COLUMNS = [
+  "Date",
+  "Script",
+  "Trade Type",
+  "Entry",
+  "Exit",
+  "Overall G/L",
+];

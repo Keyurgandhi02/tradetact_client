@@ -34,14 +34,17 @@ export default function ModalDialog({ isOpen, onClose, children }) {
               leaveFrom="opacity-100 translate-y-0 sm:scale-100"
               leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
             >
-              <DialogPanel className="relative transform overflow-hidden rounded-sm bg-whiter dark:bg-black-dark-200 text-left shadow-2xl transition-all sm:my-8 sm:w-full sm:max-w-lg">
-                <span
-                  type="button"
-                  onClick={onClose}
-                  className="cursor-pointer mt-3 flex px-5 py-2 dark:text-whiten text-black-dark-400  hover:text-main_red_color dark:hover:text-main_red_color float-right"
-                >
-                  <CLOSE_SVG />
-                </span>
+              <DialogPanel className="p-4 relative transform overflow-hidden rounded-lg bg-whiter dark:bg-black-dark-200 text-left shadow-2xl transition-all sm:my-8 sm:w-full sm:max-w-2xl">
+                <div className="mb-5 w-10 h-10 dark:bg-black-dark-100 bg-gray-400 flex float-right rounded-full">
+                  <span
+                    type="button"
+                    onClick={onClose}
+                    className="cursor-pointer px-2 mt-2 dark:text-whiten text-black-dark-400 hover:text-main_red_color dark:hover:text-main_red_color"
+                  >
+                    <CLOSE_SVG />
+                  </span>
+                </div>
+
                 {children}
               </DialogPanel>
             </TransitionChild>

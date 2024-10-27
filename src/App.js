@@ -4,9 +4,11 @@ import AuthenticatedLayout from "./components/AuthenticatedLayout";
 import ProtectedRoute from "./utils/ProtectedRoute";
 import {
   BROKER_ROUTES,
+  CONSOLE_ROUTES,
   CONTACT_US_ROUTES,
   GENERAL_ROUTES,
   MARKET_ROUTES,
+  PRICING_ROUTES,
   RISK_MANAGE_ROUTES,
   ROI_ROUTES,
   TRADE_JOURNAL_ROUTES,
@@ -25,24 +27,23 @@ import {
   RegisterPage,
   RiskManagementCalculatorPage,
   ContactPage,
-} from "./pages/index";
-import { WatchlistPage, CreateEditWatchlistPage } from "./pages/watchlist";
-import {
+  WatchlistPage,
+  CreateEditWatchlistPage,
   TradeJournalPage,
   CreateEditTradeJournalPage,
-} from "./pages/trade_journal";
-import {
   CreateEditTradingStrategyPage,
   TradingStrategyPage,
-} from "./pages/trading_strategy";
-import {
   ManageBrokerDematAccountsPage,
   CreateEditBrokerDematAccountsPage,
-} from "./pages/broker_demat";
-import {
   CreateEditReturnPerformancePage,
   ReturnPerformancePage,
-} from "./pages/roi";
+  PricingPage,
+  PricingCheckoutPage,
+  ConsoleDashPage,
+  ConsoleReportsPage,
+  ConsoleTradesPage,
+  ConsoleAnalysisPage,
+} from "./pages/index";
 
 function App() {
   return (
@@ -111,6 +112,32 @@ function App() {
                 element={<MarketPage />}
               />
 
+              {/* Pricing Routes */}
+              <Route path={PRICING_ROUTES.PRICING} element={<PricingPage />} />
+              <Route
+                path={PRICING_ROUTES.PRICING_CHECKOUT}
+                element={<PricingCheckoutPage />}
+              />
+
+              {/* Console Routes */}
+
+              <Route
+                path={CONSOLE_ROUTES.CONSOLE_DASH}
+                element={<ConsoleDashPage />}
+              />
+              <Route
+                path={CONSOLE_ROUTES.CONSOLE_TRADES}
+                element={<ConsoleTradesPage />}
+              />
+              <Route
+                path={CONSOLE_ROUTES.CONSOLE_REPORTS}
+                element={<ConsoleReportsPage />}
+              />
+              <Route
+                path={CONSOLE_ROUTES.CONSOLE_ANALYSIS}
+                element={<ConsoleAnalysisPage />}
+              />
+
               {/* Market Updates Routes */}
               <Route
                 path={MARKET_ROUTES.MARKET_UPDATES}
@@ -133,8 +160,6 @@ function App() {
                 path={CONTACT_US_ROUTES.CONTACT}
                 element={<ContactPage />}
               />
-
-            
 
               {/* Broker Routes */}
               <Route

@@ -76,15 +76,11 @@ function HomePage() {
         </div>
       </div>
 
-      <div className="mt-1 px-3 grid grid-cols-1 gap-2 md:grid-cols-12 lg:grid-cols-12 2xl:gap-4.5">
-        <div className="col-span-8 md:col-span-8 lg:col-span-8 rounded-sm border-[0.6px] border-gray-500 bg-transparent px-3 py-5 shadow-default sm:px-5.5 flex flex-col">
-          <CardTitle title="Market Updates" />
-          <div className="h-[350px] overflow-y-auto no-scrollbar">
-            <UpdateInfoCard />
-          </div>
+      <div className="mb-5 px-3 grid grid-cols-1 gap-2 md:grid-cols-12 2xl:gap-4.5">
+        <div className="col-span-12 md:col-span-7 rounded-sm border-[0.6px] border-gray-500 bg-transparent px-3 py-5 sm:px-5.5">
+          <AnalyticsPage />
         </div>
-
-        <div className="col-span-8 md:col-span-4 lg:col-span-4 rounded-sm border-[0.6px] border-gray-500 bg-transparent px-3 py-5 shadow-default sm:px-5.5 flex flex-col">
+        <div className="col-span-12 md:col-span-5 lg:col-span-5 rounded-sm border-[0.6px] border-gray-500 bg-transparent px-3 py-5 sm:px-5.5 flex flex-col">
           <CardTitle title="Watchlist" />
           <div className="h-[350px] overflow-y-auto no-scrollbar">
             {watchListData.length > 0 ? (
@@ -119,7 +115,15 @@ function HomePage() {
           </div>
         </div>
       </div>
-      <AnalyticsPage />
+
+      <div className="mb-5 px-3 grid grid-cols-1 gap-2 md:grid-cols-12 lg:grid-cols-12 2xl:gap-4.5">
+        <div className="col-span-12 md:col-span-12 lg:col-span-12 rounded-sm border-[0.6px] border-gray-500 bg-transparent px-3 py-5 sm:px-5.5 flex flex-col">
+          <CardTitle title="Market Updates" />
+          <div className="h-[350px] overflow-y-auto no-scrollbar">
+            <UpdateInfoCard />
+          </div>
+        </div>
+      </div>
     </div>
   );
 }

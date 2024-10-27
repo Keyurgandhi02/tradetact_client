@@ -191,3 +191,18 @@ export const contactValidationRules = {
     message: "Message is required",
   },
 };
+
+export const reportConsoleValidationRules = {
+  report_type: {
+    required: true,
+    message: "Report Type is required",
+  },
+  from_date: {
+    required: true,
+    message: "From Date is required",
+  },
+  to_date: {
+    required: true,
+    message: "To Date is required",
+  },
+};

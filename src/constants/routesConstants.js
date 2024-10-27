@@ -47,7 +47,7 @@ export const RISK_MANAGE_ROUTES = {
 
 // USER PROFILE ROUTES
 export const USER_PROFILE_ROUTES = {
-  PROFILE: "/profile",
+  PROFILE: "/account",
 };
 
 // CONTACT ROUTES
@@ -69,4 +69,19 @@ export const TRADING_STRATEGY_ROUTES = {
   TRADING_STRATEGY_CREATE: "/trading_strategy/create",
   TRADING_STRATEGY_EDIT_ID: "/trading_strategy/edit/:id",
   TRADING_STRATEGY_EDIT: "/trading_strategy/edit",
+};
+
+// PRICING ROUTES
+export const PRICING_ROUTES = {
+  PRICING: "/pricing",
+  PRICING_CHECKOUT: "/checkout",
+};
+
+// CONSOLE ROUTES
+export const CONSOLE_ROUTES = {
+  CONSOLE: "/console",
+  CONSOLE_DASH: "/console/dash",
+  CONSOLE_TRADES: "/console/trades",
+  CONSOLE_ANALYSIS: "/console/analysis",
+  CONSOLE_REPORTS: "/console/reports",
 };

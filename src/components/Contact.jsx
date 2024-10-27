@@ -13,10 +13,9 @@ import {
 } from "../constants/Strings";
 import { toast } from "react-toastify";
 import { FIREBASE_ENDPOINTS } from "../constants/apiConstants";
-import { addDoc, collection, serverTimestamp } from "firebase/firestore";
-import db from "../utils/firebase-config";
 import { useNavigate } from "react-router-dom";
 import { GENERAL_ROUTES } from "../constants/routesConstants";
+import { addFirebaseData } from "../config/firestoreOperations";
 
 const initialState = {
   message: "",
@@ -53,12 +52,17 @@ function Contact() {
 
     if (currentUser) {
       try {
-        await addDoc(collection(db, FIREBASE_ENDPOINTS.CONTACT_US_DATA), {
-          ...formData,
-          createdAt: serverTimestamp(),
-          name: currentUser?.displayName,
-          email: currentUser?.email,
-        });
+        await addFirebaseData(
+          FIREBASE_ENDPOINTS.MASTER_DATA,
+          currentUser.uid,
+          FIREBASE_ENDPOINTS.CONTACT_US_DATA,
+          {
+            ...formData,
+            name: currentUser?.displayName,
+            email: currentUser?.email,
+            status: "Pending",
+          }
+        );
 
         setFormData(initialState);
         toast.success(CONTACT_MESSAGE_SUCCESS);

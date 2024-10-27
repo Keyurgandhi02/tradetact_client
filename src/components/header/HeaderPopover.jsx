@@ -38,6 +38,7 @@ const HeaderPopover = ({
         <MenuItem key={index}>
           <Link
             to={item?.href}
+            target={item?.target}
             className="block px-5 py-5 text-sm text-black-dark-400 hover:bg-light_hover_color dark:text-whiten dark:hover:bg-black-dark-300  font-semibold"
           >
             {item?.name}

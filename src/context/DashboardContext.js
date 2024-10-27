@@ -1,8 +1,12 @@
-import React, { createContext, useState, useEffect } from "react";
+import React, { createContext, useState, useEffect, useCallback } from "react";
 import { getFirebaseData, getUserByEmail } from "../config/firestoreOperations";
 import { FIREBASE_ENDPOINTS } from "../constants/apiConstants";
 import { useLoading } from "./LoadingContext";
 import { useAuth } from "./AuthContext";
+import * as firestore from "firebase/firestore";
+import db from "../utils/firebase-config";
+import { addMonths, isAfter } from "date-fns";
+import { convertFirebaseTimestamp } from "../config/helper";
 
 export const DashboardContext = createContext();
 
@@ -12,71 +16,122 @@ export const DashboardProvider = ({ children }) => {
   const [watchListData, setWatchListData] = useState([]);
   const [fetchedBroker, setFetchedBroker] = useState([]);
   const [fetchedStrategy, setFetchedStrategy] = useState([]);
-  const [isUserData, setUserData] = useState([]);
+  const [planStatus, setPlanStatus] = useState("free");
+  const [subscriptionData, setSubscriptionData] = useState([]);
 
   const { startLoading, stopLoading } = useLoading();
 
-  useEffect(() => {
-    if (currentUser) {
-      async function fetchData() {
-        const fetchedTradeJournal = await getFirebaseData(
-          FIREBASE_ENDPOINTS.MASTER_DATA,
-          currentUser.uid,
-          FIREBASE_ENDPOINTS.USER_TRADE_JOURNAL,
-          startLoading,
-          stopLoading,
-          "desc",
-          "buyDate",
-          true
-        );
+  // Fetch data function
+  const fetchData = useCallback(async () => {
+    if (!currentUser) return;
 
-        const fetchedWatchList = await getFirebaseData(
-          FIREBASE_ENDPOINTS.MASTER_DATA,
-          currentUser.uid,
-          FIREBASE_ENDPOINTS.USER_WATCHLIST,
-          startLoading,
-          stopLoading,
-          "desc",
-          "doc_created_At",
-          true
-        );
+    const fetchedTradeJournal = await getFirebaseData(
+      FIREBASE_ENDPOINTS.MASTER_DATA,
+      currentUser.uid,
+      FIREBASE_ENDPOINTS.USER_TRADE_JOURNAL,
+      startLoading,
+      stopLoading,
+      "desc",
+      "buyDate",
+      true
+    );
 
-        const fetchedBroker = await getFirebaseData(
-          FIREBASE_ENDPOINTS.MASTER_DATA,
-          currentUser.uid,
-          FIREBASE_ENDPOINTS.USER_MANAGE_BROKERS,
-          startLoading,
-          stopLoading,
-          "desc",
-          "doc_created_At",
-          true
-        );
+    const fetchedWatchList = await getFirebaseData(
+      FIREBASE_ENDPOINTS.MASTER_DATA,
+      currentUser.uid,
+      FIREBASE_ENDPOINTS.USER_WATCHLIST,
+      startLoading,
+      stopLoading,
+      "desc",
+      "doc_created_At",
+      true
+    );
 
-        const fetchedStrategy = await getFirebaseData(
-          FIREBASE_ENDPOINTS.MASTER_DATA,
-          currentUser.uid,
-          FIREBASE_ENDPOINTS.USER_MANAGE_STRATEGY,
-          startLoading,
-          stopLoading,
-          "desc",
-          "doc_created_At",
-          true
-        );
+    const fetchedBroker = await getFirebaseData(
+      FIREBASE_ENDPOINTS.MASTER_DATA,
+      currentUser.uid,
+      FIREBASE_ENDPOINTS.USER_MANAGE_BROKERS,
+      startLoading,
+      stopLoading,
+      "desc",
+      "doc_created_At",
+      true
+    );
 
-        const userData = await getUserByEmail(currentUser?.email);
+    const fetchedStrategy = await getFirebaseData(
+      FIREBASE_ENDPOINTS.MASTER_DATA,
+      currentUser.uid,
+      FIREBASE_ENDPOINTS.USER_MANAGE_STRATEGY,
+      startLoading,
+      stopLoading,
+      "desc",
+      "doc_created_At",
+      true
+    );
 
-        setUserData(userData);
-        setJournalData(fetchedTradeJournal);
-        setWatchListData(fetchedWatchList);
-        setFetchedBroker(fetchedBroker);
-        setFetchedStrategy(fetchedStrategy);
-      }
+    const status = await checkPlanStatus();
+    setPlanStatus(status);
 
-      fetchData();
-    }
+    setJournalData(fetchedTradeJournal);
+    setWatchListData(fetchedWatchList);
+    setFetchedBroker(fetchedBroker);
+    setFetchedStrategy(fetchedStrategy);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentUser]);
-  
+
+  const checkPlanStatus = async () => {
+    const userData = await getUserByEmail(currentUser?.email);
+
+    if (!userData) return;
+
+    const userDocRef = firestore.doc(
+      db,
+      FIREBASE_ENDPOINTS.USER_AUTH,
+      userData?.id
+    );
+
+    if (userData.subscription_status === true) {
+      if (userData?.subscription?.createdAt) {
+        const subDate = convertFirebaseTimestamp(
+          userData?.subscription?.createdAt?.seconds,
+          userData?.subscription?.createdAt?.nanoseconds
+        );
+
+        const purchaseTimestamp = new Date(subDate); // Get purchase date
+        const planDuration =
+          userData?.subscription?.planDetails?.planDurationMonth; // Plan duration in months
+
+        // Calculate the expiration date by adding the plan duration to the purchase date
+        const expirationDate = addMonths(purchaseTimestamp, planDuration);
+
+        // Check if the current date is after the expiration date
+        const isPlanExpired = isAfter(new Date(), expirationDate);
+
+        setSubscriptionData({
+          ...userData,
+          expirationDate: expirationDate,
+          purchaseTimestamp: purchaseTimestamp,
+        });
+
+        if (isPlanExpired) {
+          // Plan has expired, revert the user to the free plan
+          await firestore.updateDoc(userDocRef, {
+            subscription_status: false,
+          });
+          return "expired";
+        } else {
+          return "active";
+        }
+      }
+    } else {
+      return "free";
+    }
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, [fetchData]);
+
   return (
     <DashboardContext.Provider
       value={{
@@ -84,7 +139,8 @@ export const DashboardProvider = ({ children }) => {
         watchListData,
         fetchedBroker,
         fetchedStrategy,
-        isUserData,
+        planStatus,
+        subscriptionData,
       }}
     >
       {children}

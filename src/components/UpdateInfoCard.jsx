@@ -37,12 +37,6 @@ function UpdateInfoCard() {
                 {item?.heading}
               </h2>
               <p className="text-gray-600 mt-2 text-xs font-semibold">
-                {item?.icon === "positive" ? (
-                  <span className="text-green-400">Positive</span>
-                ) : (
-                  <span className="text-red-400">Negative</span>
-                )}
-                {" - "}
                 {formatDateToDDMMYY(item?.createdAt.toDate())}
               </p>
             </div>

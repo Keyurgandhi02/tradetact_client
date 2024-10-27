@@ -5,9 +5,10 @@ import { Disclosure, DisclosureButton } from "@headlessui/react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import {
   BROKER_ROUTES,
-  CONTACT_US_ROUTES,
+  CONSOLE_ROUTES,
   GENERAL_ROUTES,
   MARKET_ROUTES,
+  PRICING_ROUTES,
   ROI_ROUTES,
   TRADE_JOURNAL_ROUTES,
   TRADING_STRATEGY_ROUTES,
@@ -18,11 +19,13 @@ import { APP_LOGO } from "../../assets/svgIcons";
 import { APP } from "../../constants/Strings";
 import { useContext } from "react";
 import { ThemeContext } from "../../context/ThemeContext";
+import { DashboardContext } from "../../context/DashboardContext";
 
 export default function Header() {
   const { logout, currentUser } = useAuth();
   const location = useLocation();
   const { toggleTheme, theme } = useContext(ThemeContext);
+  const { planStatus } = useContext(DashboardContext);
 
   // Header Nav List
   const headerNavList = [
@@ -65,8 +68,13 @@ export default function Header() {
   // Header Popover Nav List
   const headerPopoverNavList = [
     {
-      name: "Profile",
+      name: "My Account",
       href: USER_PROFILE_ROUTES.PROFILE,
+    },
+    {
+      name: "Console",
+      href: CONSOLE_ROUTES.CONSOLE_DASH,
+      target: "_blank",
     },
     {
       name: "Demat & Broker",
@@ -76,11 +84,12 @@ export default function Header() {
       name: "Trading Strategy",
       href: TRADING_STRATEGY_ROUTES.TRADING_STRATEGY_ALL,
     },
-    {
-      name: "Help & Support",
-      href: CONTACT_US_ROUTES.CONTACT,
+    // Only include Pricing when planStatus is not active
+    planStatus !== "active" && {
+      name: "Pricing",
+      href: PRICING_ROUTES.PRICING,
     },
-  ];
+  ].filter(Boolean); // Filter out any false or null values
 
   // Join Class When Active Menu
   function classNames(...classes) {
@@ -96,7 +105,7 @@ export default function Header() {
         <div className="relative flex h-16 items-center justify-between">
           <div className="absolute inset-y-0 left-0 flex items-center sm:hidden">
             {/* Mobile menu button*/}
-            <DisclosureButton className="group relative inline-flex items-center justify-center rounded-md p-2 text-gray-400 hover:bg-gray-700 hover:text-black focus:outline-none focus:ring-2 focus:ring-inset focus:ring-black">
+            <DisclosureButton className="group relative inline-flex items-center justify-center rounded-md p-2 text-black-dark-400 dark:text-whiten  focus:outline-none">
               <Bars3Icon
                 aria-hidden="true"
                 className="block h-6 w-6 group-data-[open]:hidden"

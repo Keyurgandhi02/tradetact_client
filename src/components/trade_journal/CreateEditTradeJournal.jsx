@@ -328,7 +328,7 @@ function CreateEditTradeJournal() {
                         <option
                           key={item.id}
                           value={item.dematUser}
-                          className="text-whiten"
+                          className="dark:text-whiten text-black-dark-400"
                         >
                           {item.dematUser}
                         </option>
@@ -354,7 +354,7 @@ function CreateEditTradeJournal() {
                         <option
                           key={item.id}
                           value={item.label}
-                          className="text-whiten"
+                          className="dark:text-whiten text-black-dark-400"
                         >
                           {item.label}
                         </option>
@@ -382,7 +382,7 @@ function CreateEditTradeJournal() {
                         <option
                           key={item.id}
                           value={item.label}
-                          className="text-whiten"
+                          className="dark:text-whiten text-black-dark-400"
                         >
                           {item.label}
                         </option>
@@ -409,7 +409,7 @@ function CreateEditTradeJournal() {
                         <option
                           key={item.id}
                           value={item.label}
-                          className="text-whiten"
+                          className="dark:text-whiten text-black-dark-400"
                         >
                           {item.label}
                         </option>
@@ -434,7 +434,7 @@ function CreateEditTradeJournal() {
                         <option
                           key={item.id}
                           value={item.label}
-                          className="text-whiten"
+                          className="dark:text-whiten text-black-dark-400"
                         >
                           {item.label}
                         </option>
@@ -501,6 +501,17 @@ function CreateEditTradeJournal() {
                 />
               </div>
 
+              <div className="grid grid-cols-1 md:grid-cols-1 gap-6 mb-2">
+                <GlobalInput
+                  inputType="number"
+                  placeholder="Rating out of 5 *"
+                  isValue={formData?.rating}
+                  errors={errors?.rating}
+                  onChangeHandler={(name, value) => handleChange(name, value)}
+                  name="rating"
+                />
+              </div>
+
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-2">
                 <GlobalTextArea
                   row="4"
@@ -542,17 +553,6 @@ function CreateEditTradeJournal() {
                   errors={errors?.mistake}
                   name="mistake"
                   onChangeHandler={(name, value) => handleChange(name, value)}
-                />
-              </div>
-
-              <div className="grid grid-cols-1 md:grid-cols-1 gap-6 mb-2">
-                <GlobalInput
-                  inputType="number"
-                  placeholder="Rating out of 5 *"
-                  isValue={formData?.rating}
-                  errors={errors?.rating}
-                  onChangeHandler={(name, value) => handleChange(name, value)}
-                  name="rating"
                 />
               </div>
 

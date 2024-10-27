@@ -9,7 +9,9 @@ export const FIREBASE_ENDPOINTS = {
   USER_MANAGE_BROKERS: "user_manage_brokers",
   USER_MANAGE_DEMAT: "user_manage_demat",
   USER_MANAGE_STRATEGY: "user_manage_strategy",
+  USER_SUBSCRIPTION: "user_subscription",
   MARKET_UPDATES_DATA: "update_info",
-  USER_CONSOLE_DATA: "user_console_data",
+  USER_CUSTOM_BROKER_DATA: "user_custom_broker_data",
   CONTACT_US_DATA: "contact_us_data",
+  PRICING_DATA: "subscription_plans",
 };

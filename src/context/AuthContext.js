@@ -1,5 +1,5 @@
 import React, { useContext, useState, useEffect, createContext } from "react";
-import { addDoc, collection, serverTimestamp } from "firebase/firestore";
+import { doc, serverTimestamp, setDoc } from "firebase/firestore";
 import {
   getAuth,
   signInWithEmailAndPassword,
@@ -35,7 +35,7 @@ export function AuthProvider({ children }) {
   const [loading, setLoading] = useState(true);
 
   // Register Handler
-  const signUp = async (name, email, password, mobile) => {
+  const signUp = async (name, email, password, mobile, subscription_status) => {
     try {
       const userCredential = await createUserWithEmailAndPassword(
         auth,
@@ -50,13 +50,18 @@ export function AuthProvider({ children }) {
       // Update Default User Profile
       await updateProfile(user, { displayName: name });
 
-      // Add User Profile Data to Firebase
-      await addDoc(collection(db, FIREBASE_ENDPOINTS.USER_AUTH), {
-        email: email,
-        name: name,
-        createdAt: serverTimestamp(),
-        mobile: mobile,
-      });
+      if (user) {
+        const docRef = doc(db, FIREBASE_ENDPOINTS.USER_AUTH, user?.uid);
+
+        // Set the document with the data
+        await setDoc(docRef, {
+          email: email,
+          name: name,
+          createdAt: serverTimestamp(),
+          mobile: mobile,
+          subscription_status: subscription_status,
+        });
+      }
       toast.success(SIGN_UP_SUCCESS);
     } catch (error) {
       switch (error.code) {
@@ -123,12 +128,8 @@ export function AuthProvider({ children }) {
   const logout = async () => {
     try {
       await signOut(auth);
-
-      toast.success(LOGOUT_SUCCESS, {
-        position: "top-center",
-      });
-
-      // toast.success(LOGOUT_SUCCESS);
+      localStorage.removeItem("user");
+      toast.success(LOGOUT_SUCCESS);
     } catch (error) {
       toast.error(LOGOUT_ERROR);
     }

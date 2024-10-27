@@ -181,7 +181,7 @@ function CreateEditBrokerDematAccounts() {
     const existingData = await getFirebaseData(
       FIREBASE_ENDPOINTS.MASTER_DATA,
       currentUser.uid,
-      FIREBASE_ENDPOINTS.USER_CONSOLE_DATA,
+      FIREBASE_ENDPOINTS.USER_CUSTOM_BROKER_DATA,
       startLoading,
       stopLoading,
       "desc",
@@ -202,7 +202,7 @@ function CreateEditBrokerDematAccounts() {
     await addFirebaseData(
       FIREBASE_ENDPOINTS.MASTER_DATA,
       currentUser.uid,
-      FIREBASE_ENDPOINTS.USER_CONSOLE_DATA,
+      FIREBASE_ENDPOINTS.USER_CUSTOM_BROKER_DATA,
       newTempItem
     );
 
@@ -218,7 +218,7 @@ function CreateEditBrokerDematAccounts() {
       const data = await getFirebaseData(
         FIREBASE_ENDPOINTS.MASTER_DATA,
         currentUser.uid,
-        FIREBASE_ENDPOINTS.USER_CONSOLE_DATA,
+        FIREBASE_ENDPOINTS.USER_CUSTOM_BROKER_DATA,
         startLoading,
         stopLoading,
         "desc",
@@ -285,17 +285,17 @@ function CreateEditBrokerDematAccounts() {
           {!isEditMode && (
             <div className="px-3">
               <AlertCard
-                bgColor="bg-transparent dark:bg-black-dark-400"
-                borderColor="border-main_color"
-                textColor="text-secondary"
-                heading="  If you use a broker that is not listed here, you may be able to
+                bgColor="bg-transparent"
+                borderColor="border-gray-500"
+                textColor="text-gray-500"
+                heading="If you use a broker that is not listed here, you may be able to
               create your own Broker by clicking"
                 action={
                   <span
-                    className="text-secondary cursor-pointer underline"
+                    className="text-main_color cursor-pointer"
                     onClick={() => setViewModal(true)}
                   >
-                    Create Broker!
+                    Create Broker?
                   </span>
                 }
               />
