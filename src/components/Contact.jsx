@@ -16,6 +16,7 @@ import { FIREBASE_ENDPOINTS } from "../constants/apiConstants";
 import { useNavigate } from "react-router-dom";
 import { GENERAL_ROUTES } from "../constants/routesConstants";
 import { addFirebaseData } from "../config/firestoreOperations";
+import { APP } from "../constants/Strings";
 
 const initialState = {
   message: "",
@@ -104,10 +105,10 @@ function Contact() {
                       Our Address
                     </h3>
                     <p class="text-black-dark-400 dark:text-white">
-                      C-441 BG Towers, Ahmedabad
+                      B-465 MoneyPlant High Street SG Highway, Ahmedabad
                     </p>
                     <p class="text-black-dark-400 dark:text-white">
-                      Gujarat, India
+                      Gujarat, India - 382470
                     </p>
                   </div>
                 </li>
@@ -120,10 +121,10 @@ function Contact() {
                       Contact
                     </h3>
                     <p class="text-black-dark-400 dark:text-white">
-                      Mobile: +91 (722) 704-5037
+                      Mobile: {APP.contact_number}
                     </p>
                     <p class="text-black-dark-400 dark:text-white">
-                      Mail: info@teamuprisefuse.com
+                      Mail: {APP.contact_email}
                     </p>
                   </div>
                 </li>
@@ -136,10 +137,10 @@ function Contact() {
                       Working hours
                     </h3>
                     <p class="text-black-dark-400 dark:text-white">
-                      Monday - Friday: 09:00 - 5:00
+                      Working days: 09:00 AM - 5:00 PM
                     </p>
                     <p class="text-black-dark-400 dark:text-white">
-                      Saturday &amp; Sunday: 09:00 - 12:00
+                      Weekend: Closed
                     </p>
                   </div>
                 </li>

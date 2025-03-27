@@ -2,6 +2,7 @@
 export const GENERAL_ROUTES = {
   BLANK: "/",
   NO_PAGE_FOUND: "*",
+  HOME_MAIN: "/dash",
 };
 
 // USER ROUTES
@@ -24,6 +25,11 @@ export const WATCHLIST_ROUTES = {
   WATCHLIST_CREATE: "/watchlist/create",
   WATCHLIST_EDIT_ID: "/watchlist/edit/:id",
   WATCHLIST_EDIT: "/watchlist/edit",
+};
+
+// RISK ROUTES
+export const RISK_ROUTES = {
+  RISK: "/risk",
 };
 
 // ROI ROUTES

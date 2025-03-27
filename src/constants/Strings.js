@@ -1,5 +1,15 @@
+import { shieldTick, support, truckFast } from "../assets/icons";
+
 export const APP = {
   name: "TradeTact",
+  contact_address: "",
+  contact_number: "+91 (722) 704-5037",
+  contact_email: "info@cohogroups.com",
+  contact_social_media: {
+    instagram: "",
+    linkdin: "",
+    facebook: "",
+  },
 };
 
 export const CONTACT_MESSAGE_SUCCESS = "Message Send Successfully";
@@ -79,3 +89,40 @@ export const BROKERS_ACCOUNTS_CHOOSE_PAGE_STRINGS = {
   addBrokerAccount: "Choose Broker Account",
   editBrokerAccount: "Edit Broker Account",
 };
+
+export const services = [
+  {
+    imgURL: truckFast,
+    label: "Comprehensive Trade Logging",
+    subtext:
+      "Easily log every trade you make, across all markets. Our user-friendly interface allows you to record entries, exits, trade reasons, profits, losses, and more.",
+  },
+  {
+    imgURL: shieldTick,
+    label: "Cloud-Based and Secure",
+    subtext:
+      "Access your journal anytime, anywhere. Your data is stored securely in the cloud, ensuring it’s safe and accessible from any device.",
+  },
+  {
+    imgURL: support,
+    label: "Love to help you",
+    subtext: "Our dedicated team is here to assist you every step of the way.",
+  },
+];
+
+export const reviews = [
+  {
+    // imgURL: customer1,
+    customerName: "Morich Brown",
+    rating: 4.5,
+    feedback:
+      "The attention to detail and the quality of the product exceeded my expectations. Highly recommended!",
+  },
+  {
+    // imgURL: customer2,
+    customerName: "Lota Mongeskar",
+    rating: 4.5,
+    feedback:
+      "The product not only met but exceeded my expectations. I'll definitely be a returning customer!",
+  },
+];

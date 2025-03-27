@@ -6,7 +6,6 @@ import ProfilePage from "./ProfilePage";
 import RegisterPage from "./RegisterPage";
 import ResetPasswordPage from "./ResetPasswordPage";
 import UpdatesPage from "./UpdatesPage";
-import RiskManagementCalculatorPage from "./RiskManagementCalculatorPage";
 import ContactPage from "./ContactPage";
 import WatchlistPage from "./watchlist/WatchlistPage";
 import CreateEditWatchlistPage from "./watchlist/CreateEditWatchlistPage";
@@ -24,6 +23,7 @@ import ConsoleTradesPage from "./console/ConsoleTradesPage";
 import ConsoleDashPage from "./console/ConsoleDashPage";
 import ConsoleReportsPage from "./console/ConsoleReportsPage";
 import ConsoleAnalysisPage from "./console/ConsoleAnalysisPage";
+import RiskManagementCalculatorPage from "./risk/RiskManagementCalculatorPage";
 
 export {
   HomePage,

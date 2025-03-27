@@ -9,8 +9,11 @@ import { useLoading } from "../context/LoadingContext";
 import TicketCard from "../components/TicketCard";
 import { useNavigate } from "react-router-dom";
 import { APP } from "../constants/Strings";
-import { formatDateToDDMMYY, formatNumber } from "../config/helper";
-import { differenceInDays } from "date-fns";
+import {
+  calculateDaysBetween,
+  formatDateDD,
+  formatNumber,
+} from "../config/helper";
 import { CONTACT_US_ROUTES } from "../constants/routesConstants";
 
 function ProfilePage() {
@@ -43,6 +46,7 @@ function ProfilePage() {
     );
 
     setFetchedData(fetchedTasks);
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -61,8 +65,6 @@ function ProfilePage() {
     }
   };
 
-  console.log("subscriptionData", subscriptionData);
-  console.log("planStatus", planStatus);
   return (
     <>
       <UserProfile
@@ -133,26 +135,20 @@ function ProfilePage() {
                 <>
                   <div className="flex flex-row justify-between items-center mt-10">
                     <Grid
-                      title="Member since"
-                      value={formatDateToDDMMYY(
-                        subscriptionData?.purchaseTimestamp
-                      )}
+                      title="Started On"
+                      value={formatDateDD(subscriptionData?.purchaseTimestamp)}
                     />
 
                     <Grid
-                      title="Valid till"
-                      value={formatDateToDDMMYY(
+                      title="Valid Up To"
+                      value={formatDateDD(subscriptionData?.expirationDate)}
+                    />
+
+                    <Grid
+                      title="Plan days"
+                      value={calculateDaysBetween(
+                        subscriptionData?.purchaseTimestamp,
                         subscriptionData?.expirationDate
-                      )}
-                    />
-
-                    <Grid
-                      title="Remaining days"
-                      value={Math.abs(
-                        differenceInDays(
-                          subscriptionData?.purchaseTimestamp,
-                          subscriptionData?.expirationDate
-                        )
                       )}
                     />
                   </div>

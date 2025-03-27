@@ -10,6 +10,7 @@ import {
   MARKET_ROUTES,
   PRICING_ROUTES,
   RISK_MANAGE_ROUTES,
+  RISK_ROUTES,
   ROI_ROUTES,
   TRADE_JOURNAL_ROUTES,
   TRADING_STRATEGY_ROUTES,
@@ -44,12 +45,14 @@ import {
   ConsoleTradesPage,
   ConsoleAnalysisPage,
 } from "./pages/index";
+import HomeIndexPage from "./pages/home/HomeIndexPage";
 
 function App() {
   return (
     <>
       <Suspense fallback={<div>Loading...</div>}>
         <Routes>
+          <Route path={GENERAL_ROUTES.BLANK} element={<HomeIndexPage />} />
           <Route path={USER_ROUTES.AUTH} element={<RegisterPage />} />
           <Route
             path={USER_ROUTES.RESET_PASSWORD}
@@ -58,7 +61,7 @@ function App() {
           <Route element={<ProtectedRoute />}>
             <Route element={<AuthenticatedLayout />}>
               {/* General Routes */}
-              <Route path={GENERAL_ROUTES.BLANK} element={<HomePage />} />
+              <Route path={GENERAL_ROUTES.HOME_MAIN} element={<HomePage />} />
               <Route
                 path={GENERAL_ROUTES.NO_PAGE_FOUND}
                 element={<NotFound404Page />}
@@ -90,6 +93,12 @@ function App() {
               <Route
                 path={WATCHLIST_ROUTES.WATCHLIST_EDIT_ID}
                 element={<CreateEditWatchlistPage />}
+              />
+
+              {/* Risk Routes */}
+              <Route
+                path={RISK_ROUTES.RISK}
+                element={<RiskManagementCalculatorPage />}
               />
 
               {/* ROI Routes */}

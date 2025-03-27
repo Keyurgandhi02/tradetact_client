@@ -21,6 +21,7 @@ import {
   SIGN_UP_ERRORS,
   SIGN_UP_SUCCESS,
 } from "../constants/Strings";
+import { GENERAL_ROUTES } from "../constants/routesConstants";
 
 export function useAuth() {
   return useContext(AuthContext);
@@ -97,7 +98,7 @@ export function AuthProvider({ children }) {
       if (!user.emailVerified) {
         toast.error(LOGIN_ERRORS.verifyUser);
       } else {
-        navigate("/");
+        navigate(GENERAL_ROUTES.HOME_MAIN);
         toast.success(LOGIN_SUCCESS);
       }
     } catch (error) {

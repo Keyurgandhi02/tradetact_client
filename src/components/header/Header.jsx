@@ -9,6 +9,7 @@ import {
   GENERAL_ROUTES,
   MARKET_ROUTES,
   PRICING_ROUTES,
+  RISK_ROUTES,
   ROI_ROUTES,
   TRADE_JOURNAL_ROUTES,
   TRADING_STRATEGY_ROUTES,
@@ -31,8 +32,8 @@ export default function Header() {
   const headerNavList = [
     {
       name: "Dashboard",
-      href: GENERAL_ROUTES.BLANK,
-      current: location.pathname === GENERAL_ROUTES.BLANK,
+      href: GENERAL_ROUTES.HOME_MAIN,
+      current: location.pathname === GENERAL_ROUTES.HOME_MAIN,
     },
     {
       name: "Journal",
@@ -49,6 +50,11 @@ export default function Header() {
         location.pathname === WATCHLIST_ROUTES.WATCHLIST_ALL ||
         location.pathname === WATCHLIST_ROUTES.WATCHLIST_CREATE ||
         location.pathname === WATCHLIST_ROUTES.WATCHLIST_EDIT,
+    },
+    {
+      name: "Risk Management",
+      href: RISK_ROUTES.RISK,
+      current: location.pathname === RISK_ROUTES.RISK,
     },
     {
       name: "Returns",
@@ -118,7 +124,7 @@ export default function Header() {
           </div>
           <div className="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
             <div className="flex flex-shrink-0 items-center">
-              <Link to={GENERAL_ROUTES.BLANK}>
+              <Link to={GENERAL_ROUTES.HOME_MAIN}>
                 <img alt={APP.name} src={APP_LOGO} className="h-9 w-auto" />
               </Link>
             </div>

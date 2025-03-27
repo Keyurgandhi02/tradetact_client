@@ -18,6 +18,28 @@ export function formatDateToDDMMYY(date) {
   return `${year}-${month}-${day}`;
 }
 
+// Format Data into DD
+export function formatDateDD(date) {
+  const day = String(date?.getDate()).padStart(2, "0");
+  const month = String(date?.getMonth() + 1).padStart(2, "0");
+  const year = String(date?.getFullYear());
+  return `${day}-${month}-${year}`;
+}
+
+export const calculateDaysBetween = (date1, date2) => {
+  // Parse the dates if they are strings
+  const parsedDate1 = new Date(date1);
+  const parsedDate2 = new Date(date2);
+
+  // Get the time difference in milliseconds
+  const timeDifference = Math.abs(parsedDate2 - parsedDate1);
+
+  // Convert milliseconds to days
+  const daysDifference = Math.ceil(timeDifference / (1000 * 60 * 60 * 24));
+
+  return daysDifference;
+};
+
 // Format Date into String one time
 export function formatTimestamp(timestamp) {
   const date = new Date(parseInt(timestamp, 10));
@@ -114,6 +136,3 @@ export function parseCurrencyToNumber(currencyString) {
 
   return numberValue;
 }
-
-
-
