@@ -39,7 +39,6 @@ function ManageReturnPerformance() {
   const fetchData = useCallback(async () => {
     const fetchedTasks = await getFirebaseData(
       FIREBASE_ENDPOINTS.MASTER_DATA,
-      currentUser.uid,
       FIREBASE_ENDPOINTS.USER_ROI,
       startLoading,
       stopLoading,
@@ -180,13 +179,13 @@ function ManageReturnPerformance() {
                 <div className="flex justify-between items-center">
                   <div>
                     <button
-                     className="hover:text-red-600 dark:hover:text-red-600 text-black-dark-400 dark:text-white px-2 focus:outline-none border-none"
+                      className="hover:text-red-600 dark:hover:text-red-600 text-black-dark-400 dark:text-white px-2 focus:outline-none border-none"
                       onClick={() => deleteHandler(data?.id)}
                     >
                       <DELETE_SVG />
                     </button>
                     <button
-                       className="hover:text-green-600 dark:hover:text-green-600 text-black-dark-400 dark:text-white px-2 focus:outline-none border-none"
+                      className="hover:text-green-600 dark:hover:text-green-600 text-black-dark-400 dark:text-white px-2 focus:outline-none border-none"
                       onClick={() => editHandler(data?.id)}
                     >
                       <EDIT_SVG />
@@ -205,7 +204,6 @@ function ManageReturnPerformance() {
               </div>
             ))}
           </div>
-        
         </>
       ) : (
         <NoRecordFound

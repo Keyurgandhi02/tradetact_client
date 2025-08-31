@@ -1,6 +1,5 @@
 import HomePage from "./HomePage";
 import AnalyticsPage from "./AnalyticsPage";
-import MarketPage from "./MarketPage";
 import NotFound404Page from "./NotFound404Page";
 import ProfilePage from "./ProfilePage";
 import RegisterPage from "./RegisterPage";
@@ -13,8 +12,6 @@ import TradingStrategyPage from "./trading_strategy/TradingStrategyPage";
 import CreateEditTradingStrategyPage from "./trading_strategy/CreateEditTradingStrategyPage";
 import TradeJournalPage from "./trade_journal/TradeJournalPage";
 import CreateEditTradeJournalPage from "./trade_journal/CreateEditTradeJournalPage";
-import CreateEditReturnPerformancePage from "./roi/CreateEditReturnPerformancePage";
-import ReturnPerformancePage from "./roi/ReturnPerformancePage";
 import PricingPage from "./pricing/PricingPage";
 import PricingCheckoutPage from "./pricing/PricingCheckoutPage";
 import ManageBrokerDematAccountsPage from "./broker_demat/ManageBrokerDematAccountsPage";
@@ -23,18 +20,18 @@ import ConsoleTradesPage from "./console/ConsoleTradesPage";
 import ConsoleDashPage from "./console/ConsoleDashPage";
 import ConsoleReportsPage from "./console/ConsoleReportsPage";
 import ConsoleAnalysisPage from "./console/ConsoleAnalysisPage";
-import RiskManagementCalculatorPage from "./risk/RiskManagementCalculatorPage";
-
+import RiskManagementPage from "./risk/RiskManagementPage";
+import ManageRiskManagementPage from "./risk/ManageRiskManagementPage";
 export {
   HomePage,
   AnalyticsPage,
   NotFound404Page,
-  MarketPage,
   ProfilePage,
   UpdatesPage,
   ResetPasswordPage,
   RegisterPage,
-  RiskManagementCalculatorPage,
+  ManageRiskManagementPage,
+  RiskManagementPage,
   ContactPage,
   WatchlistPage,
   CreateEditWatchlistPage,
@@ -42,8 +39,6 @@ export {
   CreateEditTradingStrategyPage,
   TradeJournalPage,
   CreateEditTradeJournalPage,
-  CreateEditReturnPerformancePage,
-  ReturnPerformancePage,
   PricingPage,
   PricingCheckoutPage,
   CreateEditBrokerDematAccountsPage,

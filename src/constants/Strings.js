@@ -71,8 +71,8 @@ export const ROI_PAGE_STRINGS = {
 };
 
 export const STRATEGY_PAGE_STRINGS = {
-  addStrategy: "Create Trade Strategy",
-  editStrategy: "Edit Trade Strategy",
+  addStrategy: "Create Trading Strategy",
+  editStrategy: "Edit Trading Strategy",
 };
 
 export const DEMAT_ACCOUNTS_PAGE_STRINGS = {

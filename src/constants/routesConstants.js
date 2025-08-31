@@ -30,25 +30,9 @@ export const WATCHLIST_ROUTES = {
 // RISK ROUTES
 export const RISK_ROUTES = {
   RISK: "/risk",
-};
-
-// ROI ROUTES
-export const ROI_ROUTES = {
-  ROI_ALL: "/roi/all",
-  ROI_CREATE: "/roi/create",
-  ROI_EDIT_ID: "/roi/edit/:id",
-  ROI_EDIT: "/roi/edit",
-};
-
-// MARKET ROUTES
-export const MARKET_ROUTES = {
-  MARKET_DATA: "/market",
-  MARKET_UPDATES: "/updates",
-};
-
-// RISK MANAGEMENT ROUTES
-export const RISK_MANAGE_ROUTES = {
-  RISK_MANAGE_CALCULATOR: "/risk_management_calculator",
+  RISK_ALL: "/risk/all",
+  RISK_EDIT_ID: "/risk/edit/:id",
+  RISK_EDIT: "/risk/edit",
 };
 
 // USER PROFILE ROUTES

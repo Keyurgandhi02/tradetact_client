@@ -1,6 +1,6 @@
 import React, { useCallback, useContext, useEffect, useState } from "react";
 import UserProfile from "../components/UserProfile";
-import { useAuth } from "../context/AuthContext";
+import { getAuth } from "firebase/auth";
 import { DashboardContext } from "../context/DashboardContext";
 import ModalDialog from "../components/ModalDialog";
 import { getFirebaseData } from "../config/firestoreOperations";
@@ -15,9 +15,10 @@ import {
   formatNumber,
 } from "../config/helper";
 import { CONTACT_US_ROUTES } from "../constants/routesConstants";
+import { useAuth } from "../context/AuthContext";
 
 function ProfilePage() {
-  const { currentUser } = useAuth();
+  const auth = getAuth();
   const {
     journalData,
     fetchedBroker,
@@ -28,15 +29,16 @@ function ProfilePage() {
   } = useContext(DashboardContext);
   const [isViewContactModal, setViewContactModal] = useState(false);
   const [isViewMembershipModal, setViewMembershipModal] = useState(false);
+  const [isViewUserDetailsModal, setViewUserDetailsModal] = useState(false);
   const { startLoading, stopLoading } = useLoading();
   const [fetchedData, setFetchedData] = useState([]);
   const navigate = useNavigate();
+  const { currentUser } = useAuth();
 
   // Fetch data function
   const fetchData = useCallback(async () => {
     const fetchedTasks = await getFirebaseData(
       FIREBASE_ENDPOINTS.MASTER_DATA,
-      currentUser.uid,
       FIREBASE_ENDPOINTS.CONTACT_US_DATA,
       startLoading,
       stopLoading,
@@ -60,16 +62,18 @@ function ProfilePage() {
       setViewMembershipModal(status);
     } else if (title === "Your Tickets") {
       setViewContactModal(status);
+    } else if (title === "Your Details") {
+      setViewUserDetailsModal(status);
     } else {
       navigate(CONTACT_US_ROUTES.CONTACT);
     }
   };
-
+  console.log("currentUser", currentUser);
   return (
     <>
       <UserProfile
         userData={isUserData}
-        currentUser={currentUser}
+        currentUser={auth.currentUser}
         fetchedJournalData={journalData}
         fetchedBroker={fetchedBroker}
         fetchedStrategy={fetchedStrategy}
@@ -77,21 +81,6 @@ function ProfilePage() {
       />
 
       <div className="fixed bottom-8 right-6">
-        {/* <div className="flex items-center justify-between dark:bg-white bg-black-dark-400 rounded-full px-6 py-3 shadow-md max-w-md mx-auto transition-all duration-300 hover:shadow-xl hover:bg-opacity-90">
-          <span
-            onClick={() => setViewModal(true)}
-            className="cursor-pointer font-semibold text-main_color mx-4 transition-transform duration-200 ease-in-out hover:scale-110 focus:outline-none border-none rounded-full"
-          >
-            <span>Your Tickets</span>
-          </span>
-          <span
-            onClick={() => navigate(CONTACT_US_ROUTES.CONTACT)}
-            className="cursor-pointer font-semibold text-main_color mx-4 transition-all duration-200 ease-in-out hover:scale-110 focus:outline-none border-none rounded-full"
-          >
-            <span>Create Ticket</span>
-          </span>
-        </div> */}
-
         {/* Contact Modal */}
         <ModalDialog
           isOpen={isViewContactModal}
@@ -99,7 +88,7 @@ function ProfilePage() {
           children={
             <div className="p-12">
               {fetchedData.length > 0 ? (
-                <div>
+                <div className="max-h-[400px] overflow-y-auto pr-2 no-scrollbar">
                   {fetchedData?.map((item, index) => (
                     <TicketCard
                       key={index}
@@ -119,6 +108,34 @@ function ProfilePage() {
           }
         />
 
+        {/* User Details Modal */}
+        <ModalDialog
+          isOpen={isViewUserDetailsModal}
+          onClose={() => setViewUserDetailsModal(false)}
+          children={
+            <div className="p-12">
+              <h2 className="font-bold text-2xl text-center text-black-dark-400 dark:text-whiten">
+                Hey {currentUser?.displayName}!{" "}
+              </h2>
+
+              <div className="flex flex-row justify-between items-center mt-5">
+                <Grid
+                  title="Mobile"
+                  value={currentUser?.mobile ? currentUser?.mobile : "N/A"}
+                />
+                <Grid
+                  title="Experience"
+                  value={
+                    currentUser?.onboardingData?.experience
+                      ? currentUser?.onboardingData?.experience
+                      : "N/A"
+                  }
+                />
+              </div>
+            </div>
+          }
+        />
+
         {/* Membership Modal */}
         <ModalDialog
           isOpen={isViewMembershipModal}
@@ -126,7 +143,7 @@ function ProfilePage() {
           children={
             <div className="p-12">
               <h2 className="font-bold text-xl text-center text-black-dark-400 dark:text-whiten">
-                Hey {currentUser?.displayName}!{" "}
+                Hey {auth.currentUser?.displayName}!{" "}
                 <span className="text-main_color">{APP.name} One </span>{" "}
                 Membership is {planStatus}!
               </h2>

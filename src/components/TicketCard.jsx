@@ -3,7 +3,7 @@ import { convertFirebaseTimestamp, convertToUpperCase } from "../config/helper";
 
 const TicketCard = ({ date, id, status, message }) => {
   return (
-    <div className="bg-transparent p-4 rounded-sm border-[0.6px] border-gray-500  shadow-md ">
+    <div className="bg-transparent p-4 rounded-sm border-[0.6px] border-gray-500  shadow-md m-2">
       <div className="flex justify-between items-center mb-2">
         <p className="text-black-dark-400 dark:text-whiten text-sm">
           {date && convertFirebaseTimestamp(date?.seconds, date?.nanoseconds)}

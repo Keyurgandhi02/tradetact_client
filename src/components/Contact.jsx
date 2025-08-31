@@ -55,13 +55,13 @@ function Contact() {
       try {
         await addFirebaseData(
           FIREBASE_ENDPOINTS.MASTER_DATA,
-          currentUser.uid,
           FIREBASE_ENDPOINTS.CONTACT_US_DATA,
           {
             ...formData,
-            name: currentUser?.displayName,
-            email: currentUser?.email,
             status: "Pending",
+            userName: currentUser.displayName,
+            userEmail: currentUser.email,
+            uid: currentUser?.uid,
           }
         );
 

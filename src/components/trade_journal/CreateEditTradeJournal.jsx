@@ -85,14 +85,12 @@ function CreateEditTradeJournal() {
       try {
         const fetchedTasks = await getFirebaseDataById(
           FIREBASE_ENDPOINTS.MASTER_DATA,
-          currentUser.uid,
           FIREBASE_ENDPOINTS.USER_TRADE_JOURNAL,
           id
         );
 
         const fetchedOptions = await getFirebaseData(
           FIREBASE_ENDPOINTS.MASTER_DATA,
-          currentUser.uid,
           FIREBASE_ENDPOINTS.USER_MANAGE_BROKERS,
           startLoading,
           stopLoading,
@@ -195,6 +193,25 @@ function CreateEditTradeJournal() {
       tradeJournalValidationRules
     );
 
+    // --- Custom Business Logic Validation ---
+    const entry = parseFloat(formData.entryPrice);
+    const exit = parseFloat(formData.exitPrice);
+    const target = parseFloat(formData.targetPrice);
+    const stop = parseFloat(formData.slPrice);
+
+    if (!isNaN(entry)) {
+      if (!isNaN(exit) && exit >= entry) {
+        validationErrors.exitPrice = "Exit Price must be less than Entry Price";
+      }
+      if (!isNaN(target) && target <= entry) {
+        validationErrors.targetPrice =
+          "Target Price must be greater than Entry Price";
+      }
+      if (!isNaN(stop) && stop >= entry) {
+        validationErrors.slPrice = "Stop Loss must be less than Entry Price";
+      }
+    }
+
     setErrors(validationErrors);
 
     if (Object.keys(validationErrors).length > 0) {
@@ -206,7 +223,6 @@ function CreateEditTradeJournal() {
       if (isEditMode && hasChanges) {
         await updateFirebaseData(
           FIREBASE_ENDPOINTS.MASTER_DATA,
-          currentUser.uid,
           FIREBASE_ENDPOINTS.USER_TRADE_JOURNAL,
           id,
           modifiedData
@@ -214,7 +230,6 @@ function CreateEditTradeJournal() {
       } else if (!isEditMode) {
         await addFirebaseData(
           FIREBASE_ENDPOINTS.MASTER_DATA,
-          currentUser.uid,
           FIREBASE_ENDPOINTS.USER_TRADE_JOURNAL,
           formData
         );
@@ -236,7 +251,6 @@ function CreateEditTradeJournal() {
       try {
         const fetchedOptions = await getFirebaseData(
           FIREBASE_ENDPOINTS.MASTER_DATA,
-          currentUser.uid,
           FIREBASE_ENDPOINTS.USER_MANAGE_BROKERS,
           startLoading,
           stopLoading,
@@ -249,11 +263,10 @@ function CreateEditTradeJournal() {
 
         const fetchedOptions2 = await getFirebaseData(
           FIREBASE_ENDPOINTS.MASTER_DATA,
-          currentUser.uid,
           FIREBASE_ENDPOINTS.USER_MANAGE_STRATEGY,
           startLoading,
           stopLoading,
-          "desc",
+          "asc",
           "doc_created_At",
           true
         );
@@ -314,7 +327,7 @@ function CreateEditTradeJournal() {
                 <GlobalDropdown
                   formData={formData?.dematUser}
                   errors={errors?.dematUser}
-                  label="Select Demat User *"
+                  label="Select Account *"
                   children={
                     <select
                       className="bg-transparent relative z-2 w-full appearance-none rounded border-[1.2px] border-gray-500 text-black-dark-400 dark:text-whiten px-5 py-3 outline-none transition focus:border-main_color active:border-main_color"
@@ -322,7 +335,7 @@ function CreateEditTradeJournal() {
                       value={selectedDematUser}
                     >
                       <option value="" disabled>
-                        Select Demat User
+                        Select Account
                       </option>
                       {options?.map((item) => (
                         <option
@@ -381,10 +394,10 @@ function CreateEditTradeJournal() {
                       {options2?.map((item) => (
                         <option
                           key={item.id}
-                          value={item.label}
+                          value={item.strategy_name}
                           className="dark:text-whiten text-black-dark-400"
                         >
-                          {item.label}
+                          {item.strategy_name}
                         </option>
                       ))}
                     </select>
@@ -572,8 +585,8 @@ function CreateEditTradeJournal() {
 
       {isViewModal && (
         <GloablInfo
-          firstTitle="Oopss!!"
-          secondTitle="Trade Setting Required"
+          firstTitle="😬"
+          secondTitle="Trade Setting Required!"
           desc={`${TRADE_SETTINGS_NO_ERROR} ${
             isBrokerCount === 0
               ? "select Demant & Broker"

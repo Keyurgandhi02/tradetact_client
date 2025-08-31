@@ -1,5 +1,5 @@
 import React, { useContext, useState, useEffect, createContext } from "react";
-import { doc, serverTimestamp, setDoc } from "firebase/firestore";
+import { doc, getDoc, serverTimestamp, setDoc } from "firebase/firestore";
 import {
   getAuth,
   signInWithEmailAndPassword,
@@ -12,7 +12,6 @@ import {
 import db from "../utils/firebase-config";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
-import { FIREBASE_ENDPOINTS } from "../constants/apiConstants";
 import {
   LOGIN_ERRORS,
   LOGIN_SUCCESS,
@@ -22,6 +21,7 @@ import {
   SIGN_UP_SUCCESS,
 } from "../constants/Strings";
 import { GENERAL_ROUTES } from "../constants/routesConstants";
+import { FIREBASE_ENDPOINTS } from "../constants/apiConstants";
 
 export function useAuth() {
   return useContext(AuthContext);
@@ -34,6 +34,7 @@ export function AuthProvider({ children }) {
   const navigate = useNavigate();
   const [currentUser, setCurrentUser] = useState();
   const [loading, setLoading] = useState(true);
+  const [isSending, setIsSending] = useState(false);
 
   // Register Handler
   const signUp = async (name, email, password, mobile, subscription_status) => {
@@ -52,15 +53,21 @@ export function AuthProvider({ children }) {
       await updateProfile(user, { displayName: name });
 
       if (user) {
-        const docRef = doc(db, FIREBASE_ENDPOINTS.USER_AUTH, user?.uid);
-
-        // Set the document with the data
-        await setDoc(docRef, {
+        // 1️⃣ Create user_register/{uid}
+        const userDocRef = doc(db, FIREBASE_ENDPOINTS.USER_AUTH, user.uid);
+        await setDoc(userDocRef, {
           email: email,
           name: name,
           createdAt: serverTimestamp(),
           mobile: mobile,
-          subscription_status: subscription_status,
+          onboardingCompleted: false,
+          userID: user.uid,
+        });
+
+        // 2️⃣ Create master_data/{uid} (empty doc for subcollections)
+        const masterDocRef = doc(db, FIREBASE_ENDPOINTS.MASTER_DATA, user.uid);
+        await setDoc(masterDocRef, {
+          initializedAt: serverTimestamp(),
         });
       }
       toast.success(SIGN_UP_SUCCESS);
@@ -95,11 +102,33 @@ export function AuthProvider({ children }) {
       );
       const user = userCredential.user;
 
-      if (!user.emailVerified) {
-        toast.error(LOGIN_ERRORS.verifyUser);
+      // Reload user to get updated emailVerified status
+      await user.reload();
+      const refreshedUser = auth.currentUser;
+
+      if (!refreshedUser.emailVerified) {
+        return { user: refreshedUser, verified: false };
       } else {
-        navigate(GENERAL_ROUTES.HOME_MAIN);
+        // ✅ Check Firestore onboarding status
+        const userDocRef = doc(
+          db,
+          FIREBASE_ENDPOINTS.USER_AUTH,
+          refreshedUser.uid
+        );
+        const userSnap = await getDoc(userDocRef);
+
+        if (userSnap.exists()) {
+          const userData = userSnap.data();
+          if (!userData.onboardingCompleted) {
+            navigate("/onboarding"); // redirect to onboarding
+          } else {
+            navigate(GENERAL_ROUTES.HOME_MAIN); // normal dashboard
+          }
+        }
+
+        localStorage.setItem("user", JSON.stringify(refreshedUser));
         toast.success(LOGIN_SUCCESS);
+        return { user: refreshedUser, verified: true };
       }
     } catch (error) {
       switch (error.code) {
@@ -122,6 +151,7 @@ export function AuthProvider({ children }) {
           toast.error(LOGIN_ERRORS.other);
           break;
       }
+      return { user: null, verified: false };
     }
   };
 
@@ -131,6 +161,7 @@ export function AuthProvider({ children }) {
       await signOut(auth);
       localStorage.removeItem("user");
       toast.success(LOGOUT_SUCCESS);
+      navigate(GENERAL_ROUTES.BLANK, { replace: true });
     } catch (error) {
       toast.error(LOGOUT_ERROR);
     }
@@ -155,14 +186,47 @@ export function AuthProvider({ children }) {
     return currentUser.updatePassword(password);
   }
 
+  // Resend Verification Email Handler
+  const resendVerificationEmail = async () => {
+    if (auth.currentUser && !auth.currentUser.emailVerified) {
+      try {
+        setIsSending(true);
+        await sendEmailVerification(auth.currentUser);
+        toast.success("Verification email sent again!");
+      } catch (error) {
+        toast.error("Error resending verification email");
+      } finally {
+        setTimeout(() => setIsSending(false), 5000); // enable after 5s
+      }
+    } else {
+      toast.error("User is either not logged in or already verified");
+    }
+  };
+
   useEffect(() => {
-    const unsubscribe = auth.onAuthStateChanged((user) => {
-      setCurrentUser(user);
+    const unsubscribe = auth.onAuthStateChanged(async (user) => {
+      if (user) {
+        // Get Firestore profile
+        const userDocRef = doc(db, "user_register", user.uid);
+        const userDocSnap = await getDoc(userDocRef);
+
+        if (userDocSnap.exists()) {
+          setCurrentUser({
+            ...user,
+            ...userDocSnap.data(), // merge firestore fields like onboardingCompleted
+          });
+        } else {
+          // No Firestore doc yet, fallback to just auth user
+          setCurrentUser(user);
+        }
+      } else {
+        setCurrentUser(null);
+      }
+
       setLoading(false);
     });
 
     return unsubscribe;
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const value = {
@@ -173,6 +237,8 @@ export function AuthProvider({ children }) {
     resetPassword,
     updateEmail,
     updatePassword,
+    resendVerificationEmail,
+    setCurrentUser,
   };
 
   return (

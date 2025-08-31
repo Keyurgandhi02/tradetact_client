@@ -23,7 +23,7 @@ function DataCard({ data, deleteHandler, editHandler, viewHandler }) {
           </p>
         </div>
         <span className="font-semibold text-sm text-black-dark-300 dark:text-whiten">
-          {format(parseISO(data.buyDate), "dd-MM-yyyy")}
+          {format(parseISO(data.buyDate), "dd/MM/yyyy")}
         </span>
       </div>
       <div className="border-b dark:border-black-dark-300 border-gray-500 my-3"></div>

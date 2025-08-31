@@ -31,7 +31,6 @@ function ManageBrokerDematAccounts() {
   const fetchData = useCallback(async () => {
     const fetchedTasks = await getFirebaseData(
       FIREBASE_ENDPOINTS.MASTER_DATA,
-      currentUser.uid,
       FIREBASE_ENDPOINTS.USER_MANAGE_BROKERS,
       startLoading,
       stopLoading,
@@ -59,7 +58,6 @@ function ManageBrokerDematAccounts() {
     try {
       await deleteFirebaseData(
         FIREBASE_ENDPOINTS.MASTER_DATA,
-        currentUser.uid,
         FIREBASE_ENDPOINTS.USER_MANAGE_BROKERS,
         selectedDocumentId,
         startLoading,

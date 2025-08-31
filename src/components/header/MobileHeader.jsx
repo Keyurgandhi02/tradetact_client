@@ -15,6 +15,7 @@ const MobileHeader = ({ navigation, classes }) => {
             key={item.name}
             as="a"
             href={item.href}
+            target={item.target}
             aria-current={item.current ? "page" : undefined}
             className={classes(
               item.current ? selected : deSelected,

@@ -1,5 +1,5 @@
 import React, { Suspense } from "react";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router-dom";
 import AuthenticatedLayout from "./components/AuthenticatedLayout";
 import ProtectedRoute from "./utils/ProtectedRoute";
 import {
@@ -7,11 +7,9 @@ import {
   CONSOLE_ROUTES,
   CONTACT_US_ROUTES,
   GENERAL_ROUTES,
-  MARKET_ROUTES,
   PRICING_ROUTES,
   RISK_MANAGE_ROUTES,
   RISK_ROUTES,
-  ROI_ROUTES,
   TRADE_JOURNAL_ROUTES,
   TRADING_STRATEGY_ROUTES,
   USER_PROFILE_ROUTES,
@@ -21,12 +19,10 @@ import {
 import {
   HomePage,
   NotFound404Page,
-  MarketPage,
   ProfilePage,
-  UpdatesPage,
   ResetPasswordPage,
   RegisterPage,
-  RiskManagementCalculatorPage,
+  RiskManagementPage,
   ContactPage,
   WatchlistPage,
   CreateEditWatchlistPage,
@@ -36,172 +32,161 @@ import {
   TradingStrategyPage,
   ManageBrokerDematAccountsPage,
   CreateEditBrokerDematAccountsPage,
-  CreateEditReturnPerformancePage,
-  ReturnPerformancePage,
   PricingPage,
   PricingCheckoutPage,
   ConsoleDashPage,
   ConsoleReportsPage,
   ConsoleTradesPage,
   ConsoleAnalysisPage,
+  ManageRiskManagementPage,
 } from "./pages/index";
 import HomeIndexPage from "./pages/home/HomeIndexPage";
+import { useAuth } from "./context/AuthContext";
+import OnboardingPage from "./pages/OnboardingPage";
 
 function App() {
+  const { currentUser } = useAuth();
+
   return (
-    <>
-      <Suspense fallback={<div>Loading...</div>}>
-        <Routes>
+    <Suspense fallback={<div>Loading...</div>}>
+      <Routes>
+        {/* Landing vs Redirect */}
+        {!currentUser ? (
           <Route path={GENERAL_ROUTES.BLANK} element={<HomeIndexPage />} />
-          <Route path={USER_ROUTES.AUTH} element={<RegisterPage />} />
+        ) : (
           <Route
-            path={USER_ROUTES.RESET_PASSWORD}
-            element={<ResetPasswordPage />}
+            path={GENERAL_ROUTES.BLANK}
+            element={<Navigate to={GENERAL_ROUTES.HOME_MAIN} replace />}
           />
-          <Route element={<ProtectedRoute />}>
-            <Route element={<AuthenticatedLayout />}>
-              {/* General Routes */}
-              <Route path={GENERAL_ROUTES.HOME_MAIN} element={<HomePage />} />
-              <Route
-                path={GENERAL_ROUTES.NO_PAGE_FOUND}
-                element={<NotFound404Page />}
-              />
+        )}
 
-              {/* Trade Journal Routes */}
-              <Route
-                path={TRADE_JOURNAL_ROUTES.TRADE_JOURNAL_ALL}
-                element={<TradeJournalPage />}
-              />
-              <Route
-                path={TRADE_JOURNAL_ROUTES.TRADE_JOURNAL_CREATE}
-                element={<CreateEditTradeJournalPage />}
-              />
-              <Route
-                path={TRADE_JOURNAL_ROUTES.TRADE_JOURNAL_EDIT_ID}
-                element={<CreateEditTradeJournalPage />}
-              />
+        {/* Auth routes */}
+        <Route path={USER_ROUTES.AUTH} element={<RegisterPage />} />
 
-              {/* Watchlist Routes */}
-              <Route
-                path={WATCHLIST_ROUTES.WATCHLIST_ALL}
-                element={<WatchlistPage />}
-              />
-              <Route
-                path={WATCHLIST_ROUTES.WATCHLIST_CREATE}
-                element={<CreateEditWatchlistPage />}
-              />
-              <Route
-                path={WATCHLIST_ROUTES.WATCHLIST_EDIT_ID}
-                element={<CreateEditWatchlistPage />}
-              />
+        <Route
+          path={USER_ROUTES.RESET_PASSWORD}
+          element={<ResetPasswordPage />}
+        />
 
-              {/* Risk Routes */}
-              <Route
-                path={RISK_ROUTES.RISK}
-                element={<RiskManagementCalculatorPage />}
-              />
+        {/* Protected routes */}
+        <Route element={<ProtectedRoute />}>
+          <Route element={<AuthenticatedLayout />}>
+            {/* Dashboard/Home */}
+            <Route path={GENERAL_ROUTES.HOME_MAIN} element={<HomePage />} />
 
-              {/* ROI Routes */}
-              <Route
-                path={ROI_ROUTES.ROI_ALL}
-                element={<ReturnPerformancePage />}
-              />
-              <Route
-                path={ROI_ROUTES.ROI_CREATE}
-                element={<CreateEditReturnPerformancePage />}
-              />
-              <Route
-                path={ROI_ROUTES.ROI_EDIT_ID}
-                element={<CreateEditReturnPerformancePage />}
-              />
+            {/* Not found */}
+            <Route
+              path={GENERAL_ROUTES.NO_PAGE_FOUND}
+              element={<NotFound404Page />}
+            />
 
-              {/* Market Routes */}
-              <Route
-                path={MARKET_ROUTES.MARKET_DATA}
-                element={<MarketPage />}
-              />
+            {/* Trade Journal Routes */}
+            <Route
+              path={TRADE_JOURNAL_ROUTES.TRADE_JOURNAL_ALL}
+              element={<TradeJournalPage />}
+            />
+            <Route
+              path={TRADE_JOURNAL_ROUTES.TRADE_JOURNAL_CREATE}
+              element={<CreateEditTradeJournalPage />}
+            />
+            <Route
+              path={TRADE_JOURNAL_ROUTES.TRADE_JOURNAL_EDIT_ID}
+              element={<CreateEditTradeJournalPage />}
+            />
 
-              {/* Pricing Routes */}
-              <Route path={PRICING_ROUTES.PRICING} element={<PricingPage />} />
-              <Route
-                path={PRICING_ROUTES.PRICING_CHECKOUT}
-                element={<PricingCheckoutPage />}
-              />
+            {/* Watchlist Routes */}
+            <Route
+              path={WATCHLIST_ROUTES.WATCHLIST_ALL}
+              element={<WatchlistPage />}
+            />
+            <Route
+              path={WATCHLIST_ROUTES.WATCHLIST_CREATE}
+              element={<CreateEditWatchlistPage />}
+            />
+            <Route
+              path={WATCHLIST_ROUTES.WATCHLIST_EDIT_ID}
+              element={<CreateEditWatchlistPage />}
+            />
 
-              {/* Console Routes */}
+            {/* Risk Routes */}
+            <Route path={RISK_ROUTES.RISK} element={<RiskManagementPage />} />
+            <Route
+              path={RISK_ROUTES.RISK_EDIT_ID}
+              element={<RiskManagementPage />}
+            />
+            <Route
+              path={RISK_ROUTES.RISK_ALL}
+              element={<ManageRiskManagementPage />}
+            />
 
-              <Route
-                path={CONSOLE_ROUTES.CONSOLE_DASH}
-                element={<ConsoleDashPage />}
-              />
-              <Route
-                path={CONSOLE_ROUTES.CONSOLE_TRADES}
-                element={<ConsoleTradesPage />}
-              />
-              <Route
-                path={CONSOLE_ROUTES.CONSOLE_REPORTS}
-                element={<ConsoleReportsPage />}
-              />
-              <Route
-                path={CONSOLE_ROUTES.CONSOLE_ANALYSIS}
-                element={<ConsoleAnalysisPage />}
-              />
+            {/* Onboarding Routes */}
+            <Route path="/onboarding" element={<OnboardingPage />} />
 
-              {/* Market Updates Routes */}
-              <Route
-                path={MARKET_ROUTES.MARKET_UPDATES}
-                element={<UpdatesPage />}
-              />
+            {/* Pricing Routes */}
+            <Route path={PRICING_ROUTES.PRICING} element={<PricingPage />} />
+            <Route
+              path={PRICING_ROUTES.PRICING_CHECKOUT}
+              element={<PricingCheckoutPage />}
+            />
 
-              {/* Risk Management Routes */}
-              <Route
-                path={RISK_MANAGE_ROUTES.RISK_MANAGE_CALCULATOR}
-                element={<RiskManagementCalculatorPage />}
-              />
+            {/* Console Routes */}
+            <Route
+              path={CONSOLE_ROUTES.CONSOLE_DASH}
+              element={<ConsoleDashPage />}
+            />
+            <Route
+              path={CONSOLE_ROUTES.CONSOLE_TRADES}
+              element={<ConsoleTradesPage />}
+            />
+            <Route
+              path={CONSOLE_ROUTES.CONSOLE_REPORTS}
+              element={<ConsoleReportsPage />}
+            />
+            <Route
+              path={CONSOLE_ROUTES.CONSOLE_ANALYSIS}
+              element={<ConsoleAnalysisPage />}
+            />
 
-              {/* User Profile Routes */}
-              <Route
-                path={USER_PROFILE_ROUTES.PROFILE}
-                element={<ProfilePage />}
-              />
-              {/* Contact Us Routes */}
-              <Route
-                path={CONTACT_US_ROUTES.CONTACT}
-                element={<ContactPage />}
-              />
+            {/* User Profile */}
+            <Route
+              path={USER_PROFILE_ROUTES.PROFILE}
+              element={<ProfilePage />}
+            />
 
-              {/* Broker Routes */}
-              <Route
-                path={BROKER_ROUTES.BROKER_ALL}
-                element={<ManageBrokerDematAccountsPage />}
-              />
-              <Route
-                path={BROKER_ROUTES.BROKER_CREATE}
-                element={<CreateEditBrokerDematAccountsPage />}
-              />
-              <Route
-                path={BROKER_ROUTES.BROKER_EDIT_ID}
-                element={<CreateEditBrokerDematAccountsPage />}
-              />
+            {/* Contact Us */}
+            <Route path={CONTACT_US_ROUTES.CONTACT} element={<ContactPage />} />
 
-              {/* Trading Strategy Routes */}
-              <Route
-                path={TRADING_STRATEGY_ROUTES.TRADING_STRATEGY_ALL}
-                element={<TradingStrategyPage />}
-              />
-              <Route
-                path={TRADING_STRATEGY_ROUTES.TRADING_STRATEGY_CREATE}
-                element={<CreateEditTradingStrategyPage />}
-              />
-              <Route
-                path={TRADING_STRATEGY_ROUTES.TRADING_STRATEGY_EDIT_ID}
-                element={<CreateEditTradingStrategyPage />}
-              />
-            </Route>
+            {/* Broker */}
+            <Route
+              path={BROKER_ROUTES.BROKER_ALL}
+              element={<ManageBrokerDematAccountsPage />}
+            />
+            <Route
+              path={BROKER_ROUTES.BROKER_CREATE}
+              element={<CreateEditBrokerDematAccountsPage />}
+            />
+            <Route
+              path={BROKER_ROUTES.BROKER_EDIT_ID}
+              element={<CreateEditBrokerDematAccountsPage />}
+            />
+
+            {/* Trading Strategy */}
+            <Route
+              path={TRADING_STRATEGY_ROUTES.TRADING_STRATEGY_ALL}
+              element={<TradingStrategyPage />}
+            />
+            <Route
+              path={TRADING_STRATEGY_ROUTES.TRADING_STRATEGY_CREATE}
+              element={<CreateEditTradingStrategyPage />}
+            />
+            <Route
+              path={TRADING_STRATEGY_ROUTES.TRADING_STRATEGY_EDIT_ID}
+              element={<CreateEditTradingStrategyPage />}
+            />
           </Route>
-        </Routes>
-      </Suspense>
-    </>
+        </Route>
+      </Routes>
+    </Suspense>
   );
 }
 

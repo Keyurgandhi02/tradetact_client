@@ -7,10 +7,8 @@ import {
   BROKER_ROUTES,
   CONSOLE_ROUTES,
   GENERAL_ROUTES,
-  MARKET_ROUTES,
   PRICING_ROUTES,
   RISK_ROUTES,
-  ROI_ROUTES,
   TRADE_JOURNAL_ROUTES,
   TRADING_STRATEGY_ROUTES,
   USER_PROFILE_ROUTES,
@@ -44,30 +42,18 @@ export default function Header() {
         location.pathname === TRADE_JOURNAL_ROUTES.TRADE_JOURNAL_EDIT,
     },
     {
+      name: "Console",
+      href: CONSOLE_ROUTES.CONSOLE_DASH,
+      current: location.pathname === CONSOLE_ROUTES.CONSOLE_DASH,
+      target: "_blank",
+    },
+    {
       name: "Watchlist",
       href: WATCHLIST_ROUTES.WATCHLIST_ALL,
       current:
         location.pathname === WATCHLIST_ROUTES.WATCHLIST_ALL ||
         location.pathname === WATCHLIST_ROUTES.WATCHLIST_CREATE ||
         location.pathname === WATCHLIST_ROUTES.WATCHLIST_EDIT,
-    },
-    {
-      name: "Risk Management",
-      href: RISK_ROUTES.RISK,
-      current: location.pathname === RISK_ROUTES.RISK,
-    },
-    {
-      name: "Returns",
-      href: ROI_ROUTES.ROI_ALL,
-      current:
-        location.pathname === ROI_ROUTES.ROI_ALL ||
-        location.pathname === ROI_ROUTES.ROI_CREATE ||
-        location.pathname === ROI_ROUTES.ROI_EDIT,
-    },
-    {
-      name: "Market",
-      href: MARKET_ROUTES.MARKET_DATA,
-      current: location.pathname === MARKET_ROUTES.MARKET_DATA,
     },
   ];
 
@@ -76,11 +62,6 @@ export default function Header() {
     {
       name: "My Account",
       href: USER_PROFILE_ROUTES.PROFILE,
-    },
-    {
-      name: "Console",
-      href: CONSOLE_ROUTES.CONSOLE_DASH,
-      target: "_blank",
     },
     {
       name: "Demat & Broker",

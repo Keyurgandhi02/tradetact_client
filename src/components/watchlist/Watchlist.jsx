@@ -39,7 +39,7 @@ function Watchlist() {
   const fetchData = useCallback(async () => {
     const fetchedTasks = await getFirebaseData(
       FIREBASE_ENDPOINTS.MASTER_DATA,
-      currentUser.uid,
+      
       FIREBASE_ENDPOINTS.USER_WATCHLIST,
       startLoading,
       stopLoading,

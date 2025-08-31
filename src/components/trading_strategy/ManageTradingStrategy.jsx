@@ -5,6 +5,8 @@ import { GENERAL_DELETE_ERROR } from "../../constants/Strings";
 import { toast } from "react-toastify";
 import { useAuth } from "../../context/AuthContext";
 import NoRecordFound from "../NoRecordFound";
+import * as helper from "../..//config/helper";
+import * as svgIcons from "../..//assets/svgIcons";
 import {
   deleteFirebaseData,
   getFirebaseData,
@@ -16,6 +18,7 @@ import ModalDialog from "../ModalDialog";
 import GeneralModalContent from "../GeneralModalContent";
 import PageHeader from "../PageHeader";
 import { TRADING_STRATEGY_ROUTES } from "../../constants/routesConstants";
+import DataCardItem from "../DataCardItem";
 
 function ManageTradingStrategy() {
   const navigate = useNavigate();
@@ -25,12 +28,13 @@ function ManageTradingStrategy() {
   const [isDeleteModal, setDeleteModal] = useState(false);
   const [selectedDocumentId, setSelectedDocumentId] = useState(null);
   const [totalDocuments, setTotalDocuments] = useState(0);
+  const [isModalData, setModalData] = useState([]);
+  const [isViewModal, setViewModal] = useState(false);
 
   // Fetch Strategy
   const fetchData = useCallback(async () => {
     const fetchedTasks = await getFirebaseData(
       FIREBASE_ENDPOINTS.MASTER_DATA,
-      currentUser.uid,
       FIREBASE_ENDPOINTS.USER_MANAGE_STRATEGY,
       startLoading,
       stopLoading,
@@ -59,7 +63,6 @@ function ManageTradingStrategy() {
     try {
       await deleteFirebaseData(
         FIREBASE_ENDPOINTS.MASTER_DATA,
-        currentUser.uid,
         FIREBASE_ENDPOINTS.USER_MANAGE_STRATEGY,
         selectedDocumentId,
         startLoading,
@@ -82,6 +85,12 @@ function ManageTradingStrategy() {
   // Strategy Edit Handler
   const editHandler = (id) => {
     navigate(`${TRADING_STRATEGY_ROUTES.TRADING_STRATEGY_EDIT}/${id}`);
+  };
+
+  // Trading Strategy View Handler
+  const viewHandler = (data) => {
+    setViewModal(true);
+    setModalData(data);
   };
 
   // Fetch Strategies
@@ -113,7 +122,7 @@ function ManageTradingStrategy() {
                 <div className="flex justify-between items-center mb-2">
                   <div>
                     <h4 className="font-bold text-lg text-black-dark-400 dark:text-whiten truncate">
-                      {data?.label ? data?.label : "NA"}
+                      {data?.strategy_name ? data?.strategy_name : "NA"}
                     </h4>
                   </div>
                   <span className="font-semibold text-xs text-black-dark-300 dark:text-whiten">
@@ -121,10 +130,23 @@ function ManageTradingStrategy() {
                       formatDateToDDMMYY(data?.doc_created_At.toDate())}
                   </span>
                 </div>
-
+                <div className="border-b dark:border-black-dark-300 border-gray-500 my-3"></div>
+                <div className="grid grid-cols-3 gap-4 mb-5">
+                  <DataCardItem title="TYPE" data={data?.strategy_type} />
+                  <DataCardItem
+                    title="TIME INTERVAL"
+                    data={data?.trade_time_interval}
+                  />
+                </div>
                 <div className="border-b dark:border-black-dark-300 border-gray-500 my-3"></div>
                 <div className="flex justify-between items-center">
                   <div>
+                    <button
+                      className="hover:text-blue-600 dark:hover:text-blue-600 text-black-dark-400 dark:text-white px-2 focus:outline-none border-none"
+                      onClick={() => viewHandler(data)}
+                    >
+                      <svgIcons.VIEW_SVG />
+                    </button>
                     <button
                       className="hover:text-red-600 dark:hover:text-red-600 text-black-dark-400 dark:text-white px-2 focus:outline-none border-none"
                       onClick={() => deleteHandler(data?.id)}
@@ -165,6 +187,44 @@ function ManageTradingStrategy() {
             btnTitleReject="No"
             btnTitleSuccess="Yes"
           />
+        }
+      />
+
+      {/* View Modal */}
+      <ModalDialog
+        isOpen={isViewModal}
+        onClose={() => setViewModal(false)}
+        children={
+          <>
+            <div className="grid p-3 mb-2 ">
+              <DataCardItem
+                title="ENTRY CRITERIA"
+                data={isModalData?.entry_criteria}
+              />
+            </div>
+            <div className="grid p-3 mb-2 ">
+              <DataCardItem
+                title="EXIT CRITERIA"
+                data={isModalData?.exit_criteria}
+              />
+            </div>
+            <div className="grid p-3 mb-2">
+              <DataCardItem
+                title="DESCRIPTION"
+                data={isModalData?.description}
+              />
+            </div>
+            <div className="grid p-3 mb-2">
+              {isModalData?.indicators && (
+                <DataCardItem
+                  title="INDICATORS"
+                  data={isModalData?.indicators
+                    .map((indicator) => indicator.label)
+                    .join(", ")}
+                />
+              )}
+            </div>
+          </>
         }
       />
     </div>

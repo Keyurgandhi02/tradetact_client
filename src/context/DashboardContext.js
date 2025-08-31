@@ -27,7 +27,6 @@ export const DashboardProvider = ({ children }) => {
 
     const fetchedTradeJournal = await getFirebaseData(
       FIREBASE_ENDPOINTS.MASTER_DATA,
-      currentUser.uid,
       FIREBASE_ENDPOINTS.USER_TRADE_JOURNAL,
       startLoading,
       stopLoading,
@@ -38,7 +37,6 @@ export const DashboardProvider = ({ children }) => {
 
     const fetchedWatchList = await getFirebaseData(
       FIREBASE_ENDPOINTS.MASTER_DATA,
-      currentUser.uid,
       FIREBASE_ENDPOINTS.USER_WATCHLIST,
       startLoading,
       stopLoading,
@@ -49,7 +47,6 @@ export const DashboardProvider = ({ children }) => {
 
     const fetchedBroker = await getFirebaseData(
       FIREBASE_ENDPOINTS.MASTER_DATA,
-      currentUser.uid,
       FIREBASE_ENDPOINTS.USER_MANAGE_BROKERS,
       startLoading,
       stopLoading,
@@ -60,7 +57,6 @@ export const DashboardProvider = ({ children }) => {
 
     const fetchedStrategy = await getFirebaseData(
       FIREBASE_ENDPOINTS.MASTER_DATA,
-      currentUser.uid,
       FIREBASE_ENDPOINTS.USER_MANAGE_STRATEGY,
       startLoading,
       stopLoading,
@@ -69,68 +65,68 @@ export const DashboardProvider = ({ children }) => {
       true
     );
 
-    const status = await checkPlanStatus();
-    setPlanStatus(status);
-
+    // const status = await checkPlanStatus();
+    // setPlanStatus(status);
     setJournalData(fetchedTradeJournal);
     setWatchListData(fetchedWatchList);
     setFetchedBroker(fetchedBroker);
     setFetchedStrategy(fetchedStrategy);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentUser]);
 
-  const checkPlanStatus = async () => {
-    const userData = await getUserByEmail(currentUser?.email);
+  // const checkPlanStatus = async () => {
+  //   const userData = await getUserByEmail(currentUser?.email);
 
-    if (!userData) return;
+  //   if (!userData) return;
 
-    const userDocRef = firestore.doc(
-      db,
-      FIREBASE_ENDPOINTS.USER_AUTH,
-      userData?.id
-    );
+  //   const userDocRef = firestore.doc(
+  //     db,
+  //     FIREBASE_ENDPOINTS.USER_AUTH,
+  //     userData?.id
+  //   );
 
-    if (userData.subscription_status === true) {
-      if (userData?.subscription?.createdAt) {
-        const subDate = convertFirebaseTimestamp(
-          userData?.subscription?.createdAt?.seconds,
-          userData?.subscription?.createdAt?.nanoseconds
-        );
+  //   if (userData.subscription_status === true) {
+  //     if (userData?.subscription?.createdAt) {
+  //       const subDate = convertFirebaseTimestamp(
+  //         userData?.subscription?.createdAt?.seconds,
+  //         userData?.subscription?.createdAt?.nanoseconds
+  //       );
 
-        const purchaseTimestamp = new Date(subDate); // Get purchase date
-        const planDuration =
-          userData?.subscription?.planDetails?.planDurationMonth; // Plan duration in months
+  //       const purchaseTimestamp = new Date(subDate); // Get purchase date
+  //       const planDuration =
+  //         userData?.subscription?.planDetails?.planDurationMonth; // Plan duration in months
 
-        // Calculate the expiration date by adding the plan duration to the purchase date
-        const expirationDate = addMonths(purchaseTimestamp, planDuration);
+  //       // Calculate the expiration date by adding the plan duration to the purchase date
+  //       const expirationDate = addMonths(purchaseTimestamp, planDuration);
 
-        // Check if the current date is after the expiration date
-        const isPlanExpired = isAfter(new Date(), expirationDate);
+  //       // Check if the current date is after the expiration date
+  //       const isPlanExpired = isAfter(new Date(), expirationDate);
 
-        setSubscriptionData({
-          ...userData,
-          expirationDate: expirationDate,
-          purchaseTimestamp: purchaseTimestamp,
-        });
+  //       setSubscriptionData({
+  //         ...userData,
+  //         expirationDate: expirationDate,
+  //         purchaseTimestamp: purchaseTimestamp,
+  //       });
 
-        if (isPlanExpired) {
-          // Plan has expired, revert the user to the free plan
-          await firestore.updateDoc(userDocRef, {
-            subscription_status: false,
-          });
-          return "expired";
-        } else {
-          return "active";
-        }
-      }
-    } else {
-      return "free";
-    }
-  };
+  //       if (isPlanExpired) {
+  //         // Plan has expired, revert the user to the free plan
+  //         await firestore.updateDoc(userDocRef, {
+  //           subscription_status: false,
+  //         });
+  //         return "expired";
+  //       } else {
+  //         return "active";
+  //       }
+  //     }
+  //   } else {
+  //     return "free";
+  //   }
+  // };
 
   useEffect(() => {
-    fetchData();
-  }, [fetchData]);
+    if (currentUser?.uid) {
+      fetchData();
+    }
+  }, [currentUser, fetchData]);
 
   return (
     <DashboardContext.Provider

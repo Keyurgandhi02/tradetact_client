@@ -131,3 +131,69 @@ export const TRADE_ANALYSIS_DETAILS_CONSOLE_COLUMNS = [
   "Exit",
   "Overall G/L",
 ];
+
+export const INDICATORS = [
+  {
+    id: 1,
+    label: "Moving Average",
+  },
+  {
+    id: 2,
+    label: "RSI",
+  },
+  {
+    id: 3,
+    label: "MACD",
+  },
+  {
+    id: 4,
+    label: "Bollinger Bands",
+  },
+  {
+    id: 5,
+    label: "VWAP",
+  },
+  {
+    id: 6,
+    label: "Supertrend",
+  },
+  {
+    id: 7,
+    label: "Price Action",
+  },
+  {
+    id: 8,
+    label: "Other",
+  },
+];
+
+export const STRATEGY_TYPE_DROPDOWNS = [
+  {
+    id: 1,
+    label: "Day Trading",
+  },
+  {
+    id: 2,
+    label: "Swing Trading",
+  },
+  {
+    id: 3,
+    label: "Scalping",
+  },
+  {
+    id: 4,
+    label: "Position",
+  },
+  {
+    id: 5,
+    label: "Options",
+  },
+  {
+    id: 6,
+    label: "Futures",
+  },
+  {
+    id: 7,
+    label: "Other",
+  },
+];

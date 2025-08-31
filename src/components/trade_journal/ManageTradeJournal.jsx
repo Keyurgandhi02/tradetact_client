@@ -6,7 +6,6 @@ import {
   GENERAL_FETCH_ERROR,
 } from "../../constants/Strings";
 import { toast } from "react-toastify";
-import { useAuth } from "../../context/AuthContext";
 import NoRecordFound from "../NoRecordFound";
 import {
   deleteFirebaseData,
@@ -28,7 +27,6 @@ import { TRADE_JOURNAL_ROUTES } from "../../constants/routesConstants";
 
 function ManageTradeJournal() {
   const navigate = useNavigate();
-  const { currentUser } = useAuth();
   const [totalDocuments, setTotalDocuments] = useState(0);
   const [fetchedData, setFetchedData] = useState([]);
   const [isViewModal, setViewModal] = useState(false);
@@ -39,8 +37,8 @@ function ManageTradeJournal() {
   const [hasMore, setHasMore] = useState(true);
   const [searchTerm, setSearchTerm] = useState("");
   const [filteredResults, setFilteredResults] = useState(fetchedData);
-  const pageSize = 30;
   const lastVisibleRef = useRef(null);
+  const pageSize = 30;
 
   // Fetch Trade Journal
   const fetchData = useCallback(
@@ -48,7 +46,6 @@ function ManageTradeJournal() {
       startLoading();
       const { data, lastDoc } = await fetchPaginatedData(
         FIREBASE_ENDPOINTS.MASTER_DATA,
-        currentUser.uid,
         FIREBASE_ENDPOINTS.USER_TRADE_JOURNAL,
         pageSize,
         isLoadMore ? lastVisibleRef.current : null,
@@ -72,7 +69,6 @@ function ManageTradeJournal() {
       try {
         const fetchedOptions = await getFirebaseData(
           FIREBASE_ENDPOINTS.MASTER_DATA,
-          currentUser.uid,
           FIREBASE_ENDPOINTS.USER_TRADE_JOURNAL,
           startLoading,
           stopLoading,
@@ -110,7 +106,6 @@ function ManageTradeJournal() {
     try {
       await deleteFirebaseData(
         FIREBASE_ENDPOINTS.MASTER_DATA,
-        currentUser.uid,
         FIREBASE_ENDPOINTS.USER_TRADE_JOURNAL,
         selectedDocumentId,
         startLoading,

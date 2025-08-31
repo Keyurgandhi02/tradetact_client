@@ -10,7 +10,7 @@ function Card({ value, heading }) {
               <p className="mb-4 font-sans font-semibold leading-normal text-md text-black-dark-200 dark:text-whiten">
                 {heading}
               </p>
-              <h5 className="mb-0 font-bold text-main_color mt-1 text-xl">
+              <h5 className="mb-0 font-semibold text-main_color mt-1 text-xl">
                 {value}
               </h5>
             </div>

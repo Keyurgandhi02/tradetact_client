@@ -1,12 +1,12 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-const HeaderNavItem = ({ onClick, classes, item, target }) => (
+const HeaderNavItem = ({ onClick, classes, item }) => (
   <Link
     key={item?.href}
     to={item?.href}
     onClick={onClick}
-    target={target}
+    target={item?.target}
     aria-current={item.current ? "page" : undefined}
     className={classes(
       item.current

@@ -13,18 +13,20 @@ import {
   ReferenceLine,
 } from "recharts";
 import dayjs from "dayjs";
+import NoRecordFound from "../components/NoRecordFound";
+import { TRADE_JOURNAL_ROUTES } from "../constants/routesConstants";
+import { useNavigate } from "react-router-dom";
 
 function AnalyticsPage() {
-  const { currentUser } = useAuth();
   const { startLoading, stopLoading } = useLoading();
   const [fetchedData, setFetchedData] = useState([]);
   const [pastWeekData, setPastWeekData] = useState([]);
+  const navigate = useNavigate();
 
   // Fetch Trade Data
   const fetchData = useCallback(async () => {
     const fetchedTasks = await getFirebaseData(
       FIREBASE_ENDPOINTS.MASTER_DATA,
-      currentUser.uid,
       FIREBASE_ENDPOINTS.USER_TRADE_JOURNAL,
       startLoading,
       stopLoading,
@@ -70,9 +72,9 @@ function AnalyticsPage() {
 
   return (
     <>
-      {fetchedData.length > 0 && (
+      {fetchedData.length > 0 ? (
         <>
-          <CardTitle title="Trade Weekly Analysis" />
+          <CardTitle title="Your recent shared trades" />
           <ResponsiveContainer width="100%" height={400}>
             <BarChart
               data={pastWeekData}
@@ -86,7 +88,7 @@ function AnalyticsPage() {
             >
               <XAxis
                 dataKey="date"
-                tick={{ fill: "#00c805" }}
+                tick={{ fill: "#393E46" }}
                 tickFormatter={(date) => format(new Date(date), "dd/MM/yy")}
               />
 
@@ -101,6 +103,16 @@ function AnalyticsPage() {
             </BarChart>
           </ResponsiveContainer>
         </>
+      ) : (
+        <NoRecordFound
+          heading="No trades yet — click ‘Add Trade’ to begin your journal."
+          handleSubmit={() =>
+            navigate(TRADE_JOURNAL_ROUTES.TRADE_JOURNAL_CREATE)
+          }
+          btnTitle="Add Trade"
+          isSmallSize={true}
+          isButtonVisible={true}
+        />
       )}
     </>
   );

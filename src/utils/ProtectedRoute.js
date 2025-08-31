@@ -1,11 +1,17 @@
-import { Outlet } from "react-router-dom";
+import { Outlet, Navigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
-import { Navigate } from "react-router-dom";
+import OnboardingPage from "../pages/OnboardingPage";
 
 const ProtectedRoute = () => {
   const { currentUser } = useAuth();
 
-  return currentUser ? <Outlet /> : <Navigate to="/" />;
+  if (!currentUser) return <Navigate to="/" />;
+
+  if (!currentUser.onboardingCompleted) {
+    return <OnboardingPage userId={currentUser.uid} />;
+  }
+
+  return <Outlet />;
 };
 
 export default ProtectedRoute;

@@ -57,7 +57,7 @@ function CreateEditWatchlist() {
       try {
         const fetchedTasks = await getFirebaseDataById(
           FIREBASE_ENDPOINTS.MASTER_DATA,
-          currentUser.uid,
+
           FIREBASE_ENDPOINTS.USER_WATCHLIST,
           id
         );
@@ -117,7 +117,6 @@ function CreateEditWatchlist() {
       if (isEditMode && hasChanges) {
         await updateFirebaseData(
           FIREBASE_ENDPOINTS.MASTER_DATA,
-          currentUser.uid,
           FIREBASE_ENDPOINTS.USER_WATCHLIST,
           id,
           modifiedData
@@ -125,7 +124,6 @@ function CreateEditWatchlist() {
       } else if (!isEditMode) {
         await addFirebaseData(
           FIREBASE_ENDPOINTS.MASTER_DATA,
-          currentUser.uid,
           FIREBASE_ENDPOINTS.USER_WATCHLIST,
           formData
         );
@@ -148,7 +146,7 @@ function CreateEditWatchlist() {
       try {
         const fetchedOptions = await getFirebaseData(
           FIREBASE_ENDPOINTS.MASTER_DATA,
-          currentUser.uid,
+
           FIREBASE_ENDPOINTS.USER_MANAGE_STRATEGY,
           startLoading,
           stopLoading,
@@ -288,12 +286,11 @@ function CreateEditWatchlist() {
           </form>
         </div>
       )}
-     
 
       {isViewModal && (
         <GloablInfo
-          firstTitle="Oopss!!"
-          secondTitle="Trade Setting Required"
+          firstTitle="😬"
+          secondTitle="Trade Setting Required!"
           desc={TRADE_SETTINGS_NO_ERROR}
           linktitle="Go to Console"
           link="/create_user_strategy"

@@ -63,7 +63,7 @@ function ConsoleDashPage() {
   const fetchData = useCallback(async () => {
     const fetchedTasks = await getFirebaseData(
       FIREBASE_ENDPOINTS.MASTER_DATA,
-      currentUser.uid,
+     
       FIREBASE_ENDPOINTS.USER_TRADE_JOURNAL,
       startLoading,
       stopLoading,

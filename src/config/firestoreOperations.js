@@ -3,6 +3,9 @@ import toast from "react-hot-toast";
 import { FIREBASE_ENDPOINTS } from "../constants/apiConstants";
 import * as Strings from "../constants/Strings";
 import db from "../utils/firebase-config";
+import { getAuth } from "firebase/auth";
+
+const auth = getAuth();
 
 // Handler Global Loader
 const handleLoading = (startLoading, stopLoading, isLoading) => {
@@ -13,10 +16,16 @@ const handleLoading = (startLoading, stopLoading, isLoading) => {
 // Create Firebase API
 export const addFirebaseData = async (
   first_collection,
-  userId,
   second_collection,
   formData
 ) => {
+  if (!auth.currentUser) {
+    toast.error("Unauthorized create attempt");
+    return;
+  }
+
+  const userId = auth.currentUser.uid;
+
   try {
     // Add a createdAt timestamp to the formData
     const dataWithTimestamp = {
@@ -39,7 +48,6 @@ export const addFirebaseData = async (
 // Get Firebase API
 export const getFirebaseData = async (
   first_collection,
-  userId,
   second_collection,
   startLoading,
   stopLoading,
@@ -47,6 +55,13 @@ export const getFirebaseData = async (
   orderName,
   isLoadingVisible
 ) => {
+  if (!auth.currentUser) {
+    toast.error("Unauthorized read attempt");
+    return [];
+  }
+
+  const userId = auth.currentUser.uid;
+
   isLoadingVisible && handleLoading(startLoading, stopLoading, true);
 
   try {
@@ -73,10 +88,16 @@ export const getFirebaseData = async (
 // Get Firebase By Id API
 export const getFirebaseDataById = async (
   first_collection,
-  userId,
   second_collection,
   docId
 ) => {
+  if (!auth.currentUser) {
+    toast.error("Unauthorized read attempt");
+    return [];
+  }
+
+  const userId = auth.currentUser.uid;
+
   try {
     const docRef = firestore.doc(
       db,
@@ -100,11 +121,15 @@ export const getFirebaseDataById = async (
 // Update Firebase API
 export const updateFirebaseData = async (
   first_collection,
-  userId,
   second_collection,
   docId,
   updatedData
 ) => {
+  if (!auth.currentUser) {
+    toast.error("Unauthorized update attempt");
+    return;
+  }
+  const userId = auth.currentUser.uid;
   try {
     const dataWithTimestamp = {
       ...updatedData,
@@ -127,14 +152,18 @@ export const updateFirebaseData = async (
 // Delete Firebase API
 export const deleteFirebaseData = async (
   first_collection,
-  userId,
   second_collection,
   docId,
   startLoading,
   stopLoading
 ) => {
-  handleLoading(startLoading, stopLoading, true);
+  if (!auth.currentUser) {
+    toast.error("Unauthorized delete attempt");
+    return;
+  }
 
+  handleLoading(startLoading, stopLoading, true);
+  const userId = auth.currentUser.uid;
   try {
     const docRef = firestore.doc(
       db,
@@ -169,22 +198,6 @@ export const getUserByEmail = async (email) => {
     }
   } catch (error) {
     throw error;
-  }
-};
-
-// Get General Data API
-export const getGeneralFirebaseData = async (first_collection) => {
-  try {
-    const docSnapshot = await firestore.getDocs(
-      firestore.collection(db, first_collection)
-    );
-    const docs = docSnapshot.docs.map((doc) => ({
-      id: doc.id,
-      ...doc.data(),
-    }));
-    return docs;
-  } catch (error) {
-    toast.error(Strings.GENERAL_FETCH_ERROR);
   }
 };
 
@@ -229,13 +242,17 @@ export const getRealTimeGeneralFirebaseData = (
 // Get Paginated Data API
 export const fetchPaginatedData = async (
   first_collection,
-  userId,
   second_collection,
   pageSize,
   lastVisible,
   order,
   orderName
 ) => {
+  if (!auth.currentUser) {
+    toast.error("Unauthorized pagination attempt");
+    return { data: [], lastDoc: null };
+  }
+  const userId = auth.currentUser.uid;
   const q = lastVisible
     ? firestore.query(
         firestore.collection(db, first_collection, userId, second_collection),

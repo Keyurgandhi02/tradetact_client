@@ -55,7 +55,7 @@ export const tradeJournalValidationRules = {
   },
   dematUser: {
     required: true,
-    message: "Demat Account is required",
+    message: "Account is required",
   },
   trade_type: {
     required: true,
@@ -102,36 +102,29 @@ export const watchlistValidationRules = {
   },
 };
 
-export const roiValidationRules = {
-  created_at: {
+export const customBrokerValidationRules = {
+  label: {
     required: true,
-    message: "Date is required",
-  },
-  accountName: {
-    required: true,
-    message: "Account Name is required",
-  },
-  invested_amount: {
-    required: true,
-    type: "number",
-    message: "Invested Amount is required",
-  },
-  returned_amount: {
-    required: true,
-    type: "number",
-    message: "Return Amount is required",
-  },
-  charges: {
-    required: true,
-    type: "number",
-    message: "Charges is required",
+    message: "Broker Name is required",
   },
 };
 
 export const strategyValidationRules = {
-  label: {
+  strategy_name: {
     required: true,
     message: "Strategy is required",
+  },
+  strategy_type: {
+    required: true,
+    message: "Strategy Type is required",
+  },
+  entry_criteria: {
+    required: true,
+    message: "Entry Criteria is required",
+  },
+  exit_criteria: {
+    required: true,
+    message: "Exit Criteria is required",
   },
 };
 

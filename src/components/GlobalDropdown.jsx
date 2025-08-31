@@ -14,7 +14,7 @@ function GlobalDropdown({ label, errors, children }) {
         </span>
       </div>
       {errors && (
-        <span className="text-main_red_color text-xs my-3 block">{errors}</span>
+        <span className="text-main_red_color text-xs my-2 block">{errors}</span>
       )}
     </div>
   );

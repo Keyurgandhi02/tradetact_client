@@ -8,6 +8,7 @@ import FloatButton from "../FloatButton";
 import { LIST_FLOAT_SVG } from "../../assets/svgIcons";
 import {
   GENERAL_FETCH_ERROR,
+  GENERAL_FORM_VALIDATIONS_ERROR,
   GENERAL_SUBMIT_ERROR,
 } from "../../constants/Strings";
 import { useAuth } from "../../context/AuthContext";
@@ -25,6 +26,8 @@ import { checkForDuplicates, labelToKey } from "../../config/helper";
 import AlertCard from "../AlertCard";
 import { useLoading } from "../../context/LoadingContext";
 import { BROKER_ROUTES } from "../../constants/routesConstants";
+import { validateAllFields } from "../../config/validationUtils.js";
+import { customBrokerValidationRules } from "../../config/validations";
 
 const initialState = {
   label: "",
@@ -33,10 +36,10 @@ const initialState = {
 
 function CreateEditBrokerDematAccounts() {
   const { id } = useParams();
-  const { currentUser } = useAuth();
   const [formData, setFormData] = useState(initialState);
   const { startLoading, stopLoading } = useLoading();
   const navigate = useNavigate();
+  const [errors, setErrors] = useState({});
   const [isEditMode, setIsEditMode] = useState(false);
   const [localStorageUpdated, setLocalStorageUpdated] = useState(false);
   const [isViewModal, setViewModal] = useState(false);
@@ -155,7 +158,6 @@ function CreateEditBrokerDematAccounts() {
         setIsEditMode(true);
         const fetchedData = await getFirebaseDataById(
           FIREBASE_ENDPOINTS.MASTER_DATA,
-          currentUser.uid,
           FIREBASE_ENDPOINTS.USER_MANAGE_BROKERS,
           id
         );
@@ -171,16 +173,27 @@ function CreateEditBrokerDematAccounts() {
 
   // Store temp broker locally and check for duplicates
   const handleTempSelect = async () => {
+    const validationErrors = validateAllFields(
+      formData,
+      customBrokerValidationRules
+    );
+
+    setErrors(validationErrors);
+
+    if (Object.keys(validationErrors).length > 0) {
+      toast.error(GENERAL_FORM_VALIDATIONS_ERROR);
+      return;
+    }
+
     // Custom Broker Create
     const newTempItem = {
       id: labelToKey(formData?.label),
       label: formData?.label,
-      icon: "https://firebasestorage.googleapis.com/v0/b/smk24-6f0bf.appspot.com/o/logo192.svg?alt=media&token=d3737a5d-a8d8-4d8e-a49e-55c2810edc79",
+      icon: process.env.REACT_APP_FIREBASE_CUSTOM_BROKER,
     };
 
     const existingData = await getFirebaseData(
       FIREBASE_ENDPOINTS.MASTER_DATA,
-      currentUser.uid,
       FIREBASE_ENDPOINTS.USER_CUSTOM_BROKER_DATA,
       startLoading,
       stopLoading,
@@ -201,7 +214,6 @@ function CreateEditBrokerDematAccounts() {
 
     await addFirebaseData(
       FIREBASE_ENDPOINTS.MASTER_DATA,
-      currentUser.uid,
       FIREBASE_ENDPOINTS.USER_CUSTOM_BROKER_DATA,
       newTempItem
     );
@@ -212,22 +224,21 @@ function CreateEditBrokerDematAccounts() {
     setFormData({ ...formData, label: "" });
   };
 
-  // Get Console Data Handler
+  // Get Custom Broker Data Handler
   useEffect(() => {
-    async function fetchConsoleData() {
+    async function fetchCustombrokerData() {
       const data = await getFirebaseData(
         FIREBASE_ENDPOINTS.MASTER_DATA,
-        currentUser.uid,
         FIREBASE_ENDPOINTS.USER_CUSTOM_BROKER_DATA,
         startLoading,
         stopLoading,
-        "desc",
+        "asc",
         "doc_created_At"
       );
       setSelectedTempItems(data);
     }
 
-    fetchConsoleData();
+    fetchCustombrokerData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [localStorageUpdated]);
 
@@ -237,6 +248,7 @@ function CreateEditBrokerDematAccounts() {
       dematUser: formData.dematUser,
       consoleData: selectedItems,
     };
+
     if (!checkForDuplicates(selectedItems)) {
       return;
     }
@@ -245,7 +257,6 @@ function CreateEditBrokerDematAccounts() {
       if (isEditMode) {
         await updateFirebaseData(
           FIREBASE_ENDPOINTS.MASTER_DATA,
-          currentUser.uid,
           FIREBASE_ENDPOINTS.USER_MANAGE_BROKERS,
           id,
           allData
@@ -254,7 +265,6 @@ function CreateEditBrokerDematAccounts() {
       } else {
         await addFirebaseData(
           FIREBASE_ENDPOINTS.MASTER_DATA,
-          currentUser.uid,
           FIREBASE_ENDPOINTS.USER_MANAGE_BROKERS,
           allData
         );
@@ -282,39 +292,37 @@ function CreateEditBrokerDematAccounts() {
             isListPage={false}
           />
 
-          {!isEditMode && (
-            <div className="px-3">
-              <AlertCard
-                bgColor="bg-transparent"
-                borderColor="border-gray-500"
-                textColor="text-gray-500"
-                heading="If you use a broker that is not listed here, you may be able to
+          <div className="px-5">
+            <AlertCard
+              bgColor="bg-transparent"
+              borderColor="border-gray-500"
+              textColor="text-gray-500"
+              heading="If you use a broker that is not listed here, you can able to
               create your own Broker by clicking"
-                action={
-                  <span
-                    className="text-main_color cursor-pointer"
-                    onClick={() => setViewModal(true)}
-                  >
-                    Create Broker?
-                  </span>
-                }
-              />
-            </div>
-          )}
+              action={
+                <span
+                  className="text-main_color cursor-pointer"
+                  onClick={() => setViewModal(true)}
+                >
+                  Create Broker?
+                </span>
+              }
+            />
+          </div>
 
-          <div className="p-5">
+          <div className="px-5">
             <form onSubmit={(e) => e.preventDefault()}>
               <GlobalInput
                 inputType="text"
-                placeholder="Demat User Name *"
+                placeholder="Account Name *"
                 isValue={formData?.dematUser}
                 name="dematUser"
                 onChangeHandler={handleChange}
               />
             </form>
             <p className="text-gray-500 font-semibold text-sm my-6 mx-1">
-              Note: Please choose all brokers that are related to the
-              above-mentioned Demat User Name
+              Note: Please choose all brokers that are related to the above
+              mentioned Account Name (Demat User Name)
             </p>
             <div className="grid gap-4 grid-cols-1 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-8">
               {cards.map((item) => (
@@ -364,10 +372,11 @@ function CreateEditBrokerDematAccounts() {
                 <form>
                   <GlobalInput
                     inputType="text"
-                    placeholder="Broker Account"
+                    placeholder="Broker Name *"
                     isValue={formData?.label}
                     name="label"
                     onChangeHandler={handleChange}
+                    errors={errors?.label}
                   />
                   <GlobalButton
                     btnTitle="Submit"

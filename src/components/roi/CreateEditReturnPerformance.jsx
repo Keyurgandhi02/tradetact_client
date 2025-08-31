@@ -57,7 +57,6 @@ function CreateEditReturnPerformance() {
       try {
         const fetchedTasks = await getFirebaseDataById(
           FIREBASE_ENDPOINTS.MASTER_DATA,
-          currentUser.uid,
           FIREBASE_ENDPOINTS.USER_ROI,
           id
         );
@@ -162,7 +161,6 @@ function CreateEditReturnPerformance() {
       try {
         const fetchedOptions = await getFirebaseData(
           FIREBASE_ENDPOINTS.MASTER_DATA,
-          currentUser.uid,
           FIREBASE_ENDPOINTS.USER_MANAGE_BROKERS,
           startLoading,
           stopLoading,
@@ -282,8 +280,8 @@ function CreateEditReturnPerformance() {
 
       {isViewModal && (
         <GloablInfo
-          firstTitle="Oopss!!"
-          secondTitle="Trade Setting Required"
+          firstTitle="😬"
+          secondTitle="Trade Setting Required!"
           desc={TRADE_SETTINGS_NO_ERROR}
           linktitle="Go to Console"
           link="/create_demat_accounts"

@@ -5,7 +5,7 @@ function GloablInfo({ firstTitle, secondTitle, desc, linktitle, link }) {
   return (
     <main className="flex justify-center mt-40 px-6 lg:px-8">
       <div className="text-center">
-        <p className="text-2xl font-semibold text-main_color">{firstTitle}</p>
+        <p className="text-5xl font-semibold text-main_color">{firstTitle}</p>
         <h1 className="mt-4 text-3xl font-bold tracking-tight dark:text-whiten text-black-dark-400 sm:text-5xl">
           {secondTitle}
         </h1>

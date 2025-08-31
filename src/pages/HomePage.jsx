@@ -7,10 +7,18 @@ import { AnalyticsPage } from "./index";
 import NoRecordFound from "../components/NoRecordFound";
 import { useNavigate } from "react-router-dom";
 import { DashboardContext } from "../context/DashboardContext";
-import { WATCHLIST_ROUTES } from "../constants/routesConstants";
+import { RISK_ROUTES, WATCHLIST_ROUTES } from "../constants/routesConstants";
+import FloatButton from "../components/FloatButton";
+import { SHIELD_ICON } from "../assets/svgIcons";
+
 function HomePage() {
   const navigate = useNavigate();
   const { journalData, watchListData } = useContext(DashboardContext);
+
+  // Float Button Handler
+  const onFloatBtnClickHandler = () => {
+    navigate(RISK_ROUTES.RISK);
+  };
 
   // Compute Trade Data
   const computedData = useMemo(() => {
@@ -81,7 +89,7 @@ function HomePage() {
           <AnalyticsPage />
         </div>
         <div className="col-span-12 md:col-span-5 lg:col-span-5 rounded-sm border-[0.6px] border-gray-500 bg-transparent px-3 py-5 sm:px-5.5 flex flex-col">
-          <CardTitle title="Watchlist" />
+          <CardTitle title="WATCHLIST" />
           <div className="h-[350px] overflow-y-auto no-scrollbar">
             {watchListData.length > 0 ? (
               <ul className="flex flex-col">
@@ -118,12 +126,16 @@ function HomePage() {
 
       <div className="mb-5 px-3 grid grid-cols-1 gap-2 md:grid-cols-12 lg:grid-cols-12 2xl:gap-4.5">
         <div className="col-span-12 md:col-span-12 lg:col-span-12 rounded-sm border-[0.6px] border-gray-500 bg-transparent px-3 py-5 sm:px-5.5 flex flex-col">
-          <CardTitle title="Market Updates" />
+          <CardTitle title="WHAT'S HAPPENING" />
           <div className="h-[350px] overflow-y-auto no-scrollbar">
             <UpdateInfoCard />
           </div>
         </div>
       </div>
+      <FloatButton
+        onClickHandler={onFloatBtnClickHandler}
+        icon={<SHIELD_ICON />}
+      />
     </div>
   );
 }

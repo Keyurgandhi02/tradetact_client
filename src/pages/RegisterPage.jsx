@@ -12,19 +12,17 @@ import { GENERAL_FORM_VALIDATIONS_ERROR } from "../constants/Strings";
 import { useAuth } from "../context/AuthContext";
 import { APP_LOGO } from "../assets/svgIcons";
 import ModalDialog from "../components/ModalDialog";
-import { sendEmailVerification } from "firebase/auth";
 
 const initialState = {
   email: "",
   password: "",
   name: "",
   mobile: "",
-  subscription_status: false,
 };
 
 function RegisterPage() {
   const navigate = useNavigate();
-  const { login, signUp, currentUser } = useAuth();
+  const { login, signUp, currentUser, resendVerificationEmail } = useAuth();
   const [isViewModal, setViewModal] = useState(false);
   const [isLogin, setIsLogin] = useState(true);
   const [formData, setFormData] = useState(initialState);
@@ -61,44 +59,31 @@ function RegisterPage() {
 
     if (isLogin) {
       try {
-        if (currentUser?.emailVerified === false) {
-          setViewModal(true);
-        } else {
-          await login(formData?.email, formData?.password);
+        const { user, verified } = await login(
+          formData?.email,
+          formData?.password
+        );
+
+        if (user && !verified) {
+          setViewModal(true); // show modal when email not verified
         }
       } catch (error) {
         toast.error(error);
       }
     } else {
+      // Register case
       try {
         await signUp(
           formData?.name,
           formData?.email,
           formData?.password,
-          formData?.mobile,
-          formData?.subscription_status
+          formData?.mobile
         );
-
         setFormData(initialState);
         setIsLogin(true);
       } catch (error) {
         toast.error(error);
       }
-    }
-  };
-
-  const resendVerificationEmail = async () => {
-    const user = currentUser;
-    if (user && !user.emailVerified) {
-      try {
-        await sendEmailVerification(user);
-        toast.success("Verification email sent again!");
-        setViewModal(false);
-      } catch (error) {
-        toast.error("Error resending verification email");
-      }
-    } else {
-      toast.error("User is either not logged in or already verified");
     }
   };
 
